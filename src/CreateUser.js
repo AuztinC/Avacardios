@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 const CreateUser = ({ createUser })=> {
@@ -19,8 +19,6 @@ const CreateUser = ({ createUser })=> {
         try {
             await createUser({ user, setError })
             navigate('/login')
-            // setUsername('')
-            // setPassword('')
         } catch (error) {
             setError(error)
             console.log(error.response.data.message)

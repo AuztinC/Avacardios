@@ -1,5 +1,21 @@
+:root{
+  /* ---- VARIABLES ---- */
+  --backgroundColor: #8EAC50;
+  --backgroundAccent: #17594A;
+  --highlightColor: #D3D04F;
+  --borderSize: 2px;
+  --borderStyle: solid;
+  --borderColor: var(--highlightColor);
+  --borderRadius: 5px;
+}
+
+*{
+  box-sizing: border-box;
+}
+
 body {
   font-family: verdana;
+  background-color: var(--backgroundColor);
 }
 
 form {
@@ -11,11 +27,19 @@ form > * {
   margin: 0.5rem;
 }
 
+a{
+  color: var(--highlightColor);
+}
+
+button {
+  background-color: var(--highlightColor);
+}
+
 .signup{
+  background-color: #213363;
   box-shadow: 5px 5px 10px black;
   position: absolute;
-  background-color: grey;
-  border: solid 1px black;
+  border: var(--borderLarge);
   width: 60%;
   height: 80%;
   top: 0;
@@ -27,4 +51,51 @@ form > * {
 
 .error {
   color: red;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  background-color: var(--backgroundAccent);
+  border: var(--borderColor) var(--borderSize) ridge;
+  border-radius: var(--borderRadius);
+  box-shadow: 5px 5px 20px -5px var(--backgroundAccent);
+  min-height: 300px;
+}
+
+.user-section {
+  width: 80%;
+}
+
+.user-links {
+  width: 20%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.user-links a {
+  margin-bottom: 10px;
+}
+
+.dropdown-menu {
+  position: relative;
+}
+
+.menu {
+  background-color: var(--backgroundAccent);
+  top: 15px;
+  left: 0;
+  position: absolute;
+  width: 100px;
+  border: 1px solid black;
+}
+
+.menu-item {
+  width: 100%;
+  border: 1px solid black;
 }

@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Link, HashRouter, Routes, Route } from 'react-router-dom';
+import { Link, HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import api from './api';
 import CreateUser from './CreateUser';
+import UserProfile from './UserProfile';
+import Dropdown from './Dropdown';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const navigate = useNavigate()
 
   const attemptLoginWithToken = async()=> {
     await api.attemptLoginWithToken(setAuth);
@@ -84,8 +87,13 @@ const App = ()=> {
 
   const logout = ()=> {
     api.logout(setAuth);
+    navigate('/')
+    
   }
-
+  let upperCaseName = null
+  if(auth.id){
+    upperCaseName = auth.username.charAt(0).toUpperCase() + auth.username.slice(1)
+  }
   return (<>
     <div>
           <>
@@ -95,32 +103,34 @@ const App = ()=> {
               {/* <Link to='/orders'>Orders ({ orders.filter(order => !order.is_cart).length })</Link> */}
               <Link to='/cart'>Cart ({ cartCount })</Link>
                 { auth.id ? (<>
-                  <span>Welcome back, { auth.username }!</span>
+                  <span>Welcome back, { upperCaseName }!</span>
+                  <Dropdown />
                   <button onClick={ logout }>logout</button>
                 </>) : (<>
                   <Link to={'/login'}>Login</Link>
                   <Link to={'/signup'}>Sign Up</Link>
-                </>) }2
+                </>) }
             </nav>
-            <Home 
-              auth = { auth }
-              products={ products }
-              cartItems = { cartItems }
-              createLineItem = { createLineItem }
-              updateLineItem = { updateLineItem }
-              cart = { cart }
-              lineItems = { lineItems }
-              updateOrder = { updateOrder }
-              removeFromCart = { removeFromCart }
-              increaseQuantity = { increaseQuantity }
-              decreaseQuantity = { decreaseQuantity }
-            />
           </>
-      </div>
+    </div>
     <Routes>
-      <Route path='/' element={ <Home /> }/>
+      <Route path='/' element={ <Home 
+        auth = { auth }
+        products={ products }
+        cartItems = { cartItems }
+        createLineItem = { createLineItem }
+        updateLineItem = { updateLineItem }
+        cart = { cart }
+        lineItems = { lineItems }
+        updateOrder = { updateOrder }
+        removeFromCart = { removeFromCart }
+        increaseQuantity = { increaseQuantity }
+        decreaseQuantity = { decreaseQuantity }
+      /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />
+      <Route path='account' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } />
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } />
       
     </Routes>
   </>);
