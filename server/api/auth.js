@@ -7,7 +7,6 @@ const express = require('express');
 const app = express.Router();
 const { isLoggedIn } = require('./middleware');
 
-
 app.post('/login', async(req, res, next)=> {
   try {
     const token = await authenticate(req.body);
