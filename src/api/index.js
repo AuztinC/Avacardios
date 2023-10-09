@@ -50,6 +50,48 @@ const removeFromCart = async({ lineItem, lineItems, setLineItems })=> {
   setLineItems(lineItems.filter( _lineItem => _lineItem.id !== lineItem.id));
 };
 
+const increaseQuantity = async({lineItem, lineItems, setLineItems})=> {
+  console.log(lineItem)
+  const newQuantity = lineItem.quantity + 1;
+ const {data} = await axios.put(`/api/lineItems/${lineItem.id}`,
+    {
+      order_id: lineItem.order_id,
+      product_id: lineItem.product_id,
+      quantity: newQuantity
+    },
+    getHeaders()
+  );
+  const newLineItems = lineItems.map((lineMap) => {
+    if(lineMap.id === lineItem.id){
+      return data
+    } else {
+      return lineMap
+    }
+  });
+  setLineItems(newLineItems)
+}
+
+const decreaseQuantity = async({lineItem, lineItems, setLineItems})=> {
+  console.log(lineItem)
+  const newQuantity = lineItem.quantity - 1;
+ const {data} = await axios.put(`/api/lineItems/${lineItem.id}`,
+    {
+      order_id: lineItem.order_id,
+      product_id: lineItem.product_id,
+      quantity: newQuantity
+    },
+    getHeaders()
+  );
+  const newLineItems = lineItems.map((lineMap) => {
+    if(lineMap.id === lineItem.id){
+      return data
+    } else {
+      return lineMap
+    }
+  });
+  setLineItems(newLineItems)
+}
+
 const attemptLoginWithToken = async(setAuth)=> {
   const token = window.localStorage.getItem('token');
   if(token){
@@ -87,7 +129,9 @@ const api = {
   updateLineItem,
   updateOrder,
   removeFromCart,
-  attemptLoginWithToken
+  attemptLoginWithToken,
+  increaseQuantity,
+  decreaseQuantity
 };
 
 export default api;
