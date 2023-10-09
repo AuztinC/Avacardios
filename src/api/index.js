@@ -23,6 +23,9 @@ const fetchLineItems = async(setLineItems)=> {
   setLineItems(response.data);
 };
 
+
+
+
 const createLineItem = async({ product, cart, lineItems, setLineItems })=> {
   const response = await axios.post('/api/lineItems', {
     order_id: cart.id,
@@ -51,7 +54,6 @@ const removeFromCart = async({ lineItem, lineItems, setLineItems })=> {
 };
 
 const increaseQuantity = async({lineItem, lineItems, setLineItems})=> {
-  console.log(lineItem)
   const newQuantity = lineItem.quantity + 1;
  const {data} = await axios.put(`/api/lineItems/${lineItem.id}`,
     {
@@ -72,7 +74,6 @@ const increaseQuantity = async({lineItem, lineItems, setLineItems})=> {
 }
 
 const decreaseQuantity = async({lineItem, lineItems, setLineItems})=> {
-  console.log(lineItem)
   const newQuantity = lineItem.quantity - 1;
  const {data} = await axios.put(`/api/lineItems/${lineItem.id}`,
     {

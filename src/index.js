@@ -11,6 +11,7 @@ const App = ()=> {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [wishList, setWishList] = useState({});
 
   const attemptLoginWithToken = async()=> {
     await api.attemptLoginWithToken(setAuth);
@@ -32,6 +33,7 @@ const App = ()=> {
       fetchData();
     }
   }, [auth]);
+
 
   useEffect(()=> {
     if(auth.id){

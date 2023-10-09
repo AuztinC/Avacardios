@@ -25,10 +25,15 @@ fetchAddress,
 createAddress
 } = require('./shipping')
 
+const {
+  createWishList
+} = require('./wishList')
+
 
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
+    DROP TABLE IF EXISTS wishlist;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS shipping;
@@ -74,6 +79,13 @@ const seed = async()=> {
       CONSTRAINT product_and_order_key UNIQUE(product_id, order_id)
     );
 
+    CREATE TABLE wishlist(
+      id UUID PRIMARY KEY,
+      product_id UUID REFERENCES products(id) NOT NULL,
+      user_id UUID REFERENCES users(id) NOT NULL,
+      CONSTRAINT product_and_user_key UNIQUE(product_id, user_id)
+    )
+
   `;
 
   await client.query(SQL);
@@ -107,6 +119,21 @@ const seed = async()=> {
   ]);
   const [addy] = await Promise.all([
     createAddress({ customer_name: 'Ethyl', address:'1234 Ethylville Drive', phone:'1234567890'})
+  ])
+
+  await Promise.all([
+    createWishList({
+      user_id: ethyl.id,
+      product_id: Spinach.id
+    }),
+    createWishList({
+      user_id: ethyl.id,
+      product_id: Tomato.id
+    }),
+    createWishList({
+      user_id: moe.id,
+      product_id: Spinach.id
+    })
   ])
   
   let orders = await fetchOrders(ethyl.id);
