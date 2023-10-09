@@ -112,8 +112,8 @@ const App = ()=> {
               lineItems = { lineItems }
               updateOrder = { updateOrder }
               removeFromCart = { removeFromCart }
-              increaseQuantity = {increaseQuantity}
-              decreaseQuantity = {decreaseQuantity}
+              increaseQuantity = { increaseQuantity }
+              decreaseQuantity = { decreaseQuantity }
             />
           </>
       </div>
