@@ -62,6 +62,14 @@ const App = ()=> {
     await api.removeFromCart({ lineItem, lineItems, setLineItems });
   };
 
+  const increaseQuantity = async(lineItem)=> {
+    await api.increaseQuantity({lineItem, lineItems, setLineItems})
+  }
+
+  const decreaseQuantity = async(lineItem)=> {
+    await api.decreaseQuantity({lineItem, lineItems, setLineItems})
+  }
+
   const cart = orders.find(order => order.is_cart) || {};
 
   const cartItems = lineItems.filter(lineItem => lineItem.order_id === cart.id);
@@ -104,9 +112,11 @@ const App = ()=> {
               lineItems = { lineItems }
               updateOrder = { updateOrder }
               removeFromCart = { removeFromCart }
+              increaseQuantity = { increaseQuantity }
+              decreaseQuantity = { decreaseQuantity }
             />
           </>
-    </div>
+      </div>
     <Routes>
       <Route path='/' element={ <Home /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>

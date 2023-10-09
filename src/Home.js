@@ -3,7 +3,7 @@ import Products from "./Products";
 import Cart from "./Cart";
 
 
-const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart, lineItems, updateOrder, removeFromCart})=>{
+const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart, lineItems, updateOrder, removeFromCart, increaseQuantity, decreaseQuantity})=>{
     
     return(<>
     <main>
@@ -14,13 +14,15 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             createLineItem = { createLineItem }
             updateLineItem = { updateLineItem }
         />
-        {/* <Cart
+        <Cart
             cart = { cart }
             lineItems = { lineItems }
             products = { products }
             updateOrder = { updateOrder }
             removeFromCart = { removeFromCart }
-        /> */}
+            increaseQuantity = { increaseQuantity }
+            decreaseQuantity = { decreaseQuantity }
+        />
         {/* <Orders
             orders = { orders }
             products = { products }

@@ -39,7 +39,9 @@ const seed = async()=> {
     CREATE TABLE products(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
-      name VARCHAR(100) UNIQUE NOT NULL
+      name VARCHAR(100) UNIQUE NOT NULL,
+      price INT,
+      description TEXT
     );
 
     CREATE TABLE orders(
@@ -66,18 +68,34 @@ const seed = async()=> {
     createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
-  const [foo, bar, bazz] = await Promise.all([
-    createProduct({ name: 'foo' }),
-    createProduct({ name: 'bar' }),
-    createProduct({ name: 'bazz' }),
-    createProduct({ name: 'quq' }),
+  const [Avocado, Carrots, Tomato, Spinach] = await Promise.all([
+    createProduct({ 
+      name: 'Avocado', 
+      price: 7, 
+      description: 'a bright green fruit with a buttery, creamy, and slightly nutty taste' 
+    }),
+    createProduct({ 
+      name: 'Carrots',
+      price: 4,
+      description: 'an orange root vegetable with a earthy and sweet flavor' 
+    }),
+    createProduct({ 
+      name: 'Tomato',
+      price: 2,
+      description: 'a scarlet colored fruit with a taste that ranges from sour to sweet'
+  }),
+    createProduct({ 
+      name: 'Spinach',
+      price: 1,
+      description: 'a leafy green veggie that is slightly sweet raw that becomes more acidic and robust when cooked'
+    }),
   ]);
   let orders = await fetchOrders(ethyl.id);
   let cart = orders.find(order => order.is_cart);
-  let lineItem = await createLineItem({ order_id: cart.id, product_id: foo.id});
+  let lineItem = await createLineItem({ order_id: cart.id, product_id: Avocado.id});
   lineItem.quantity++;
   await updateLineItem(lineItem);
-  lineItem = await createLineItem({ order_id: cart.id, product_id: bar.id});
+  lineItem = await createLineItem({ order_id: cart.id, product_id: Tomato.id});
   cart.is_cart = false;
   await updateOrder(cart);
 };
