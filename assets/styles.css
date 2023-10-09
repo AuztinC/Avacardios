@@ -10,3 +10,21 @@ form {
 form > * {
   margin: 0.5rem;
 }
+
+.signup{
+  box-shadow: 5px 5px 10px black;
+  position: absolute;
+  background-color: grey;
+  border: solid 1px black;
+  width: 60%;
+  height: 80%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.error {
+  color: red;
+}
