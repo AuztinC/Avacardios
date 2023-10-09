@@ -24,10 +24,10 @@ const {
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
+    DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS reviews;
 
     CREATE TABLE users(
       id UUID PRIMARY KEY,
