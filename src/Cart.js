@@ -4,6 +4,9 @@ import axios from 'axios';
 const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity })=> {
   
 
+  if(!lineItems){
+    return null
+  }
   return (
     <div>
       <h2>Cart</h2>

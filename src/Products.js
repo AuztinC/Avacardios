@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Products = ({ products, cartItems, createLineItem, updateLineItem, auth})=> {
+  if(!products){
+    return null
+  }
   return (
     <div>
       <h2>Products</h2>

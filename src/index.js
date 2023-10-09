@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Link, HashRouter, Routes, Route } from 'react-router-dom';
-import Products from './Products';
-import Orders from './Orders';
-import Cart from './Cart';
+import Home from './Home';
 import Login from './Login';
 import api from './api';
+import CreateUser from './CreateUser';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -19,9 +18,6 @@ const App = ()=> {
 
   useEffect(()=> {
     attemptLoginWithToken();
-  }, []);
-
-  useEffect(()=> {
     const fetchData = async()=> {
       await api.fetchProducts(setProducts);
     };
@@ -46,6 +42,9 @@ const App = ()=> {
     }
   }, [auth]);
 
+  const createUser = async(user)=>{
+    await api.createUser(user)
+  }
 
   const createLineItem = async(product)=> {
     await api.createLineItem({ product, cart, lineItems, setLineItems});
@@ -87,60 +86,44 @@ const App = ()=> {
     api.logout(setAuth);
   }
 
-  return (
+  return (<>
     <div>
-      {
-        auth.id ? (
           <>
             <nav>
+              <Link to='/'>Home</Link>
               <Link to='/products'>Products ({ products.length })</Link>
-              <Link to='/orders'>Orders ({ orders.filter(order => !order.is_cart).length })</Link>
+              {/* <Link to='/orders'>Orders ({ orders.filter(order => !order.is_cart).length })</Link> */}
               <Link to='/cart'>Cart ({ cartCount })</Link>
-              <span>
-                Welcome { auth.username }!
-                <button onClick={ logout }>Logout</button>
-              </span>
+                { auth.id ? (<>
+                  <span>Welcome back, { auth.username }!</span>
+                  <button onClick={ logout }>logout</button>
+                </>) : (<>
+                  <Link to={'/login'}>Login</Link>
+                  <Link to={'/signup'}>Sign Up</Link>
+                </>) }
             </nav>
-            <main>
-              <Products
-                auth = { auth }
-                products={ products }
-                cartItems = { cartItems }
-                createLineItem = { createLineItem }
-                updateLineItem = { updateLineItem }
-              />
-              <Cart
-                cart = { cart }
-                lineItems = { lineItems }
-                products = { products }
-                updateOrder = { updateOrder }
-                removeFromCart = { removeFromCart }
-                setLineItems = { setLineItems }
-                increaseQuantity = { increaseQuantity }
-                decreaseQuantity = { decreaseQuantity }
-              />
-              <Orders
-                orders = { orders }
-                products = { products }
-                lineItems = { lineItems }
-              />
-            </main>
-            </>
-        ):(
-          <div>
-            <Login login={ login }/>
-            <Products
+            <Home 
+              auth = { auth }
               products={ products }
               cartItems = { cartItems }
               createLineItem = { createLineItem }
               updateLineItem = { updateLineItem }
-              auth = { auth }
+              cart = { cart }
+              lineItems = { lineItems }
+              updateOrder = { updateOrder }
+              removeFromCart = { removeFromCart }
+              increaseQuantity = {increaseQuantity}
+              decreaseQuantity = {decreaseQuantity}
             />
-          </div>
-        )
-      }
-    </div>
-  );
+          </>
+      </div>
+    <Routes>
+      <Route path='/' element={ <Home />}/>
+      <Route path='signup' element={ <CreateUser createUser={ createUser }/>}/>
+      <Route path='login' element={ <Login login={ login }/> } />
+      
+    </Routes>
+  </>);
 };
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));

@@ -55,6 +55,12 @@ const createUser = async(user)=> {
   if(!user.username.trim() || !user.password.trim()){
     throw Error('must have username and password');
   }
+  const users = await client.query(`SELECT * FROM users`)
+  if(users.rows.find(_user=>_user.username === user.username)){
+    const error = Error('Username Already Exists');
+    error.status = 401;
+    throw error;
+  }
   user.password = await bcrypt.hash(user.password, 5);
   const SQL = `
     INSERT INTO users (id, username, password, is_admin) VALUES($1, $2, $3, $4) RETURNING *
