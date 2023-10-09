@@ -1,6 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 
-const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products })=> {
+const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity })=> {
+  
+
   if(!lineItems){
     return null
   }
@@ -15,6 +18,8 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products })=> {
               <li key={ lineItem.id }>
                 { product.name }
                 ({ lineItem.quantity })
+                <button onClick={() => decreaseQuantity(lineItem)}>-</button>
+                <button onClick={() => increaseQuantity(lineItem)}>+</button>
                 <button onClick={ ()=> removeFromCart(lineItem)}>Remove From Cart</button>
               </li>
             );

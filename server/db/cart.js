@@ -48,7 +48,11 @@ const updateLineItem = async(lineItem)=> {
     RETURNING *
   `;
   if(lineItem.quantity <= 0){
-    throw Error('a line item quantity must be greater than 0');
+    const SQL = `
+    DELETE from line_items
+    WHERE id = $1
+  `;
+    await client.query(SQL, [lineItem.id])
   }
   const response = await client.query(SQL, [lineItem.quantity, lineItem.id]);
   return response.rows[0];
