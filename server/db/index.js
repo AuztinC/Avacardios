@@ -87,7 +87,7 @@ const seed = async()=> {
     createProduct({ 
       name: 'Spinach',
       price: 1,
-      description: 'a leafy green veggie that is slightly sweet raw that become more acidic and robust when cooked'
+      description: 'a leafy green veggie that is slightly sweet raw that becomes more acidic and robust when cooked'
     }),
   ]);
   let orders = await fetchOrders(ethyl.id);
