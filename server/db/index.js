@@ -20,12 +20,18 @@ const {
   fetchOrders
 } = require('./cart');
 
+const {
+fetchAddress,
+createAddress
+} = require('./shipping')
+
 
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
+    DROP TABLE IF EXISTS shipping;
     DROP TABLE IF EXISTS users;
 
     CREATE TABLE users(
@@ -44,11 +50,19 @@ const seed = async()=> {
       description TEXT
     );
 
+    CREATE TABLE shipping(
+      id UUID PRIMARY KEY,
+      customer_name VARCHAR(100),
+      address VARCHAR(200),
+      phone VARCHAR(10)
+    );
+
     CREATE TABLE orders(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
       is_cart BOOLEAN NOT NULL DEFAULT true,
-      user_id UUID REFERENCES users(id) NOT NULL
+      user_id UUID REFERENCES users(id) NOT NULL,
+      shipping_id UUID REFERENCES shipping(id)
     );
 
     CREATE TABLE line_items(
@@ -61,6 +75,7 @@ const seed = async()=> {
     );
 
   `;
+
   await client.query(SQL);
 
   const [moe, lucy, ethyl] = await Promise.all([
@@ -90,7 +105,12 @@ const seed = async()=> {
       description: 'a leafy green veggie that is slightly sweet raw that becomes more acidic and robust when cooked'
     }),
   ]);
+  const [addy] = await Promise.all([
+    createAddress({ customer_name: 'Ethyl', address:'1234 Ethylville Drive', phone:'1234567890'})
+  ])
+  
   let orders = await fetchOrders(ethyl.id);
+  let shippingAddress = addy;
   let cart = orders.find(order => order.is_cart);
   let lineItem = await createLineItem({ order_id: cart.id, product_id: Avocado.id});
   lineItem.quantity++;
