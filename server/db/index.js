@@ -27,6 +27,7 @@ const seed = async()=> {
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS reviews;
 
     CREATE TABLE users(
       id UUID PRIMARY KEY,
@@ -58,6 +59,12 @@ const seed = async()=> {
       CONSTRAINT product_and_order_key UNIQUE(product_id, order_id)
     );
 
+    CREATE TABLE reviews(
+      id UUID PRIMARY KEY,
+      product_id UUID REFERENCES products(id),
+      stars INT,
+      body TEXT
+    )
   `;
   await client.query(SQL);
 
