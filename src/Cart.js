@@ -1,6 +1,9 @@
 import React from 'react';
 
 const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products })=> {
+  if(!lineItems){
+    return null
+  }
   return (
     <div>
       <h2>Cart</h2>
