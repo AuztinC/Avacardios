@@ -92,7 +92,7 @@ const App = ()=> {
                 </>) : (<>
                   <Link to={'/login'}>Login</Link>
                   <Link to={'/signup'}>Sign Up</Link>
-                </>) }
+                </>) }2
             </nav>
             <Home 
               auth = { auth }
@@ -108,8 +108,8 @@ const App = ()=> {
           </>
     </div>
     <Routes>
-      <Route path='/' element={ <Home />}/>
-      <Route path='signup' element={ <CreateUser createUser={ createUser }/>}/>
+      <Route path='/' element={ <Home /> }/>
+      <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />
       
     </Routes>
