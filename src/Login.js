@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ login })=> {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
 
   const _login = async(ev)=> {
     ev.preventDefault();
@@ -12,8 +14,9 @@ const Login = ({ login })=> {
     catch(ex){
       console.log(ex.response.data);
     }
+    navigate('/')
   }
-  return (
+  return (<div className='signup'>
     <form onSubmit={ _login }>
       <input
         placeholder='username'
@@ -27,8 +30,9 @@ const Login = ({ login })=> {
         onChange={ ev => setPassword(ev.target.value)}
       />
       <button disabled={!username || !password}>Login</button>
+      
     </form>
-  );
+  </div>);
 }
 
 export default Login;
