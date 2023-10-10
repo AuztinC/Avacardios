@@ -32,11 +32,11 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             products = { products }
             lineItems = { lineItems }
         /> */}
-        <WishLists
+        {auth.id ? <WishLists
         products = { products }
         wishLists = { wishLists }
         removeWishList = { removeWishList }
-        /> 
+        /> : null} 
     </main>
     </>)
 }
