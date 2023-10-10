@@ -5,7 +5,6 @@ const ReviewForm=({reviews,setReviews,products,createReviews,auth})=>{
     const [star,setStar]=useState('');
     const [review,setReview]=useState('');
 
-    //console.log(createReviews());
 
     const save=async(ev)=>{
         ev.preventDefault();
@@ -15,10 +14,6 @@ const ReviewForm=({reviews,setReviews,products,createReviews,auth})=>{
         createReviews({username:auth.username,product_id:product,stars:star,body:review});
         
     }
-    
-    useEffect(()=>{
-        console.log(reviews);
-    },[reviews]);
 
     return(
         <form onSubmit={save}>
@@ -72,7 +67,6 @@ const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
                 })
              }
             <hr/>
-            {console.log(auth)}
             {auth.id?<ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>:''}
             <hr/>
         </>
