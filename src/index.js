@@ -14,6 +14,7 @@ const App = ()=> {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [wishLists, setWishLists] = useState([]);
   const [reviews,setReviews]=useState([]);
   const navigate = useNavigate()
 
@@ -47,6 +48,16 @@ const App = ()=> {
     }
   }, [auth]);
 
+  useEffect(()=> {
+    if(auth.id){
+      const fetchData = async()=> {
+        await api.fetchWishList(setWishLists);
+      };
+      fetchData();
+    }
+  }, [auth]);
+
+
   const createUser = async(user)=>{
     await api.createUser(user)
   }
@@ -65,6 +76,14 @@ const App = ()=> {
 
   const updateOrder = async(order)=> {
     await api.updateOrder({ order, setOrders });
+  };
+
+  const addWishList = async(wishList)=> {
+    await api.addWishList({ wishList, setWishLists, wishLists });
+  };
+
+  const removeWishList = async(wishList)=> {
+    await api.removeWishList({ wishList, wishLists, setWishLists });
   };
 
   const removeFromCart = async(lineItem)=> {
@@ -133,6 +152,9 @@ const App = ()=> {
         removeFromCart = { removeFromCart }
         increaseQuantity = { increaseQuantity }
         decreaseQuantity = { decreaseQuantity }
+        wishLists = { wishLists }
+        addWishList = { addWishList }
+        removeWishList  = { removeWishList }
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />
