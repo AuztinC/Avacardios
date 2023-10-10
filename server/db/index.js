@@ -94,6 +94,7 @@ const seed = async()=> {
 
     CREATE TABLE reviews(
       id UUID PRIMARY KEY,
+      username VARCHAR(100) REFERENCES users(username),
       product_id UUID REFERENCES products(id),
       stars INT,
       body TEXT

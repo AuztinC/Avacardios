@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-const ReviewForm=({reviews,setReviews,products,createReviews})=>{
+const ReviewForm=({reviews,setReviews,products,createReviews,auth})=>{
     const [product,setProduct]=useState('');
     const [star,setStar]=useState('');
     const [review,setReview]=useState('');
@@ -12,7 +12,8 @@ const ReviewForm=({reviews,setReviews,products,createReviews})=>{
         setProduct('');
         document.getElementById('star').value='';
         document.getElementById('revv').value='';
-        createReviews({product_id:product,stars:star,body:review});
+        createReviews({username:auth.username,product_id:product,stars:star,body:review});
+        
     }
     
     useEffect(()=>{
@@ -37,7 +38,7 @@ const ReviewForm=({reviews,setReviews,products,createReviews})=>{
     )
 }
 
-const Reviews=({reviews,setReviews,products,createReviews})=>{
+const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
     return(
         <>
             <h1>Reviews</h1>
@@ -54,7 +55,7 @@ const Reviews=({reviews,setReviews,products,createReviews})=>{
                                 {
                                     reviews.map((rev)=>{
                                         if(prod.id===rev.product_id){
-                                            return <li key={rev.id}>{rev.stars} - {rev.body}</li>
+                                            return <li key={rev.id}>{rev.username}:{rev.stars} - {rev.body}</li>
                                         }
                                     })
                                  }
@@ -71,7 +72,8 @@ const Reviews=({reviews,setReviews,products,createReviews})=>{
                 })
              }
             <hr/>
-            <ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews}/>
+            {console.log(auth)}
+            {auth.id?<ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>:''}
             <hr/>
         </>
     )

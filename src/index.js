@@ -138,7 +138,7 @@ const App = ()=> {
       <Route path='login' element={ <Login login={ login }/> } />
       {/* <Route path='account' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } /> */}
       <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } />
-      <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews}/>}/>
+      <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
     </Routes>
   </>);
 };
