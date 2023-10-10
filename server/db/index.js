@@ -66,7 +66,7 @@ const seed = async()=> {
       username VARCHAR(100) UNIQUE NOT NULL,
       password VARCHAR(100) NOT NULL,
       is_admin BOOLEAN DEFAULT false NOT NULL,
-      shipping_id UUID REFERENCES shipping(id)
+      shipping_id UUID REFERENCES shipping(id),
       image TEXT
     );
     
@@ -102,7 +102,7 @@ const seed = async()=> {
       product_id UUID REFERENCES products(id),
       stars INT,
       body TEXT
-    )
+    );
   `;
 
   await client.query(SQL);
