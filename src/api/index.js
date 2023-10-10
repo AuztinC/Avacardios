@@ -1,4 +1,5 @@
 import axios from 'axios';
+import WishLists from '../WishLists';
 
 const getHeaders = ()=> {
   return {
@@ -48,6 +49,17 @@ const updateOrder = async({ order, setOrders })=> {
   await axios.put(`/api/orders/${order.id}`, order, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
+};
+
+const addWishList = async({ wishList, setWishLists, wishLists })=> {
+  console.log(wishList)
+  const response = await axios.post('/api/wishList', wishList, getHeaders());
+  setWishLists([...wishLists, response.data]);
+};
+
+const removeWishList = async({ wishList, wishLists, setWishLists })=> {
+  await axios.delete(`/api/wishList/${wishList.id}`, getHeaders());
+  setWishLists(wishLists.filter(wish => wish.id != wishList.id))
 };
 
 const removeFromCart = async({ lineItem, lineItems, setLineItems })=> {
@@ -141,7 +153,9 @@ const api = {
   attemptLoginWithToken,
   increaseQuantity,
   decreaseQuantity,
-  createUser
+  createUser,
+  addWishList,
+  removeWishList
 };
 
 export default api;

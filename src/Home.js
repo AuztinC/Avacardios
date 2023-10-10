@@ -5,7 +5,7 @@ import WishLists from "./WishLists";
 
 
 
-const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart, lineItems, updateOrder, removeFromCart, increaseQuantity, decreaseQuantity, wishLists})=>{
+const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart, lineItems, updateOrder, removeFromCart, increaseQuantity, decreaseQuantity, wishLists, addWishList, removeWishList})=>{
     
     return(<>
     <main>
@@ -16,6 +16,8 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             createLineItem = { createLineItem }
             updateLineItem = { updateLineItem }
             wishLists = { wishLists }
+            addWishList = { addWishList }
+            removeWishList= { removeWishList }
         />
         <Cart
             cart = { cart }

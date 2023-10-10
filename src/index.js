@@ -72,6 +72,14 @@ const App = ()=> {
     await api.updateOrder({ order, setOrders });
   };
 
+  const addWishList = async(wishList)=> {
+    await api.addWishList({ wishList, setWishLists, wishLists });
+  };
+
+  const removeWishList = async(wishList)=> {
+    await api.removeWishList({ wishList, wishLists, setWishLists });
+  };
+
   const removeFromCart = async(lineItem)=> {
     await api.removeFromCart({ lineItem, lineItems, setLineItems });
   };
@@ -122,20 +130,6 @@ const App = ()=> {
                   <Link to={'/signup'}>Sign Up</Link>
                 </>) }
             </nav>
-            <Home 
-              auth = { auth }
-              products={ products }
-              cartItems = { cartItems }
-              createLineItem = { createLineItem }
-              updateLineItem = { updateLineItem }
-              cart = { cart }
-              lineItems = { lineItems }
-              updateOrder = { updateOrder }
-              removeFromCart = { removeFromCart }
-              increaseQuantity = { increaseQuantity }
-              decreaseQuantity = { decreaseQuantity }
-              wishLists = { wishLists }
-            />
           </>
     </div>
     <Routes>
@@ -151,6 +145,9 @@ const App = ()=> {
         removeFromCart = { removeFromCart }
         increaseQuantity = { increaseQuantity }
         decreaseQuantity = { decreaseQuantity }
+        wishLists = { wishLists }
+        addWishList = { addWishList }
+        removeWishList  = { removeWishList }
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />

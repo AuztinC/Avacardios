@@ -1,19 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const WishList = ({product, wishList, addWishList, removeWishList}) => {
+  return (
+    <div>
+      {
+        wishList ? <button onClick={() => removeWishList(wishList)}>Remove from Wish List</button>: <button onClick={() => addWishList({product_id: product.id})}>Add to Wish List</button>
+      }
+    </div>
+  )
+}
 
-const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists})=> {
-  
-  const WishList = ({product, wishList}) => {
-    return (
-      <div>
-        {
-          wishList ? <button>Remove from Wish List</button>: <button>Add to Wish List</button>
-        }
-      </div>
-    )
-  }
-
+const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList, removeWishList})=> {
 
   if(!products){
     return null
@@ -43,7 +41,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   ): null
                 }
                 {
-                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)}/>: null
+                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList= { removeWishList }/>: null
                 }
               </li>
             );

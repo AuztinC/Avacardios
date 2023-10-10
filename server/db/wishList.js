@@ -19,7 +19,17 @@ const createWishList = async(wish)=> {
     return response.rows;
   };
 
+  const deleteWishList = async(wish)=> {
+    const SQL = `
+      DELETE from wishlist
+      WHERE id = $1 and user_id = $2
+    `;
+    await client.query(SQL, [wish.id, wish.user_id]);
+  };
+
+
   module.exports = {
     createWishList,
-    fetchWishList
+    fetchWishList,
+    deleteWishList
   };

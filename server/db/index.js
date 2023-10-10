@@ -43,7 +43,8 @@ const { flushSync } = require('react-dom');
 
 const {
   createWishList,
-  fetchWishList
+  fetchWishList,
+  deleteWishList
 } = require('./wishList')
 
 
@@ -175,6 +176,7 @@ module.exports = {
   updateLineItem,
   createWishList,
   deleteLineItem,
+  deleteWishList,
   updateOrder,
   authenticate,
   findUserByToken,
