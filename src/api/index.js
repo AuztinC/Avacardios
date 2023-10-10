@@ -131,7 +131,6 @@ const createUser = async({user})=>{
 
 const createReviews=async({review, reviews, setReviews})=>{
   const response=await axios.post('/api/reviews',review)
-  console.log(response);
   setReviews([...reviews,response.data]);
 }
 
