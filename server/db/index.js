@@ -45,6 +45,7 @@ const { flushSync } = require('react-dom');
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
+    DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS users;
@@ -95,6 +96,13 @@ const seed = async()=> {
       CONSTRAINT product_and_order_key UNIQUE(product_id, order_id)
     );
 
+    CREATE TABLE reviews(
+      id UUID PRIMARY KEY,
+      username VARCHAR(100) REFERENCES users(username),
+      product_id UUID REFERENCES products(id),
+      stars INT,
+      body TEXT
+    )
   `;
 
   await client.query(SQL);
