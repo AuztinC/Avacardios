@@ -31,17 +31,27 @@ const seed = async()=> {
     DROP TABLE IF EXISTS line_items;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
-    DROP TABLE IF EXISTS shipping;
     DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS shipping;
+    
+    CREATE TABLE shipping(
+      id UUID PRIMARY KEY,
+      customer_name VARCHAR(100),
+      street VARCHAR(200),
+      state VARCHAR(200),
+      zip INTEGER,
+      phone VARCHAR(10)
+    );
 
     CREATE TABLE users(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
       username VARCHAR(100) UNIQUE NOT NULL,
       password VARCHAR(100) NOT NULL,
-      is_admin BOOLEAN DEFAULT false NOT NULL
+      is_admin BOOLEAN DEFAULT false NOT NULL,
+      shipping_id UUID REFERENCES shipping(id)
     );
-
+    
     CREATE TABLE products(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
@@ -50,12 +60,6 @@ const seed = async()=> {
       description TEXT
     );
 
-    CREATE TABLE shipping(
-      id UUID PRIMARY KEY,
-      customer_name VARCHAR(100),
-      address VARCHAR(200),
-      phone VARCHAR(10)
-    );
 
     CREATE TABLE orders(
       id UUID PRIMARY KEY,
@@ -106,8 +110,14 @@ const seed = async()=> {
     }),
   ]);
   const [addy] = await Promise.all([
-    createAddress({ customer_name: 'Ethyl', address:'1234 Ethylville Drive', phone:'1234567890'})
-  ])
+    createAddress({ 
+      customer_name: 'Ethyl', 
+      street:'1234 Ethylville Drive',
+      state: 'TX',
+      zip: 76892, 
+      phone: '1234567890'
+    }),
+  ]);
   
   let orders = await fetchOrders(ethyl.id);
   let shippingAddress = addy;
@@ -118,7 +128,9 @@ const seed = async()=> {
   lineItem = await createLineItem({ order_id: cart.id, product_id: Tomato.id});
   cart.is_cart = false;
   await updateOrder(cart);
+  console.log(cart);
 };
+
 
 module.exports = {
   fetchProducts,
