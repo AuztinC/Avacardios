@@ -49,7 +49,7 @@ const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
                                 {
                                     reviews.map((rev)=>{
                                         if(prod.id===rev.product_id){
-                                            return <li key={rev.id}>{auth.id?rev.username:'Guest'}:{rev.stars} - {rev.body}</li>
+                                            return <li key={rev.id}>{rev.username?rev.username:'Guest'}:{rev.stars} - {rev.body}</li>
                                         }
                                     })
                                  }
