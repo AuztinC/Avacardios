@@ -149,7 +149,7 @@ const seed = async()=> {
       description: 'a leafy green veggie that is slightly sweet raw that becomes more acidic and robust when cooked'
     }),
   ]);
-  
+
   const [addy] = await Promise.all([
     createAddress({ 
       customer_name: 'Ethyl', 
@@ -184,7 +184,7 @@ const seed = async()=> {
   lineItem = await createLineItem({ order_id: cart.id, product_id: Tomato.id});
   cart.is_cart = false;
   await updateOrder(cart);
-  console.log(cart);
+  // console.log(cart);
 };
 
 
