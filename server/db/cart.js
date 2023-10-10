@@ -87,20 +87,20 @@ const updateOrder = async(order)=> {
 const fetchOrders = async(userId)=> {
   const SQL = `
     SELECT * FROM orders
-    WHERE user_id = $1
+    --WHERE user_id = $1
   `;
-  let response = await client.query(SQL, [ userId ]);
+  let response = await client.query(SQL);
   const cart = response.rows.find(row => row.is_cart);
   if(!cart){
     await client.query(`
-      INSERT INTO orders(is_cart, id, user_id) VALUES(true, $1, $2)
-      `,
-      [uuidv4(), userId]
+    INSERT INTO orders(is_cart, id, user_id) VALUES(true, $1, $2)
+    `,
+    [uuidv4(), userId]
     ); 
-    response = await client.query(SQL, [ userId ]);
+    response = await client.query(SQL);
     return response.rows;
-    //return fetchOrders(userId);
   }
+  //return fetchOrders(userId);
   return response.rows;
 };
 

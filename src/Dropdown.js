@@ -5,13 +5,12 @@ const DropdownMenu = ({ setOpen, open })=>{
     
     const DropdownItem = (props)=>{
         return (
-            <div className="menu-item"
-            onClick={()=>setOpen(false)}>
-                <Link to={`/account/${ props.children.toLowerCase() }`}>{ props.children }</Link>
-            </div>
+            
+                <Link className="menu-item"
+            onClick={()=>setOpen(false)} to={`/account/${ props.children.toLowerCase() }`}>{ props.children }</Link>
+            
         )
     }
-    
     return (<div className={`menu ${ open ? "menu-open" : ""}`}>
         <DropdownItem>Settings</DropdownItem>
         <DropdownItem>Orders</DropdownItem>

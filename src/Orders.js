@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Orders = ({ orders, products, lineItems, auth })=> {
+
   return (
     <div>
       <ul>
@@ -16,7 +17,7 @@ const Orders = ({ orders, products, lineItems, auth })=> {
                       const product = products.find(product => product.id === lineItem.product_id);
                       return (
                         <li key={ lineItem.id }>
-                          { product ? product.name: '' }
+                          { product ? product.name: '' } ({ lineItem.quantity })
                         </li>
                       );
                     })
@@ -27,17 +28,18 @@ const Orders = ({ orders, products, lineItems, auth })=> {
           })
         : // ---- If user is not an admin, see only your orders
         orders.filter(order => !order.is_cart).map( order => {
-          const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id && lineItem.user_id === auth.id);
+          const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id && order.user_id === auth.id);
+          console.log(order)
           return (
             <li key={ order.id }>
-              ({ new Date(order.created_at).toLocaleString() })
+              ({ new Date(order.created_at).toLocaleString() }) ({ auth.username })
               <ul>
                 {
                   orderLineItems.map( lineItem => {
                     const product = products.find(product => product.id === lineItem.product_id);
                     return (
                       <li key={ lineItem.id }>
-                        { product ? product.name: '' }
+                        { product ? product.name : '' }
                       </li>
                     );
                   })
@@ -48,6 +50,7 @@ const Orders = ({ orders, products, lineItems, auth })=> {
         })
         }
       </ul>
+      
     </div>
   );
 };

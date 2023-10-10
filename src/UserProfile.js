@@ -12,6 +12,7 @@ const UserProfile = ({ orders, products, lineItems, auth })=>{
     (<div className="user-profile">
         <h1>{ id }</h1>
         <div className="user-section">
+        { auth.is_admin ? "Admin user" : null }
             { id.includes("orders") ? <Orders
                     auth={ auth }
                     orders = { orders }

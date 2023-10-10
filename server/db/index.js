@@ -97,8 +97,8 @@ const seed = async()=> {
   
   const defaultUserImage = await loadImage('/images/avatar01.png')
   const [moe, lucy, ethyl] = await Promise.all([
-    createUser({ username: 'moe', password: 'm_password', is_admin: false}),
-    createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
+    createUser({ username: 'moe', password: 'm_password', is_admin: false, image: defaultUserImage}),
+    createUser({ username: 'lucy', password: 'l_password', is_admin: false, image: defaultUserImage}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true, image: defaultUserImage})
   ]);
   const [Avocado, Carrots, Tomato, Spinach] = await Promise.all([
@@ -127,15 +127,15 @@ const seed = async()=> {
     createAddress({ customer_name: 'Ethyl', address:'1234 Ethylville Drive', phone:'1234567890'})
   ])
   
-  let orders = await fetchOrders(ethyl.id);
-  let shippingAddress = addy;
-  let cart = orders.find(order => order.is_cart);
-  let lineItem = await createLineItem({ order_id: cart.id, product_id: Avocado.id});
-  lineItem.quantity++;
-  await updateLineItem(lineItem);
-  lineItem = await createLineItem({ order_id: cart.id, product_id: Tomato.id});
-  cart.is_cart = false;
-  await updateOrder(cart);
+  // let orders = await fetchOrders(ethyl.id);
+  // let shippingAddress = addy;
+  // let cart = orders.find(order => order.is_cart);
+  // let lineItem = await createLineItem({ order_id: cart.id, product_id: Avocado.id});
+  // lineItem.quantity++;
+  // await updateLineItem(lineItem);
+  // lineItem = await createLineItem({ order_id: cart.id, product_id: Tomato.id});
+  // cart.is_cart = false;
+  // await updateOrder(cart);
 };
 
 module.exports = {
