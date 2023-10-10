@@ -1,4 +1,6 @@
 const client = require('./client');
+const path = require('path')
+const fs = require('fs')
 
 const {
   fetchProducts,
@@ -20,10 +22,24 @@ const {
   fetchOrders
 } = require('./cart');
 
+const loadImage = (filePath)=> {
+  return new Promise((resolve, reject)=>{
+    const fullPath = path.join(__dirname + filePath)
+    fs.readFile(fullPath, 'base64', (err, result)=>{
+      if(err){
+        reject(err)
+      } else {
+        resolve(`data:image/png;base64,${result}`)
+      }
+    })
+  })
+}
+
 const {
 fetchAddress,
 createAddress
-} = require('./shipping')
+} = require('./shipping');
+const { flushSync } = require('react-dom');
 
 const {
   createWishList,
@@ -45,7 +61,8 @@ const seed = async()=> {
       created_at TIMESTAMP DEFAULT now(),
       username VARCHAR(100) UNIQUE NOT NULL,
       password VARCHAR(100) NOT NULL,
-      is_admin BOOLEAN DEFAULT false NOT NULL
+      is_admin BOOLEAN DEFAULT false NOT NULL,
+      image TEXT
     );
 
     CREATE TABLE products(
@@ -90,11 +107,12 @@ const seed = async()=> {
   `;
 
   await client.query(SQL);
-
+  
+  const defaultUserImage = await loadImage('/images/avatar01.png')
   const [moe, lucy, ethyl] = await Promise.all([
     createUser({ username: 'moe', password: 'm_password', is_admin: false}),
     createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
-    createUser({ username: 'ethyl', password: '1234', is_admin: true})
+    createUser({ username: 'ethyl', password: '1234', is_admin: true, image: defaultUserImage})
   ]);
   const [Avocado, Carrots, Tomato, Spinach] = await Promise.all([
     createProduct({ 
