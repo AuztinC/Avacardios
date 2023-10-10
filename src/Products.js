@@ -1,7 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Products = ({ products, cartItems, createLineItem, updateLineItem, auth})=> {
+
+const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists})=> {
+  
+  const WishList = ({product, wishList}) => {
+    return (
+      <div>
+        {
+          wishList ? <button>Remove from Wish List</button>: <button>Add to Wish List</button>
+        }
+      </div>
+    )
+  }
+
+
   if(!products){
     return null
   }
@@ -28,6 +41,9 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth})=
                   auth.is_admin ? (
                     <Link to={`/products/${product.id}/edit`}>Edit</Link>
                   ): null
+                }
+                {
+                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)}/>: null
                 }
               </li>
             );

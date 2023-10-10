@@ -26,7 +26,8 @@ createAddress
 } = require('./shipping')
 
 const {
-  createWishList
+  createWishList,
+  fetchWishList
 } = require('./wishList')
 
 
@@ -151,8 +152,10 @@ module.exports = {
   fetchProducts,
   fetchOrders,
   fetchLineItems,
+  fetchWishList,
   createLineItem,
   updateLineItem,
+  createWishList,
   deleteLineItem,
   updateOrder,
   authenticate,

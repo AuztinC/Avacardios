@@ -1,9 +1,11 @@
 import React from "react";
 import Products from "./Products";
 import Cart from "./Cart";
+import WishLists from "./WishLists";
 
 
-const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart, lineItems, updateOrder, removeFromCart, increaseQuantity, decreaseQuantity})=>{
+
+const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart, lineItems, updateOrder, removeFromCart, increaseQuantity, decreaseQuantity, wishLists})=>{
     
     return(<>
     <main>
@@ -13,6 +15,7 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             cartItems = { cartItems }
             createLineItem = { createLineItem }
             updateLineItem = { updateLineItem }
+            wishLists = { wishLists }
         />
         <Cart
             cart = { cart }
@@ -28,6 +31,10 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             products = { products }
             lineItems = { lineItems }
         /> */}
+        <WishLists
+        products = { products }
+        wishLists = { wishLists }
+        />
     </main>
     </>)
 }

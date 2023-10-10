@@ -23,8 +23,10 @@ const fetchLineItems = async(setLineItems)=> {
   setLineItems(response.data);
 };
 
-
-
+const fetchWishList = async(setWishLists)=> {
+  const response = await axios.get('/api/wishList', getHeaders());
+  setWishLists(response.data)
+}
 
 const createLineItem = async({ product, cart, lineItems, setLineItems })=> {
   const response = await axios.post('/api/lineItems', {
@@ -131,6 +133,7 @@ const api = {
   fetchProducts,
   fetchOrders,
   fetchLineItems,
+  fetchWishList,
   createLineItem,
   updateLineItem,
   updateOrder,

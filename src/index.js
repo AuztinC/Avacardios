@@ -11,7 +11,7 @@ const App = ()=> {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
-  const [wishList, setWishList] = useState({});
+  const [wishLists, setWishLists] = useState([]);
 
   const attemptLoginWithToken = async()=> {
     await api.attemptLoginWithToken(setAuth);
@@ -34,7 +34,6 @@ const App = ()=> {
     }
   }, [auth]);
 
-
   useEffect(()=> {
     if(auth.id){
       const fetchData = async()=> {
@@ -43,6 +42,16 @@ const App = ()=> {
       fetchData();
     }
   }, [auth]);
+
+  useEffect(()=> {
+    if(auth.id){
+      const fetchData = async()=> {
+        await api.fetchWishList(setWishLists);
+      };
+      fetchData();
+    }
+  }, [auth]);
+
 
   const createUser = async(user)=>{
     await api.createUser(user)
@@ -88,6 +97,7 @@ const App = ()=> {
     api.logout(setAuth);
   }
 
+
   return (<>
     <div>
           <>
@@ -116,6 +126,7 @@ const App = ()=> {
               removeFromCart = { removeFromCart }
               increaseQuantity = { increaseQuantity }
               decreaseQuantity = { decreaseQuantity }
+              wishLists = { wishLists }
             />
           </>
       </div>
