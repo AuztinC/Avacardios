@@ -104,7 +104,7 @@ const seed = async()=> {
       product_id UUID REFERENCES products(id) NOT NULL,
       user_id UUID REFERENCES users(id) NOT NULL,
       CONSTRAINT product_and_user_key UNIQUE(product_id, user_id)
-    )
+    );
 
     CREATE TABLE reviews(
       id UUID PRIMARY KEY,
@@ -112,7 +112,7 @@ const seed = async()=> {
       product_id UUID REFERENCES products(id),
       stars INT,
       body TEXT
-    )
+    );
   `;
 
   await client.query(SQL);
