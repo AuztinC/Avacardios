@@ -32,7 +32,7 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             products = { products }
             lineItems = { lineItems }
         /> */}
-        {auth.id ? <WishLists
+        {auth.id || auth.is_admin ? <WishLists
         products = { products }
         wishLists = { wishLists }
         removeWishList = { removeWishList }
