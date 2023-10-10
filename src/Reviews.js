@@ -12,7 +12,6 @@ const ReviewForm=({reviews,setReviews,products,createReviews,auth})=>{
         document.getElementById('star').value='';
         document.getElementById('revv').value='';
         createReviews({username:auth.username,product_id:product,stars:star,body:review});
-        
     }
 
     return(
@@ -50,7 +49,7 @@ const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
                                 {
                                     reviews.map((rev)=>{
                                         if(prod.id===rev.product_id){
-                                            return <li key={rev.id}>{rev.username}:{rev.stars} - {rev.body}</li>
+                                            return <li key={rev.id}>{auth.id?rev.username:'Guest'}:{rev.stars} - {rev.body}</li>
                                         }
                                     })
                                  }
@@ -67,7 +66,7 @@ const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
                 })
              }
             <hr/>
-            {auth.id?<ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>:''}
+            <ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>
             <hr/>
         </>
     )

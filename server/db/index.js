@@ -98,7 +98,7 @@ const seed = async()=> {
       product_id UUID REFERENCES products(id),
       stars INT,
       body TEXT
-    )
+    );
   `;
 
   await client.query(SQL);
