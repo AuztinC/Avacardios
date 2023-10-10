@@ -1,6 +1,16 @@
 import React from "react";
 
-const WishLists = ({products, wishLists}) => {
+const DeleteWishList = ({product, wishList, addWishList, removeWishList}) => {
+    return (
+      <div>
+        {
+          wishList ? <button onClick={() => removeWishList(wishList)}>Remove from Wish List</button>: null
+        }
+      </div>
+    )
+  }
+
+const WishLists = ({products, wishLists, removeWishList, auth}) => {
     if(!wishLists){
         return null
       }
@@ -12,8 +22,11 @@ const WishLists = ({products, wishLists}) => {
                     const product = products.find(product => product.id === wish.product_id);
                     return (
                         <div key={wish.id}>
-                            <li>{product.name}</li>
+                            <h4>{product.name}</h4>
+                            <DeleteWishList product= { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} removeWishList= { removeWishList } />
                         </div>
+                       
+                      
                     )
                 })
             }

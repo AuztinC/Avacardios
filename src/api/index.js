@@ -52,7 +52,6 @@ const updateOrder = async({ order, setOrders })=> {
 };
 
 const addWishList = async({ wishList, setWishLists, wishLists })=> {
-  console.log(wishList)
   const response = await axios.post('/api/wishList', wishList, getHeaders());
   setWishLists([...wishLists, response.data]);
 };

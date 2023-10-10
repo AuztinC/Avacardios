@@ -17,7 +17,6 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             updateLineItem = { updateLineItem }
             wishLists = { wishLists }
             addWishList = { addWishList }
-            removeWishList= { removeWishList }
         />
         <Cart
             cart = { cart }
@@ -36,6 +35,7 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
         <WishLists
         products = { products }
         wishLists = { wishLists }
+        removeWishList = { removeWishList }
         />
     </main>
     </>)
