@@ -4,6 +4,7 @@ import { Link, HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import api from './api';
+import Reviews from './Reviews';
 import CreateUser from './CreateUser';
 import UserProfile from './UserProfile';
 import Dropdown from './Dropdown';
@@ -13,6 +14,7 @@ const App = ()=> {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [reviews,setReviews]=useState([]);
   const navigate = useNavigate()
 
   const attemptLoginWithToken = async()=> {
@@ -51,6 +53,10 @@ const App = ()=> {
 
   const createLineItem = async(product)=> {
     await api.createLineItem({ product, cart, lineItems, setLineItems});
+  };
+
+  const createReviews=async(review)=>{
+    await api.createReviews({review,reviews,setReviews});
   };
 
   const updateLineItem = async(lineItem)=> {
@@ -102,6 +108,7 @@ const App = ()=> {
               <Link to='/products'>Products ({ products.length })</Link>
               {/* <Link to='/orders'>Orders ({ orders.filter(order => !order.is_cart).length })</Link> */}
               <Link to='/cart'>Cart ({ cartCount })</Link>
+              <Link to='/reviews'>Reviews</Link>
                 { auth.id ? (<>
                   <span>Welcome back, { upperCaseName }!</span>
                   <Dropdown />
@@ -131,7 +138,7 @@ const App = ()=> {
       <Route path='login' element={ <Login login={ login }/> } />
       {/* <Route path='account' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } /> */}
       <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } />
-      
+      <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
     </Routes>
   </>);
 };
