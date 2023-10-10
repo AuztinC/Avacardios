@@ -36,7 +36,7 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
         products = { products }
         wishLists = { wishLists }
         removeWishList = { removeWishList }
-        />
+        /> 
     </main>
     </>)
 }
