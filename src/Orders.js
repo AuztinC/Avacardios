@@ -29,7 +29,7 @@ const Orders = ({ orders, products, lineItems, auth })=> {
         : // ---- If user is not an admin, see only your orders
         orders.filter(order => !order.is_cart).map( order => {
           const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id && order.user_id === auth.id);
-          console.log(order)
+          console.log(orders)
           return (
             <li key={ order.id }>
               ({ new Date(order.created_at).toLocaleString() }) ({ auth.username })
