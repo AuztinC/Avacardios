@@ -41,10 +41,17 @@ createAddress
 } = require('./shipping');
 const { flushSync } = require('react-dom');
 
+const {
+  createWishList,
+  fetchWishList,
+  deleteWishList
+} = require('./wishList')
+
 
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
+    DROP TABLE IF EXISTS wishlist;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
@@ -92,13 +99,20 @@ const seed = async()=> {
       CONSTRAINT product_and_order_key UNIQUE(product_id, order_id)
     );
 
+    CREATE TABLE wishlist(
+      id UUID PRIMARY KEY,
+      product_id UUID REFERENCES products(id) NOT NULL,
+      user_id UUID REFERENCES users(id) NOT NULL,
+      CONSTRAINT product_and_user_key UNIQUE(product_id, user_id)
+    );
+
     CREATE TABLE reviews(
       id UUID PRIMARY KEY,
       username VARCHAR(100) REFERENCES users(username),
       product_id UUID REFERENCES products(id),
       stars INT,
       body TEXT
-    )
+    );
   `;
 
   await client.query(SQL);
@@ -134,6 +148,21 @@ const seed = async()=> {
   const [addy] = await Promise.all([
     createAddress({ customer_name: 'Ethyl', address:'1234 Ethylville Drive', phone:'1234567890'})
   ])
+
+  await Promise.all([
+    createWishList({
+      user_id: ethyl.id,
+      product_id: Spinach.id
+    }),
+    createWishList({
+      user_id: ethyl.id,
+      product_id: Tomato.id
+    }),
+    createWishList({
+      user_id: moe.id,
+      product_id: Spinach.id
+    })
+  ])
   
   // let orders = await fetchOrders(ethyl.id);
   // let shippingAddress = addy;
@@ -150,9 +179,12 @@ module.exports = {
   fetchProducts,
   fetchOrders,
   fetchLineItems,
+  fetchWishList,
   createLineItem,
   updateLineItem,
+  createWishList,
   deleteLineItem,
+  deleteWishList,
   updateOrder,
   authenticate,
   findUserByToken,

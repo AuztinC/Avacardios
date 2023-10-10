@@ -1,6 +1,8 @@
 const {
   fetchOrders,
   updateOrder,
+  fetchWishList,
+  createWishList,
 } = require('../db');
 
 const express = require('express');
@@ -24,5 +26,6 @@ app.get('/', isLoggedIn, async(req, res, next)=> {
     next(ex);
   }
 });
+
 
 module.exports = app;

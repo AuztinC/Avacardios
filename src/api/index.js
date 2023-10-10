@@ -1,4 +1,5 @@
 import axios from 'axios';
+import WishLists from '../WishLists';
 
 const getHeaders = ()=> {
   return {
@@ -28,6 +29,11 @@ const fetchLineItems = async(setLineItems)=> {
   setLineItems(response.data);
 };
 
+const fetchWishList = async(setWishLists)=> {
+  const response = await axios.get('/api/wishList', getHeaders());
+  setWishLists(response.data)
+}
+
 const createLineItem = async({ product, cart, lineItems, setLineItems })=> {
   const response = await axios.post('/api/lineItems', {
     order_id: cart.id,
@@ -50,13 +56,22 @@ const updateOrder = async({ order, setOrders })=> {
   setOrders(response.data);
 };
 
+const addWishList = async({ wishList, setWishLists, wishLists })=> {
+  const response = await axios.post('/api/wishList', wishList, getHeaders());
+  setWishLists([...wishLists, response.data]);
+};
+
+const removeWishList = async({ wishList, wishLists, setWishLists })=> {
+  await axios.delete(`/api/wishList/${wishList.id}`, getHeaders());
+  setWishLists(wishLists.filter(wish => wish.id != wishList.id))
+};
+
 const removeFromCart = async({ lineItem, lineItems, setLineItems })=> {
   const response = await axios.delete(`/api/lineItems/${lineItem.id}`, getHeaders());
   setLineItems(lineItems.filter( _lineItem => _lineItem.id !== lineItem.id));
 };
 
 const increaseQuantity = async({lineItem, lineItems, setLineItems})=> {
-  console.log(lineItem)
   const newQuantity = lineItem.quantity + 1;
  const {data} = await axios.put(`/api/lineItems/${lineItem.id}`,
     {
@@ -77,7 +92,6 @@ const increaseQuantity = async({lineItem, lineItems, setLineItems})=> {
 }
 
 const decreaseQuantity = async({lineItem, lineItems, setLineItems})=> {
-  console.log(lineItem)
   const newQuantity = lineItem.quantity - 1;
  const {data} = await axios.put(`/api/lineItems/${lineItem.id}`,
     {
@@ -140,6 +154,7 @@ const api = {
   fetchProducts,
   fetchOrders,
   fetchLineItems,
+  fetchWishList,
   createLineItem,
   updateLineItem,
   updateOrder,
@@ -148,6 +163,8 @@ const api = {
   increaseQuantity,
   decreaseQuantity,
   createUser,
+  addWishList,
+  removeWishList,
   createReviews,
   fetchReviews
 };
