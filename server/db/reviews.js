@@ -8,13 +8,13 @@ const fetchReviews=async()=>{
     return responde.rows;
 }
 
-const createReview=async(review)=>{
+const createReviews=async(review)=>{
     const SQL='INSERT INTO reviews(id,product_id,stars,body) VALUES($1,$2,$3,$4) RETURNING *'
     const response=await client.query(SQL,[uuidv4(),review.product_id,review.stars,review.body])
-    return response.rows;
+    return response.rows[0];
 }
 
 module.exports={
     fetchReviews,
-    createReview
+    createReviews
 }

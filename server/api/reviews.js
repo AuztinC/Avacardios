@@ -1,12 +1,12 @@
 const {
     fetchReviews,
-    createReview,
-}=require('../db')
+    createReviews,
+}=require('../db/reviews')
 
 const express=require('express');
 const app=express.Router();
 
-app.get('/reviews',async(req,res,next)=>{
+app.get('/',async(req,res,next)=>{
     try {
         res.send(await fetchReviews());
     } catch (error) {
@@ -14,9 +14,9 @@ app.get('/reviews',async(req,res,next)=>{
     }
 })
 
-app.post('/reviews',async(req,res,next)=>{
+app.post('/',async(req,res,next)=>{
     try {
-        res.send(await createReview(...req.body))
+        res.send(await createReviews(req.body))
     } catch (error) {
         next(error);
     }

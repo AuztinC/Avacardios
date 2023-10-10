@@ -1,36 +1,43 @@
-import React, {useState} from 'react'
-import axios from 'axios'
+import React, {useEffect, useState} from 'react'
 
-const ReviewForm=({reviews,setReviews,products})=>{
+const ReviewForm=({reviews,setReviews,products,createReviews})=>{
     const [product,setProduct]=useState('');
     const [star,setStar]=useState('');
     const [review,setReview]=useState('');
-    
+
+    //console.log(createReviews());
+
     const save=async(ev)=>{
         ev.preventDefault();
-        const {data}=await axios.post('/api/reviews',{product_id:product,stars:star,body:review});
-        setReviews(...reviews,data[0]);
+        setProduct('');
+        document.getElementById('star').value='';
+        document.getElementById('revv').value='';
+        createReviews({product_id:product,stars:star,body:review});
     }
     
+    useEffect(()=>{
+        console.log(reviews);
+    },[reviews]);
+
     return(
         <form onSubmit={save}>
             <h4>Enter a new review here!</h4>
             <select value={product} onChange={ev=>setProduct(ev.target.value)}>
-                <option value=''>Select a Product</option>
+                <option key='' value=''>Select a Product</option>
                 {
                     products.map((prod)=>{
-                        <option key={prod.id} value={prod.id}>{prod.name}</option>
+                        return <option key={prod.id} value={prod.id}>{prod.name}</option>
                     })
                 }
             </select><br/>
-            <label>Stars (1-5):<input type='number' onChange={ev=>setStar(ev.target.value)}></input></label><br/> 
-            <label>Review:<input type='text' onChange={ev=>setReview(ev.target.value)}></input></label><br/>
+            <label>Stars (1-5):<input id='star' type='number' onChange={ev=>setStar(ev.target.value)}></input></label><br/> 
+            <label>Review:<input id='revv' type='text' onChange={ev=>setReview(ev.target.value)}></input></label><br/>
             <button type='submit' disabled={!product||!star||!review}>Post Review</button>
         </form>
     )
 }
 
-const Reviews=({reviews,setReviews,products})=>{
+const Reviews=({reviews,setReviews,products,createReviews})=>{
     return(
         <>
             <h1>Reviews</h1>
@@ -38,6 +45,9 @@ const Reviews=({reviews,setReviews,products})=>{
             {
                 products.map((prod)=>{
                      const RevItUp=()=>{
+                        if(!prod){
+                            return null;
+                        }
                          return(
                              <>
                                 <ul>
@@ -61,7 +71,7 @@ const Reviews=({reviews,setReviews,products})=>{
                 })
              }
             <hr/>
-            <ReviewForm reviews={reviews} setReviews={setReviews} products={products}/>
+            <ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews}/>
             <hr/>
         </>
     )
