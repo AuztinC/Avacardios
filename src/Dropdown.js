@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const DropdownMenu = ({ setOpen })=>{
+const DropdownMenu = ({ setOpen, open })=>{
     
     const DropdownItem = (props)=>{
         return (
@@ -12,16 +12,16 @@ const DropdownMenu = ({ setOpen })=>{
         )
     }
     
-    return (<div className="menu">
+    return (<div className={`menu ${ open ? "menu-open" : ""}`}>
         <DropdownItem>Settings</DropdownItem>
         <DropdownItem>Orders</DropdownItem>
     </div>)
 }
 const Dropdown =()=>{
     const [open, setOpen] = useState(false)
-    return (<div className="dropdown-menu">
-        <button onClick={()=>setOpen(!open)}>Account</button>
-        { open ? <DropdownMenu setOpen={ setOpen }/> : null }
+    return (<div className={`dropdown-menu`}>
+        <button className={open ? "dropdown-open" : ""} onClick={()=>setOpen(!open)}>Account</button>
+        <DropdownMenu setOpen={ setOpen } open={ open }/>
     </div>)
 }
 export default Dropdown

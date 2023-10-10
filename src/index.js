@@ -129,7 +129,7 @@ const App = ()=> {
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />
-      <Route path='account' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } />
+      {/* <Route path='account' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } /> */}
       <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } />
       
     </Routes>
