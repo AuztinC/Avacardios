@@ -1,18 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
-const ReviewForm=({reviews,setReviews,products,createReviews,auth})=>{
+const ReviewForm=({products,createReviews,auth})=>{
     const [product,setProduct]=useState('');
     const [star,setStar]=useState('');
     const [review,setReview]=useState('');
 
-
     const save=async(ev)=>{
         ev.preventDefault();
         setProduct('');
-        document.getElementById('star').value='';
+        setStar(null);
         document.getElementById('revv').value='';
         createReviews({username:auth.username,product_id:product,stars:star,body:review});
-        
     }
 
     return(
@@ -26,11 +24,23 @@ const ReviewForm=({reviews,setReviews,products,createReviews,auth})=>{
                     })
                 }
             </select><br/>
-            <label>Stars (1-5):<input id='star' type='number' onChange={ev=>setStar(ev.target.value)}></input></label><br/> 
+            <label>Stars (1-5): {star} <button type='button' onClick={()=>increaseRating(star,setStar)}>+</button><button type='button' onClick={()=>decreaseRating(star,setStar)}>-</button></label><br/> 
             <label>Review:<input id='revv' type='text' onChange={ev=>setReview(ev.target.value)}></input></label><br/>
             <button type='submit' disabled={!product||!star||!review}>Post Review</button>
         </form>
     )
+}
+
+const increaseRating=(star,setStar)=>{ 
+    if(star*1<5){
+        setStar((star*1)+1);
+    }
+}
+
+const decreaseRating=(star,setStar)=>{
+    if(star*1>1){
+        setStar((star*1)-1);
+    }
 }
 
 const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
@@ -45,15 +55,17 @@ const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
                             return null;
                         }
                          return(
-                            <ul key={prod.id}>
-                            {
-                                reviews.map((rev)=>{
-                                    if(prod.id===rev.product_id){
-                                        return <li key={rev.id}>{rev.username}:{rev.stars} - {rev.body}</li>
-                                    }
-                                })
-                                }
-                            </ul>
+                             <>
+                                <ul>
+                                {
+                                    reviews.map((rev)=>{
+                                        if(prod.id===rev.product_id){
+                                            return <li key={rev.id}>{rev.username?rev.username:'Guest'}:{rev.stars} - {rev.body}</li>
+                                        }
+                                    })
+                                 }
+                                </ul>
+                             </>
                          )
                      }
                      return(
@@ -65,7 +77,7 @@ const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
                 })
              }
             <hr/>
-            {auth.id?<ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>:''}
+            <ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>
             <hr/>
         </>
     )
