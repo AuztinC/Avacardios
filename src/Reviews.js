@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
-const ReviewForm=({reviews,setReviews,products,createReviews,auth})=>{
+const ReviewForm=({products,createReviews,auth})=>{
     const [product,setProduct]=useState('');
     const [star,setStar]=useState('');
     const [review,setReview]=useState('');
 
-
     const save=async(ev)=>{
         ev.preventDefault();
         setProduct('');
-        document.getElementById('star').value='';
+        setStar(null);
         document.getElementById('revv').value='';
         createReviews({username:auth.username,product_id:product,stars:star,body:review});
     }
@@ -25,11 +24,23 @@ const ReviewForm=({reviews,setReviews,products,createReviews,auth})=>{
                     })
                 }
             </select><br/>
-            <label>Stars (1-5):<input id='star' type='number' onChange={ev=>setStar(ev.target.value)}></input></label><br/> 
+            <label>Stars (1-5): {star} <button type='button' onClick={()=>increaseRating(star,setStar)}>+</button><button type='button' onClick={()=>decreaseRating(star,setStar)}>-</button></label><br/> 
             <label>Review:<input id='revv' type='text' onChange={ev=>setReview(ev.target.value)}></input></label><br/>
             <button type='submit' disabled={!product||!star||!review}>Post Review</button>
         </form>
     )
+}
+
+const increaseRating=(star,setStar)=>{ 
+    if(star*1<5){
+        setStar((star*1)+1);
+    }
+}
+
+const decreaseRating=(star,setStar)=>{
+    if(star*1>1){
+        setStar((star*1)-1);
+    }
 }
 
 const Reviews=({reviews,setReviews,products,createReviews,auth})=>{

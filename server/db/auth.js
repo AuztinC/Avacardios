@@ -3,6 +3,7 @@ const { v4 } = require('uuid');
 const uuidv4 = v4;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { fetchOrders } = require('./cart');
 
 const findUserByToken = async(token) => {
   try {
@@ -47,7 +48,9 @@ const authenticate = async(credentials)=> {
     error.status = 401;
     throw error;
   }
-
+  
+  fetchOrders({username: credentials.username, id: response.rows[0].id})
+  
   return jwt.sign({ id: response.rows[0].id }, process.env.JWT);
 };
 
