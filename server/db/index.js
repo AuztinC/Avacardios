@@ -1,6 +1,8 @@
 const client = require('./client');
 const { v4 } = require('uuid');
 const uuidv4 = v4;
+const { v4 } = require('uuid');
+const uuidv4 = v4;
 const path = require('path')
 const fs = require('fs')
 
@@ -48,7 +50,21 @@ const loadImage = (filePath)=> {
     })
   })
 }
-const defaultUserImage = loadImage('/images/avatar01.png')
+
+const {
+fetchAddress,
+createAddress
+} = require('./shipping');
+
+const { flushSync } = require('react-dom');
+
+const {
+  createWishList,
+  fetchWishList,
+  deleteWishList
+} = require('./wishList')
+
+
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
@@ -86,6 +102,13 @@ const seed = async()=> {
       description TEXT
     );
 
+    CREATE TABLE shipping(
+      id UUID PRIMARY KEY,
+      customer_name VARCHAR(100),
+      address VARCHAR(200),
+      phone VARCHAR(10)
+    );
+
     CREATE TABLE orders(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
@@ -117,11 +140,21 @@ const seed = async()=> {
       product_id UUID REFERENCES products(id),
       stars INT,
       body TEXT
-      );
-      `;
+        );
+          `;
+            
+          await client.query(SQL);
       
-      await client.query(SQL);
-      
+  const [addy] = await Promise.all([
+    createAddress({ 
+      customer_name: 'Ethyl', 
+      street:'1234 Ethylville Drive',
+      city: 'Paris',
+      state: 'TX',
+      zip: 76892
+      }),
+    ]);
+    
   const [addy] = await Promise.all([
     createAddress({ 
       customer_name: 'Ethyl', 
