@@ -23,7 +23,7 @@ const ReviewForm=({products,createReviews,auth})=>{
                         return <option key={prod.id} value={prod.id}>{prod.name}</option>
                     })
                 }
-            </select><br/>
+            </select>
             <span>
             <label>Stars (1-5): {star}</label>
             <button type='button' className='star' onClick={()=>increaseRating(star,setStar)}>+</button>
