@@ -22,6 +22,18 @@ const {
   fetchOrders
 } = require('./cart');
 
+const {
+  fetchAddress,
+  createAddress
+} = require('./shipping');
+const { flushSync } = require('react-dom');
+
+const {
+  createWishList,
+  fetchWishList,
+  deleteWishList
+} = require('./wishList')
+
 const loadImage = (filePath)=> {
   return new Promise((resolve, reject)=>{
     const fullPath = path.join(__dirname + filePath)
@@ -34,19 +46,6 @@ const loadImage = (filePath)=> {
     })
   })
 }
-
-const {
-fetchAddress,
-createAddress
-} = require('./shipping');
-const { flushSync } = require('react-dom');
-
-const {
-  createWishList,
-  fetchWishList,
-  deleteWishList
-} = require('./wishList')
-
 
 const seed = async()=> {
   const SQL = `
@@ -120,9 +119,9 @@ const seed = async()=> {
   
   const defaultUserImage = await loadImage('/images/avatar01.png')
   const [moe, lucy, ethyl] = await Promise.all([
-    createUser({ username: 'moe', password: '1', is_admin: false, image: defaultUserImage}),
-    createUser({ username: 'lucy', password: 'l_password', is_admin: false, image: defaultUserImage}),
-    createUser({ username: 'ethyl', password: '1234', is_admin: true, image: defaultUserImage})
+    createUser({ username: 'moe', password: '1', is_admin: false}),
+    createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
+    createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
   const [Avocado, Carrots, Tomato, Spinach] = await Promise.all([
     createProduct({ 
@@ -189,6 +188,7 @@ module.exports = {
   updateOrder,
   authenticate,
   findUserByToken,
+  loadImage,
   seed,
   client
 };

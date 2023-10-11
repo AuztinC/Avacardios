@@ -68,7 +68,7 @@ const createUser = async(user)=> {
   const SQL = `
     INSERT INTO users (id, username, password, is_admin, image) VALUES($1, $2, $3, $4, $5) RETURNING *
   `;
-  const response = await client.query(SQL, [ uuidv4(), user.username, user.password, user.is_admin, user.image || null ]);
+  const response = await client.query(SQL, [ uuidv4(), user.username, user.password, user.is_admin, user.image ]);
   return response.rows[0];
 };
 
