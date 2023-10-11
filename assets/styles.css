@@ -52,6 +52,14 @@ nav{
   box-shadow: 5px 5px 20px -5px var(--backgroundAccent);
   border: var(--borderSmall);
 }
+.nav-inner{
+  display: flex;
+  padding: 5px;
+  border: 1px solid black;
+}
+nav * {
+  flex: 1;
+}
 
 a{
   text-decoration: none;
@@ -195,5 +203,9 @@ button:hover {
 }
 .user-links a:hover {
   color: var(--backgroundColor);
+}
+
+#file{
+  display: none;
 }
 /* ---- END USER PROFILE ---- */
