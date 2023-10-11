@@ -203,6 +203,10 @@ button:hover {
   color: var(--backgroundColor);
 }
 
+.star{
+  width: 4%;
+}
+
 #file{
   display: none;
 }
