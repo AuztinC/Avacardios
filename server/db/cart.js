@@ -2,7 +2,7 @@ const client = require('./client');
 const { v4 } = require('uuid');
 const uuidv4 = v4;
 
-const fetchLineItems = async(userId)=> {
+const fetchLineItems = async()=> {
   const SQL = `
     SELECT line_items.* 
     FROM
@@ -11,10 +11,10 @@ const fetchLineItems = async(userId)=> {
     ON orders.id = line_items.order_id
     JOIN users
     ON users.id = orders.user_id
-    WHERE users.id = $1
+    --WHERE users.id = $1
     ORDER BY product_id
   `;
-  const response = await client.query(SQL, [ userId ]);
+  const response = await client.query(SQL);
   return response.rows;
 };
 
@@ -84,23 +84,29 @@ const updateOrder = async(order)=> {
   return response.rows[0];
 };
 
-const fetchOrders = async(userId)=> {
+const fetchOrders = async(user)=> {
   const SQL = `
     SELECT * FROM orders
     --WHERE user_id = $1
   `;
   let response = await client.query(SQL);
   const cart = response.rows.find(row => row.is_cart);
+  
   if(!cart){
     await client.query(`
-    INSERT INTO orders(is_cart, id, user_id) VALUES(true, $1, $2)
+    INSERT INTO orders(is_cart, id, user_id, user_name) VALUES(true, $1, $2, $3)
     `,
-    [uuidv4(), userId]
+    [uuidv4(), user.id, user.username]
     ); 
     response = await client.query(SQL);
     return response.rows;
+  } else if (cart.user_name !== user.username){
+    const SQL = `
+    DELETE FROM orders WHERE id = $1
+    `;
+    await client.query(SQL, [cart.id])
   }
-  //return fetchOrders(userId);
+  // return fetchOrders(userId);
   return response.rows;
 };
 

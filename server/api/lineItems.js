@@ -11,7 +11,7 @@ const { isLoggedIn, isAdmin } = require('./middleware');
 
 app.get('/', isLoggedIn, async(req, res, next)=> {
   try {
-    res.send(await fetchLineItems(req.user.id));
+    res.send(await fetchLineItems());
   }
   catch(ex){
     next(ex);

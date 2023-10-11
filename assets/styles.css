@@ -134,7 +134,7 @@ button:hover {
 .menu-item:hover{
   background-color: #8EAC50;
 }
-/* ---- Dropdown menu ---- */
+/* ---- END Dropdown menu ---- */
 
 /* ---- USER PROFILE ---- */
 .avatar-full {
@@ -172,6 +172,7 @@ button:hover {
 }
 
 .user-section {
+  min-height: 175px;
   flex: 3;
   /* border: 1px solid black; */
 }
