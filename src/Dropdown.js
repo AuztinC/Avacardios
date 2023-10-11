@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const DropdownMenu = ({ setOpen, open })=>{
+    window.addEventListener("click", (ev)=>{
+        if(ev.target.className !== "menu-item" && ev.target.className !== "dropdown-btn"){
+            setOpen(false)
+        }
+    })
     
     const DropdownItem = (props)=>{
         return (
-            
                 <Link className="menu-item"
             onClick={()=>setOpen(false)} to={`/account/${ props.children.toLowerCase() }`}>{ props.children }</Link>
             
@@ -20,8 +24,9 @@ const DropdownMenu = ({ setOpen, open })=>{
 }
 const Dropdown =()=>{
     const [open, setOpen] = useState(false)
-    return (<div className={`dropdown-menu`}>
-        <button className={open ? "dropdown-open" : ""} onClick={()=>setOpen(!open)}>Account</button>
+    
+    return  (<div className={`dropdown-menu`}>
+        <button className={`dropdown-btn`} onClick={()=>setOpen(!open)}>Account</button>
         <DropdownMenu setOpen={ setOpen } open={ open }/>
     </div>)
 }
