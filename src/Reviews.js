@@ -45,17 +45,15 @@ const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
                             return null;
                         }
                          return(
-                             <>
-                                <ul>
-                                {
-                                    reviews.map((rev)=>{
-                                        if(prod.id===rev.product_id){
-                                            return <li key={rev.id}>{rev.username}:{rev.stars} - {rev.body}</li>
-                                        }
-                                    })
-                                 }
-                                </ul>
-                             </>
+                            <ul key={prod.id}>
+                            {
+                                reviews.map((rev)=>{
+                                    if(prod.id===rev.product_id){
+                                        return <li key={rev.id}>{rev.username}:{rev.stars} - {rev.body}</li>
+                                    }
+                                })
+                                }
+                            </ul>
                          )
                      }
                      return(

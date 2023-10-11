@@ -11,9 +11,11 @@ const DropdownMenu = ({ setOpen, open })=>{
             
         )
     }
+    
     return (<div className={`menu ${ open ? "menu-open" : ""}`}>
-        <DropdownItem>Settings</DropdownItem>
+        <DropdownItem>Wishlist</DropdownItem>
         <DropdownItem>Orders</DropdownItem>
+        <DropdownItem>Settings</DropdownItem>
     </div>)
 }
 const Dropdown =()=>{
