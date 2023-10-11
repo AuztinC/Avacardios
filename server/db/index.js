@@ -73,7 +73,8 @@ const seed = async()=> {
       name VARCHAR(100) UNIQUE NOT NULL,
       price INT,
       description TEXT,
-      amount VARCHAR(100)
+      amount VARCHAR(100),
+      image TEXT
     );
 
     CREATE TABLE shipping(
@@ -125,12 +126,15 @@ const seed = async()=> {
     createUser({ username: 'lucy', password: 'l_password', is_admin: false, image: defaultUserImage}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true, image: defaultUserImage})
   ]);
+
+  const avocadoImage = await loadImage('/images/avocadoprod.png')
   const [Avocado, Carrots, Tomato, Spinach, Blueberries, Asparagus, Pitaya, Cauliflower, Lemon, Bananas, Potatoes, Lettuce, Mushrooms, Raspberries, Peach, Watermelon, Grapes, Strawberries, Brocolli, Zucchini] = await Promise.all([
     createProduct({ 
       name: 'Avocados', 
       price: 5, 
       description: 'A bright green fruit with a buttery, creamy, and slightly nutty taste',
-      amount: '4 count bag' 
+      amount: '4 count bag',
+      image: avocadoImage
     }),
     createProduct({ 
       name: 'Carrots',

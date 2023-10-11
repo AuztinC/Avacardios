@@ -209,3 +209,7 @@ button:hover {
   display: none;
 }
 /* ---- END USER PROFILE ---- */
+
+#productlist img{
+  display:block;
+}

@@ -19,12 +19,17 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
   return (
     <div>
       <h2>Products</h2>
-      <ul>
+      <ul id='productlist'>
         {
           products.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <li key={ product.id }>
+                <div className='productimg'>
+                  {
+                    product.image ? <img src={product.image}/> : null
+                  }
+                </div>
                 { product.name }
                 <div>
                   <p>${product.price.toFixed(2)}</p>
