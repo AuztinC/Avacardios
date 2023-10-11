@@ -1,4 +1,6 @@
 const client = require('./client');
+const { v4 } = require('uuid');
+const uuidv4 = v4;
 const path = require('path')
 const fs = require('fs')
 
@@ -62,9 +64,9 @@ const seed = async()=> {
       id UUID PRIMARY KEY,
       customer_name VARCHAR(100),
       street VARCHAR(200),
+      city VARCHAR(20),
       state VARCHAR(200),
-      zip INTEGER,
-      phone VARCHAR(10)
+      zip INTEGER
     );
 
     CREATE TABLE users(
@@ -116,19 +118,30 @@ const seed = async()=> {
       product_id UUID REFERENCES products(id),
       stars INT,
       body TEXT
-    );
-  `;
+      );
+      `;
+      
+      await client.query(SQL);
+      
+  const [addy] = await Promise.all([
+    createAddress({ 
+      customer_name: 'Ethyl', 
+      street:'1234 Ethylville Drive',
+      city: 'Paris',
+      state: 'TX',
+      zip: 76892
+      }),
+    ]);
 
-  await client.query(SQL);
-  
   const defaultUserImage = await loadImage('/images/avatar01.png')
   const [moe, lucy, ethyl] = await Promise.all([
     createUser({ username: 'moe', password: 'm_password', is_admin: false}),
     createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true, image: defaultUserImage})
   ]);
+
   const [Avocado, Carrots, Tomato, Spinach] = await Promise.all([
-    createProduct({ 
+    createProduct({
       name: 'Avocado', 
       price: 7, 
       description: 'a bright green fruit with a buttery, creamy, and slightly nutty taste' 
@@ -150,15 +163,6 @@ const seed = async()=> {
     }),
   ]);
 
-  const [addy] = await Promise.all([
-    createAddress({ 
-      customer_name: 'Ethyl', 
-      street:'1234 Ethylville Drive',
-      state: 'TX',
-      zip: 76892, 
-      phone: '1234567890'
-    }),
-  ]);
 
   await Promise.all([
     createWishList({
@@ -176,7 +180,6 @@ const seed = async()=> {
   ])
   
   let orders = await fetchOrders(ethyl.id);
-  let shippingAddress = addy;
   let cart = orders.find(order => order.is_cart);
   let lineItem = await createLineItem({ order_id: cart.id, product_id: Avocado.id});
   lineItem.quantity++;
