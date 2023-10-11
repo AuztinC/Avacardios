@@ -72,7 +72,8 @@ const seed = async()=> {
       created_at TIMESTAMP DEFAULT now(),
       name VARCHAR(100) UNIQUE NOT NULL,
       price INT,
-      description TEXT
+      description TEXT,
+      amount VARCHAR(100)
     );
 
     CREATE TABLE shipping(
@@ -124,27 +125,127 @@ const seed = async()=> {
     createUser({ username: 'lucy', password: 'l_password', is_admin: false, image: defaultUserImage}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true, image: defaultUserImage})
   ]);
-  const [Avocado, Carrots, Tomato, Spinach] = await Promise.all([
+  const [Avocado, Carrots, Tomato, Spinach, Blueberries, Asparagus, Pitaya, Cauliflower, Lemon, Bananas, Potatoes, Lettuce, Mushrooms, Raspberries, Peach, Watermelon, Grapes, Strawberries, Brocolli, Zucchini] = await Promise.all([
     createProduct({ 
       name: 'Avocado', 
-      price: 7, 
-      description: 'a bright green fruit with a buttery, creamy, and slightly nutty taste' 
+      price: 5, 
+      description: 'A bright green fruit with a buttery, creamy, and slightly nutty taste',
+      amount: '4 count bag' 
     }),
     createProduct({ 
       name: 'Carrots',
-      price: 4,
-      description: 'an orange root vegetable with a earthy and sweet flavor' 
+      price: 3,
+      description: 'An orange root vegetable with a earthy and sweet flavor',
+      amount: '2 lb bag'
     }),
     createProduct({ 
       name: 'Tomato',
       price: 2,
-      description: 'a scarlet colored fruit with a taste that ranges from sour to sweet'
+      description: 'A scarlet colored fruit with a taste that ranges from sour to sweet',
+      amount: 'Single'
   }),
     createProduct({ 
       name: 'Spinach',
-      price: 1,
-      description: 'a leafy green veggie that is slightly sweet raw that becomes more acidic and robust when cooked'
+      price: 2,
+      description: 'A leafy green veggie that is slightly sweet raw that becomes more acidic and robust when cooked',
+      amount: '10 oz bag'
     }),
+    createProduct({
+      name: 'Blueberries',
+      price: 4,
+      description: 'This small blue fruit has flavor described as sweet and slightly tart',
+      amount: '11 oz container'
+    }),
+    createProduct({
+      name: 'Asparagus',
+      price: 5,
+      description: 'A bright green vegetable that is tendery, buttery, and sweet with a hint of earthy bitterness when cooked',
+      amount: 'Pack of 12'
+    }),
+    createProduct({
+      name: 'Pitaya',
+      price: 7,
+      description: 'Also known as dragon fruit. Has been characterized as a combination of pear and kiwi with a touch of citrus',
+      amount: 'Single'
+    }),
+    createProduct({
+      name: 'Cauliflower',
+      price: 3,
+      description: 'A white vegetable that resembles broccoli and has a mild flavor with a slightly nutty and sweet taste',
+      amount: 'Single'
+    }),
+    createProduct({
+      name: 'Lemon',
+      price: 1,
+      description: 'Yellow citrus fruit that is slightly acidic and sour',
+      amount: 'Single'
+    }),
+    createProduct({
+      name: 'Bananas',
+      price: 2,
+      description: 'Yellow curved fruit with a slightly creamy and custard-like flavor',
+      amount: 'Bunch'
+    }),
+    createProduct({
+      name: 'Potatoes',
+      price: 3,
+      description: 'Russets with a mild earthy flavor',
+      amount: '5 lb bag'
+    }),
+    createProduct({
+      name: 'Lettuce',
+      price: 1,
+      description: 'Shredded and has a mild and refreshing taste',
+      amount: '8 oz bag'
+    }),
+    createProduct({
+      name: 'Mushrooms',
+      price: 2,
+      description: 'White buttons that feature a classic umami flavor',
+      amount: '8 oz pack'
+    }),
+    createProduct({
+      name: 'Raspberries',
+      price: 5,
+      description: 'Vibrant red fruit that have a fresh sweet taste with undertones of tartness',
+      amount: '12 oz container'
+    }),
+    createProduct({
+      name: 'Peach',
+      price: 1,
+      description: 'Fruit with a a delicate, floral sweetness',
+      amount: 'Single'
+    }),
+    createProduct({
+      name: 'Watermelon',
+      price: 6,
+      description: 'Green stripped fruit witha juicy, sweet, and red center',
+      amount: 'Single' 
+    }),
+    createProduct({
+      name: 'Grapes',
+      price: 4,
+      description: 'Green or Red. Red grapes are typically sweeter in taste, while green grapes are more sour and citrusy',
+      amount: '2.25 lb bag'
+    }),
+    createProduct({
+      name: 'Strawberries',
+      price: 3,
+      description: 'Bright red fruit that is juicy and sweet with a little bit of acidity',
+      amount: '1 lb package'
+    }),
+    createProduct({
+      name: 'Brocolli',
+      price: 3,
+      description: 'Green veggie with a grassy, earthy flavor with a mildy bitter undertone',
+      amount: 'Single'
+    }),
+    createProduct({
+      name: 'Zucchini',
+      price: 1,
+      description: 'Long green vegetable that is slightly sweet and slightly bitter',
+      amount: 'Single'
+    })
   ]);
   const [addy] = await Promise.all([
     createAddress({ customer_name: 'Ethyl', address:'1234 Ethylville Drive', phone:'1234567890'})

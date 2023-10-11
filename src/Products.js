@@ -28,6 +28,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 { product.name }
                 <div>
                   <p>${product.price.toFixed(2)}</p>
+                  <p>Amount: {product.amount}</p>
                   <p>{product.description}</p>
                 </div>
                 {
@@ -43,6 +44,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 {
                   auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
                 }
+                <hr/>
               </li>
             );
           })
