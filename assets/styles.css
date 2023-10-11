@@ -44,8 +44,6 @@ form > * {
 }
 
 nav{
-  display: flex;
-  justify-content: space-evenly;
   width: 100%;
   color: white;
   background-color: #17594A;
@@ -216,4 +214,5 @@ button:hover {
 
 #productlist img{
   display:block;
+  padding-bottom: 3.5px;
 }

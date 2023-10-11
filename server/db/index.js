@@ -146,6 +146,8 @@ const seed = async()=> {
 
   const avocadoImage = await loadImage('/images/avocadoprod.png');
   const carrotImage = await loadImage('/images/carrot.png');
+  const tomatoImage = await loadImage('/images/tomato.png');
+  const spinachImage = await loadImage('/images/spinach.jpg')
   const [Avocado, Carrots, Tomato, Spinach, Blueberries, Asparagus, Pitaya, Cauliflower, Lemon, Bananas, Potatoes, Lettuce, Mushrooms, Raspberries, Peach, Watermelon, Grapes, Strawberries, Brocolli, Zucchini] = await Promise.all([
     createProduct({ 
       name: 'Avocados', 
@@ -165,13 +167,15 @@ const seed = async()=> {
       name: 'Tomato',
       price: 2,
       description: 'A scarlet colored fruit with a taste that ranges from sour to sweet',
-      amount: 'Single'
+      amount: 'Single',
+      image: tomatoImage
   }),
     createProduct({ 
       name: 'Spinach',
       price: 2,
       description: 'A leafy green veggie that is slightly sweet raw that becomes more acidic and robust when cooked',
-      amount: '10 oz bag'
+      amount: '10 oz bag',
+      image: spinachImage
     }),
     createProduct({
       name: 'Blueberries',
