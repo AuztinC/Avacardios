@@ -9,6 +9,7 @@ import CreateUser from './CreateUser';
 import UserProfile from './UserProfile';
 import Dropdown from './Dropdown';
 import Shipping from './Shipping';
+import Nav from './Nav';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -121,30 +122,10 @@ const App = ()=> {
     navigate('/')
     
   }
-  let upperCaseName = null
-  if(auth.id){
-    upperCaseName = auth.username.charAt(0).toUpperCase() + auth.username.slice(1)
-  }
+
   return (<>
-    <div>
-          <>
-            <nav>
-              <Link to='/'>Home</Link>
-              <Link to='/products'>Products ({ products.length })</Link>
-              {/* <Link to='/orders'>Orders ({ orders.filter(order => !order.is_cart).length })</Link> */}
-              <Link to='/cart'>Cart ({ cartCount })</Link>
-              <Link to='/reviews'>Reviews</Link>
-                { auth.id ? (<>
-                  <span>Welcome back, { upperCaseName }!</span>
-                  <Dropdown />
-                  <button onClick={ logout }>logout</button>
-                </>) : (<>
-                  <Link to={'/login'}>Login</Link>
-                  <Link to={'/signup'}>Sign Up</Link>
-                </>) }
-            </nav>
-          </>
-    </div>
+    <Nav cartCount={ cartCount } login={ login } auth={ auth }/>
+    
     <Routes>
       <Route path='/' element={ <Home 
         auth = { auth }
@@ -165,8 +146,7 @@ const App = ()=> {
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />
-      {/* <Route path='account' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } /> */}
-      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems }/> } />
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList }/> } />
       <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
       <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress}/>}/>
     </Routes>

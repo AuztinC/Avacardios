@@ -21,5 +21,8 @@ const isAdmin = (req, res, next)=> {
     next(error);
   }
 };
-
+const createreview=()=>{
+  
+}
+console.log(createreview)
 module.exports = { isLoggedIn, isAdmin }
