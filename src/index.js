@@ -7,6 +7,8 @@ import api from './api';
 import Reviews from './Reviews';
 import CreateUser from './CreateUser';
 import UserProfile from './UserProfile';
+import Dropdown from './Dropdown';
+import Shipping from './Shipping';
 import Nav from './Nav';
 
 const App = ()=> {
@@ -16,7 +18,9 @@ const App = ()=> {
   const [auth, setAuth] = useState({});
   const [wishLists, setWishLists] = useState([]);
   const [reviews,setReviews]=useState([]);
+  const [address, setAddress] = useState([]);
   const navigate = useNavigate()
+
 
   const attemptLoginWithToken = async()=> {
     await api.attemptLoginWithToken(setAuth);
@@ -30,6 +34,15 @@ const App = ()=> {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   if(auth.id){
+  //     const fetchData = async() => {
+  //       await api.fetchAddress(setAddress);
+  //     };
+  //     fetchData();
+  //   }
+  // })
+  
   useEffect(()=> {
     if(auth.id){
       const fetchData = async()=> {
@@ -68,6 +81,10 @@ const App = ()=> {
 
   const createReviews=async(review)=>{
     await api.createReviews({review,reviews,setReviews});
+  };
+
+  const createAddress = async(addy)=>{
+    await api.createAddress({addy, address, setAddress});
   };
 
   const updateLineItem = async(lineItem)=> {
@@ -135,11 +152,13 @@ const App = ()=> {
         wishLists = { wishLists }
         addWishList = { addWishList }
         removeWishList  = { removeWishList }
+        createAddress = { createAddress }
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />
       <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList }/> } />
       <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
+      <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress}/>}/>
     </Routes>
   </>);
 };

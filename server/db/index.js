@@ -1,4 +1,6 @@
 const client = require('./client');
+const { v4 } = require('uuid');
+const uuidv4 = v4;
 const path = require('path')
 const fs = require('fs')
 
@@ -39,6 +41,7 @@ const {
 fetchAddress,
 createAddress
 } = require('./shipping');
+
 const { flushSync } = require('react-dom');
 
 const {
@@ -55,8 +58,17 @@ const seed = async()=> {
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
-    DROP TABLE IF EXISTS shipping;
     DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS shipping;
+    
+    CREATE TABLE shipping(
+      id UUID PRIMARY KEY,
+      customer_name VARCHAR(100),
+      street VARCHAR(200),
+      city VARCHAR(20),
+      state VARCHAR(200),
+      zip INTEGER
+    );
 
     CREATE TABLE users(
       id UUID PRIMARY KEY,
@@ -64,9 +76,10 @@ const seed = async()=> {
       username VARCHAR(100) UNIQUE NOT NULL,
       password VARCHAR(100) NOT NULL,
       is_admin BOOLEAN DEFAULT false NOT NULL,
+      shipping_id UUID REFERENCES shipping(id),
       image TEXT 
     );
-
+    
     CREATE TABLE products(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
@@ -77,12 +90,6 @@ const seed = async()=> {
       image TEXT
     );
 
-    CREATE TABLE shipping(
-      id UUID PRIMARY KEY,
-      customer_name VARCHAR(100),
-      address VARCHAR(200),
-      phone VARCHAR(10)
-    );
 
     CREATE TABLE orders(
       id UUID PRIMARY KEY,
@@ -115,11 +122,21 @@ const seed = async()=> {
       product_id UUID REFERENCES products(id),
       stars INT,
       body TEXT
-    );
-  `;
+      );
+      `;
+      
+      await client.query(SQL);
+      
+  const [addy] = await Promise.all([
+    createAddress({ 
+      customer_name: 'Ethyl', 
+      street:'1234 Ethylville Drive',
+      city: 'Paris',
+      state: 'TX',
+      zip: 76892
+      }),
+    ]);
 
-  await client.query(SQL);
-  
   const defaultUserImage = await loadImage('/images/avatar01.png')
   const [moe, lucy, ethyl] = await Promise.all([
     createUser({ username: 'moe', password: '1', is_admin: false, image: defaultUserImage}),
@@ -253,9 +270,7 @@ const seed = async()=> {
       amount: 'Single'
     })
   ]);
-  const [addy] = await Promise.all([
-    createAddress({ customer_name: 'Ethyl', address:'1234 Ethylville Drive', phone:'1234567890'})
-  ])
+
 
   await Promise.all([
     createWishList({
@@ -283,6 +298,7 @@ const seed = async()=> {
   // await updateOrder(cart);
 };
 
+
 module.exports = {
   fetchProducts,
   fetchOrders,
@@ -296,6 +312,8 @@ module.exports = {
   updateOrder,
   authenticate,
   findUserByToken,
+  createAddress,
+  fetchAddress,
   seed,
   client
 };
