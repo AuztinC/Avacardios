@@ -117,7 +117,7 @@ const App = ()=> {
   }
 
   return (<>
-    <Nav cartCount={ cartCount } login={ login } auth={ auth }/>
+    <Nav cartCount={ cartCount } login={ login } auth={ auth } logout={ logout }/>
     
     <Routes>
       <Route path='/' element={ <Home 
