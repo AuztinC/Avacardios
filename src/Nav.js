@@ -13,24 +13,12 @@ const Nav = ({ cartCount, auth, logout })=> {
     }
     return (
         <nav>
-            <Link to='/'>Home</Link>
-            <Link to='/products'>Products</Link>
-            <Link to='/cart'>Cart ({ cartCount })</Link>
-            <Link to='/shipping'>Shipping</Link>
-            <Link to='/reviews'>Reviews</Link>
-            { auth.id ? (<>
-                <span>Welcome back, { upperCaseName }!</span>
-                <Dropdown />
-                <button onClick={ logout }>logout</button>
-            </>) : (<>
-                <Link to={'/login'}>Login</Link>
-                <Link to={'/signup'}>Sign Up</Link>
-            </>) }
             <div className="nav-inner">
                 
                 <Link to='/'>Home</Link>
                 <Link to='/products'>Products</Link>
                 <Link to='/cart'>Cart ({ cartCount })</Link>
+                <Link to='/shipping'>Shipping</Link>
                 <Link to='/reviews'>Reviews</Link>
                 { auth.id ? (<>
                     <span ref={welcome}>Welcome back, { upperCaseName }!</span>

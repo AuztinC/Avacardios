@@ -25,7 +25,7 @@ function shippingForm({createAddress}) {
   };
 
   return (
-    <div>
+    <div className='address'>
       <h1>Create Address</h1>
       <div>
         <label>Full Name:</label>
