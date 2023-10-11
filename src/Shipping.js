@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+
 
 function shippingForm({createAddress}) {
   const [customer, setCustomer] = useState('');
@@ -7,24 +7,18 @@ function shippingForm({createAddress}) {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [postalCode, setPostalCode] = useState('');
-
+  
   const handleCreateAddress = async (ev) => {
+    try{
     ev.preventDefault();
+    setCustomer('');
     setStreet('');
     setCity('');
     setState('');
     setPostalCode('');
+    createAddress({ customer_name: customer, street: street, city: city, state: state, zip: postalCode });
 
-    try {
-      const addressResponse = await axios.post('http://localhost:3000/api/shipping', {
-        customer_name,
-        street,
-        city,
-        state,
-        zip: postalCode
-      });
-
-      alert('Address created successfully!');
+    alert('Address created successfully!');
     } catch (error) {
       console.error('Error creating Address:', error);
     }
@@ -53,7 +47,7 @@ function shippingForm({createAddress}) {
         <label>Postal Code:</label>
         <input type="text" value={postalCode} onChange={(ev) => setPostalCode(ev.target.value)} />
       </div>
-      <button onClick={handleCreateAddress}>Create Address</button>
+      <button onClick={handleCreateAddress} disabled={ !customer || !street || !city || !state || !postalCode }>Create Address</button>
     </div>
   );
 }

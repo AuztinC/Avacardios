@@ -13,6 +13,7 @@ const Nav = ({ cartCount, auth, logout })=> {
             <Link to='/'>Home</Link>
             <Link to='/products'>Products</Link>
             <Link to='/cart'>Cart ({ cartCount })</Link>
+            <Link to='/shipping'>Shipping</Link>
             <Link to='/reviews'>Reviews</Link>
             { auth.id ? (<>
                 <span>Welcome back, { upperCaseName }!</span>

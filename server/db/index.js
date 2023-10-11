@@ -41,6 +41,7 @@ const {
 fetchAddress,
 createAddress
 } = require('./shipping');
+
 const { flushSync } = require('react-dom');
 
 const {
@@ -205,6 +206,8 @@ module.exports = {
   updateOrder,
   authenticate,
   findUserByToken,
+  createAddress,
+  fetchAddress,
   seed,
   client
 };

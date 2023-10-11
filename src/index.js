@@ -21,6 +21,7 @@ const App = ()=> {
   const [address, setAddress] = useState([]);
   const navigate = useNavigate()
 
+
   const attemptLoginWithToken = async()=> {
     await api.attemptLoginWithToken(setAuth);
   }
@@ -33,6 +34,15 @@ const App = ()=> {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   if(auth.id){
+  //     const fetchData = async() => {
+  //       await api.fetchAddress(setAddress);
+  //     };
+  //     fetchData();
+  //   }
+  // })
+  
   useEffect(()=> {
     if(auth.id){
       const fetchData = async()=> {

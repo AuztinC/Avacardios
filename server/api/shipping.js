@@ -7,7 +7,7 @@ const {
   const app = express.Router();
   const { isLoggedIn, isAdmin } = require('./middleware');
 
-  app.get('/shipping',async(req,res,next)=>{
+  app.get('/',async(req,res,next)=>{
     try {
         res.send(await fetchAddress());
     } catch (error) {
