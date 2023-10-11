@@ -127,7 +127,7 @@ const seed = async()=> {
   ]);
   const [Avocado, Carrots, Tomato, Spinach, Blueberries, Asparagus, Pitaya, Cauliflower, Lemon, Bananas, Potatoes, Lettuce, Mushrooms, Raspberries, Peach, Watermelon, Grapes, Strawberries, Brocolli, Zucchini] = await Promise.all([
     createProduct({ 
-      name: 'Avocado', 
+      name: 'Avocados', 
       price: 5, 
       description: 'A bright green fruit with a buttery, creamy, and slightly nutty taste',
       amount: '4 count bag' 
