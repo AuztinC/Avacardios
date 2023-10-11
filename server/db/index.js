@@ -77,7 +77,7 @@ const seed = async()=> {
       password VARCHAR(100) NOT NULL,
       is_admin BOOLEAN DEFAULT false NOT NULL,
       shipping_id UUID REFERENCES shipping(id),
-      image TEXT
+      image TEXT 
     );
     
     CREATE TABLE products(
@@ -97,7 +97,7 @@ const seed = async()=> {
       user_name VARCHAR(20) NOT NULL,
       shipping_id UUID REFERENCES shipping(id)
     );
-
+    
     CREATE TABLE line_items(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
