@@ -8,6 +8,7 @@ import Reviews from './Reviews';
 import CreateUser from './CreateUser';
 import UserProfile from './UserProfile';
 import Nav from './Nav';
+import Products from './Products';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -138,6 +139,7 @@ const App = ()=> {
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />
+      <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
       <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList }/> } />
       <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
     </Routes>
