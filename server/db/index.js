@@ -46,7 +46,7 @@ const loadImage = (filePath)=> {
     })
   })
 }
-
+const defaultUserImage = loadImage('/images/avatar01.png')
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
@@ -117,7 +117,7 @@ const seed = async()=> {
 
   await client.query(SQL);
   
-  const defaultUserImage = await loadImage('/images/avatar01.png')
+  
   const [moe, lucy, ethyl] = await Promise.all([
     createUser({ username: 'moe', password: '1', is_admin: false}),
     createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
@@ -173,8 +173,8 @@ const seed = async()=> {
   // lineItem = await createLineItem({ order_id: cart.id, product_id: Tomato.id});
   // cart.is_cart = false;
   // await updateOrder(cart);
+  
 };
-
 module.exports = {
   fetchProducts,
   fetchOrders,
@@ -188,7 +188,7 @@ module.exports = {
   updateOrder,
   authenticate,
   findUserByToken,
-  loadImage,
+  defaultUserImage,
   seed,
   client
 };

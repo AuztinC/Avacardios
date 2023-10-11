@@ -4,6 +4,9 @@ const uuidv4 = v4;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { fetchOrders } = require('./cart');
+const { getDefaultUserImage } = require('./index')
+
+console.log(getDefaultUserImage)
 
 const findUserByToken = async(token) => {
   try {
