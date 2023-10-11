@@ -34,6 +34,11 @@ const fetchWishList = async(setWishLists)=> {
   setWishLists(response.data)
 }
 
+const fetchAddress = async(setAddress) => {
+  const response = await axios.get('/api/shipping');
+  setAddress(response.data)
+}
+
 const createLineItem = async({ product, cart, lineItems, setLineItems })=> {
   const response = await axios.post('/api/lineItems', {
     order_id: cart.id,
@@ -148,6 +153,11 @@ const createReviews=async({review, reviews, setReviews})=>{
   setReviews([...reviews,response.data]);
 }
 
+const createAddress = async({addy, address, setAddress}) => {
+  const response = await axios.post('/api/shipping', addy, getHeaders())
+  setAddress([...address,response.data]);
+}
+
 const api = {
   login,
   logout,
@@ -166,7 +176,9 @@ const api = {
   addWishList,
   removeWishList,
   createReviews,
-  fetchReviews
+  fetchReviews,
+  fetchAddress,
+  createAddress
 };
 
 export default api;
