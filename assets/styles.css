@@ -44,6 +44,7 @@ form > * {
 }
 
 nav{
+  
   width: 100%;
   color: white;
   background-color: #17594A;
@@ -51,12 +52,36 @@ nav{
   border: var(--borderSmall);
 }
 .nav-inner{
+  height: 100px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
   border: 1px solid black;
 }
 nav * {
   flex: 1;
+}
+
+@keyframes welcome-message {
+  0% { 
+    scale: 1;
+  }
+  25% { 
+    scale: 1.1;
+  }
+  75% { 
+    scale: 1;
+  }
+  100% { 
+    scale: 1.1;
+  }
+}
+.welcome-message{
+  top: 75px;
+  left: 50%;
+  position: absolute;
+  animation: welcome-message 5.1s linear;
 }
 
 a{
@@ -87,10 +112,11 @@ button:hover {
 }
  /* CREATE USER PAGE  */
 .signup{
-  background-color: var(--backgroundAccent);
+  background-color: white;
   box-shadow: 5px 5px 10px black;
   position: absolute;
-  border: var(--borderLarge);
+  border: 5px solid var(--backgroundColor);
+  border-radius: .75em;
   width: 60%;
   height: 80%;
   top: 0;

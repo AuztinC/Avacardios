@@ -1,8 +1,6 @@
 const client = require('./client');
 const { v4 } = require('uuid');
 const uuidv4 = v4;
-const { v4 } = require('uuid');
-const uuidv4 = v4;
 const path = require('path')
 const fs = require('fs')
 
@@ -50,22 +48,8 @@ const loadImage = (filePath)=> {
     })
   })
 }
-
-const {
-fetchAddress,
-createAddress
-} = require('./shipping');
-
-const { flushSync } = require('react-dom');
-
-const {
-  createWishList,
-  fetchWishList,
-  deleteWishList
-} = require('./wishList')
-
-
 const seed = async()=> {
+  const defaultImage = await loadImage('/images/avatar01.png')
   const SQL = `
     DROP TABLE IF EXISTS line_items;
     DROP TABLE IF EXISTS wishlist;
@@ -91,7 +75,7 @@ const seed = async()=> {
       password VARCHAR(100) NOT NULL,
       is_admin BOOLEAN DEFAULT false NOT NULL,
       shipping_id UUID REFERENCES shipping(id),
-      image TEXT 
+      image TEXT DEFAULT '${defaultImage}'
     );
     
     CREATE TABLE products(
@@ -100,13 +84,6 @@ const seed = async()=> {
       name VARCHAR(100) UNIQUE NOT NULL,
       price INT,
       description TEXT
-    );
-
-    CREATE TABLE shipping(
-      id UUID PRIMARY KEY,
-      customer_name VARCHAR(100),
-      address VARCHAR(200),
-      phone VARCHAR(10)
     );
 
     CREATE TABLE orders(
@@ -144,17 +121,8 @@ const seed = async()=> {
           `;
             
           await client.query(SQL);
-      
-  const [addy] = await Promise.all([
-    createAddress({ 
-      customer_name: 'Ethyl', 
-      street:'1234 Ethylville Drive',
-      city: 'Paris',
-      state: 'TX',
-      zip: 76892
-      }),
-    ]);
-    
+          console.log(SQL)
+          
   const [addy] = await Promise.all([
     createAddress({ 
       customer_name: 'Ethyl', 
@@ -167,12 +135,12 @@ const seed = async()=> {
 
   await client.query(SQL);
   
-  
   const [moe, lucy, ethyl] = await Promise.all([
     createUser({ username: 'moe', password: '1', is_admin: false}),
     createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
+  console.log(moe)
 
   const [Avocado, Carrots, Tomato, Spinach] = await Promise.all([
     createProduct({
