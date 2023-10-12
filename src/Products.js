@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate,useParams } from 'react-router-dom';
 
 const WishList = ({product, wishList, addWishList}) => {
   return (
@@ -13,6 +13,9 @@ const WishList = ({product, wishList, addWishList}) => {
 
 const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList})=> {
 
+  const navigate=useNavigate();
+  const {term}=useParams();
+
   if(!products){
     return null
   }
@@ -20,8 +23,10 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
     <div>
       <h2>Products</h2>
       <ul id='productlist'>
+      <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
+      <ul>
         {
-          products.map( product => {
+          products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <li key={ product.id }>
