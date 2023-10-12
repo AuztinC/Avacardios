@@ -13,9 +13,9 @@ const fetchAddress = async()=> {
 
   const createAddress = async(addy)=> {
     const SQL = `
-      INSERT INTO shipping (id, customer_name, street, city, state, zip) VALUES($1, $2, $3, $4, $5, $6) RETURNING *
+      INSERT INTO shipping (id, customer_name, street, city, state, zip, user_id) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *
     `;
-    const response = await client.query(SQL, [ uuidv4(), addy.customer_name, addy.street, addy.city, addy.state, addy.zip]);
+    const response = await client.query(SQL, [ uuidv4(), addy.customer_name, addy.street, addy.city, addy.state, addy.zip, addy.user_id]);
     return response.rows[0];
   };
   
