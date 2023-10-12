@@ -1,5 +1,4 @@
 import axios from 'axios';
-import WishLists from '../WishLists';
 
 const getHeaders = ()=> {
   return {
@@ -8,6 +7,11 @@ const getHeaders = ()=> {
     }
   };
 };
+
+const fetchUsers = async(setUsers)=>{
+  const response = await axios.get('/api/users');
+  setUsers(response.data)
+}
 
 const fetchProducts = async(setProducts)=> {
   const response = await axios.get('/api/products');
@@ -165,6 +169,7 @@ const api = {
   fetchOrders,
   fetchLineItems,
   fetchWishList,
+  fetchUsers,
   createLineItem,
   updateLineItem,
   updateOrder,

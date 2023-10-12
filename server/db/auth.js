@@ -71,26 +71,29 @@ const createUser = async(user)=> {
   const response = await client.query(SQL, [ uuidv4(), user.username, user.password, user.is_admin ]);
   return response.rows[0];
 };
-// const createUser = async(user)=> {
-//   if(!user.username.trim() || !user.password.trim()){
-//     throw Error('must have username and password');
-//   }
-//   const users = await client.query(`SELECT * FROM users`)
-//   if(users.rows.find(_user=>_user.username === user.username)){
-//     const error = Error('Username Already Exists');
-//     error.status = 401;
-//     throw error;
-//   }
-//   user.password = await bcrypt.hash(user.password, 5);
-//   const SQL = `
-//     INSERT INTO users (id, username, password, is_admin, image) VALUES($1, $2, $3, $4, $5) RETURNING *
-//   `;
-//   const response = await client.query(SQL, [ uuidv4(), user.username, user.password, user.is_admin, user.image ]);
-//   return response.rows[0];
-// };
+
+const fetchUsers = async()=>{
+  const SQL = `SELECT * from users`
+  const response = await client.query(SQL)
+  return response.rows
+}
+
+const updateUser = async(user)=>{
+  const SQL = `
+  UPDATE users
+  SET name = $1,
+  password = $2,
+  image = $3
+  where id = $4
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [ user.username, user.password, user.image, user.id ])
+}
 
 module.exports = {
   createUser,
   authenticate,
-  findUserByToken
+  findUserByToken,
+  fetchUsers,
+  updateUser
 };

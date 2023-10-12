@@ -121,7 +121,6 @@ const seed = async()=> {
           `;
             
           await client.query(SQL);
-          console.log(SQL)
           
   const [addy] = await Promise.all([
     createAddress({ 
@@ -140,7 +139,6 @@ const seed = async()=> {
     createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
-  console.log(moe)
 
   const [Avocado, Carrots, Tomato, Spinach] = await Promise.all([
     createProduct({

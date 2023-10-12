@@ -67,21 +67,18 @@ nav * {
   0% { 
     scale: 1;
   }
-  25% { 
+  50% {
     scale: 1.1;
-  }
-  75% { 
-    scale: 1;
   }
   100% { 
-    scale: 1.1;
+    scale: 1;
   }
 }
 .welcome-message{
   top: 75px;
   left: 50%;
   position: absolute;
-  animation: welcome-message 5.1s linear;
+  animation: welcome-message 2s infinite;
 }
 
 a{
@@ -182,7 +179,7 @@ button:hover {
 /* ---- END Dropdown menu ---- */
 
 /* ---- USER PROFILE ---- */
-.avatar-full {
+.user-image {
   max-height: var(--avatarFull);
   border: var(--borderSmall);
   border-radius: 50%;

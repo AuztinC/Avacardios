@@ -12,11 +12,13 @@ import Shipping from './Shipping';
 import Nav from './Nav';
 import Products from './Products';
 import Cart from './Cart';
+import User from './User';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
+  const [users, setUsers] = useState([])
   const [auth, setAuth] = useState({});
   const [wishLists, setWishLists] = useState([]);
   const [reviews,setReviews]=useState([]);
@@ -33,7 +35,11 @@ const App = ()=> {
     const fetchData = async()=> {
       await api.fetchProducts(setProducts);
     };
+    const fetchUsers = async()=>{
+      await api.fetchUsers(setUsers)
+    }
     fetchData();
+    fetchUsers()
   }, []);
 
   // useEffect(() => {
@@ -157,12 +163,20 @@ const App = ()=> {
         createAddress = { createAddress }
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
+      
       <Route path='login' element={ <Login login={ login }/> } />
+      
       <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
+      
       <Route path='/cart' element={<Cart updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity}/>}/>
-      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList }/> } />
+      
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }/> } />
+      
       <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
+      
       <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress}/>}/>
+      
+      <Route path='/acount/users/:id' element={ <User />}/>
     </Routes>
   </>);
 };

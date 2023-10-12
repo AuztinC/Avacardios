@@ -1,10 +1,12 @@
 import React from "react";
 import Orders from "./Orders";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Route, Routes } from "react-router-dom";
 import Settings from "./Settings";
 import WishLists from "./WishLists";
+import Users from "./Users";
 
-const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList })=>{
+
+const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users })=>{
     // ---- Using Params to display each
     // ---- section of users "account"
     const { id } = useParams() 
@@ -13,7 +15,7 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
     (<div className="user-profile">
         <h1>{ id }</h1>
         <div className="user-section">
-        { auth.is_admin ? "*Admin user" : null}
+            { auth.is_admin ? "*Admin user" : null}
             { id === "orders" ? <Orders
                     auth={ auth }
                     orders = { orders }
@@ -26,12 +28,17 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
                 wishLists = { wishLists }
                 removeWishList = { removeWishList }
             /> : null}
+            { id === 'users' ? <Users users={ users } orders={ orders } /> : null}
         </div>
         <div className="user-links">
             <Link to={'/account/wishlist'}>WishList</Link>
             <Link to={'/account/orders'}>Orders</Link>
             <Link to={'/account/settings'}>Settings</Link>
+            { auth.is_admin ? <Link to={'/account/users'}>All Users</Link> : null }
         </div>
+        <Routes>
+            
+        </Routes>
     </div>) 
     )
 }
