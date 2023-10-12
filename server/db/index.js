@@ -160,7 +160,7 @@ const seed = async()=> {
   const raspberriesImage = await loadImage('/images/raspberries.png');
   const peachImage = await loadImage('/images/peach.png');
   const watermelonImage = await loadImage('/images/watermelon.png');
-  const grapesImage = await loadImage('/images/grapes.png');
+  const grapesImage = await loadImage('/images/greengrapes.png');
   const strawberriesImage = await loadImage('/images/strawberries.png');
   const broccoliImage = await loadImage('/images/broccoli.png');
   const zucchiniImage = await loadImage('/images/zucchini.png');
@@ -281,7 +281,7 @@ const seed = async()=> {
     createProduct({
       name: 'Grapes',
       price: 4,
-      description: 'Green or Red. Red grapes are typically sweeter in taste, while green grapes are more sour and citrusy',
+      description: 'Green grapes are known for being sour and citrusy',
       amount: '2.25 lb bag',
       image: grapesImage
     }),
@@ -305,6 +305,66 @@ const seed = async()=> {
       description: 'Long green vegetable that is slightly sweet and slightly bitter',
       amount: 'Single',
       image: zucchiniImage
+    }),
+    createProduct({
+      name: 'Oats',
+      price: 7,
+      description: 'Old fashioned whole grain rolled oats',
+      amount: '32 oz bag'
+    }),
+    createProduct({
+      name: 'Almonds',
+      price: 9,
+      description: 'Whole raw, natural almonds',
+      amount: '25 oz bag'
+    }),
+    createProduct({
+      name: 'Chia Seeds',
+      price: 8,
+      description: 'seeds with a mild nutty flavor that complement both savory and sweet dishes',
+      amount: '20 oz bag'
+    }),
+    createProduct({
+      name: 'Eggs',
+      price: 5,
+      description: 'organic free range large brown eggs',
+      amount: '12 count'
+    }),
+    createProduct({
+      name: 'Walnuts',
+      price: 13,
+      description: 'unsalted raw walnut halves and pieces',
+      amount: '16 oz bag'
+    }),
+    createProduct({
+      name: 'Salmon',
+      price: 11,
+      description: 'Fresh skinless Atlantic salmon fillets',
+      amount: '0.95 lb to 1 lb'
+    }),
+    createProduct({
+      name: 'Chicken',
+      price: 15,
+      description: 'Boneless, skinless, and fresh chicken breasts',
+      amount: '4 lb'
+    }),
+    createProduct({
+      name: 'Quinoa',
+      price: 9,
+      description: 'Organic gluten free grain that has a nutty undertone',
+      amount: '24 oz container'
+    }),
+    createProduct({
+      name: 'Pistachios',
+      price: 7,
+      description: 'Unsalted raw shelled pistachios',
+      amount: '16 oz bag'
+    }),
+    createProduct({
+      name: 'Black Beans',
+      price: 3,
+      description: '',
+      amount: '16 oz bag'
     })
   ]);
 

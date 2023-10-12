@@ -22,7 +22,6 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
   return (
     <div>
       <h2>Products</h2>
-      <ul id='productlist'>
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
       <ul>
         {
@@ -30,7 +29,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <li key={ product.id }>
-                <div className='productimg'>
+                <div>
                   {
                     product.image ? <img src={product.image}/> : null
                   }
