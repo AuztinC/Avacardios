@@ -145,10 +145,27 @@ const seed = async()=> {
   ]);
 
   const avocadoImage = await loadImage('/images/avocadoprod.png');
-  const carrotImage = await loadImage('/images/carrot.png');
+  const carrotImage = await loadImage('/images/carrotsnew.png');
   const tomatoImage = await loadImage('/images/tomato.png');
-  const spinachImage = await loadImage('/images/spinach.jpg')
-  const [Avocado, Carrots, Tomato, Spinach, Blueberries, Asparagus, Pitaya, Cauliflower, Lemon, Bananas, Potatoes, Lettuce, Mushrooms, Raspberries, Peach, Watermelon, Grapes, Strawberries, Brocolli, Zucchini] = await Promise.all([
+  const spinachImage = await loadImage('/images/spinachleaf.png');
+  const blueberriesImage = await loadImage('/images/blueberries.png');
+  const asparagusImage = await loadImage('/images/asparagus.png');
+  const pitayaImage = await loadImage('/images/pitaya.png');
+  const cauliflowerImage = await loadImage('/images/cauliflower.png');
+  const lemonImage = await loadImage('/images/lemon.png');
+  const bananasImage = await loadImage('/images/bananas.png');
+  const potatoesImage = await loadImage('/images/potatoes.png');
+  const lettuceImage = await loadImage('/images/lettuce.png');
+  const mushroomsImage = await loadImage('/images/mushrooms.png');
+  const raspberriesImage = await loadImage('/images/raspberries.png');
+  const peachImage = await loadImage('/images/peach.png');
+  const watermelonImage = await loadImage('/images/watermelon.png');
+  const grapesImage = await loadImage('/images/grapes.png');
+  const strawberriesImage = await loadImage('/images/strawberries.png');
+  const broccoliImage = await loadImage('/images/broccoli.png');
+  const zucchiniImage = await loadImage('/images/zucchini.png');
+
+  const [Avocado, Carrots, Tomato, Spinach, Blueberries, Asparagus, Pitaya, Cauliflower, Lemon, Bananas, Potatoes, Lettuce, Mushrooms, Raspberries, Peach, Watermelon, Grapes, Strawberries, Broccoli, Zucchini] = await Promise.all([
     createProduct({ 
       name: 'Avocados', 
       price: 5, 
@@ -181,97 +198,113 @@ const seed = async()=> {
       name: 'Blueberries',
       price: 4,
       description: 'This small blue fruit has flavor described as sweet and slightly tart',
-      amount: '11 oz container'
+      amount: '11 oz container',
+      image: blueberriesImage
     }),
     createProduct({
       name: 'Asparagus',
       price: 5,
       description: 'A bright green vegetable that is tendery, buttery, and sweet with a hint of earthy bitterness when cooked',
-      amount: 'Pack of 12'
+      amount: 'Pack of 12',
+      image: asparagusImage
     }),
     createProduct({
       name: 'Pitaya',
       price: 7,
       description: 'Also known as dragon fruit. Has been characterized as a combination of pear and kiwi with a touch of citrus',
-      amount: 'Single'
+      amount: 'Single',
+      image: pitayaImage
     }),
     createProduct({
       name: 'Cauliflower',
       price: 3,
       description: 'A white vegetable that resembles broccoli and has a mild flavor with a slightly nutty and sweet taste',
-      amount: 'Single'
+      amount: 'Single',
+      image: cauliflowerImage
     }),
     createProduct({
       name: 'Lemon',
       price: 1,
       description: 'Yellow citrus fruit that is slightly acidic and sour',
-      amount: 'Single'
+      amount: 'Single',
+      image: lemonImage
     }),
     createProduct({
       name: 'Bananas',
       price: 2,
       description: 'Yellow curved fruit with a slightly creamy and custard-like flavor',
-      amount: 'Bunch'
+      amount: 'Bunch',
+      image: bananasImage
     }),
     createProduct({
       name: 'Potatoes',
       price: 3,
       description: 'Russets with a mild earthy flavor',
-      amount: '5 lb bag'
+      amount: '5 lb bag',
+      image: potatoesImage
     }),
     createProduct({
       name: 'Lettuce',
       price: 1,
-      description: 'Shredded and has a mild and refreshing taste',
-      amount: '8 oz bag'
+      description: 'Green veggie that has a mild and refreshing taste',
+      amount: 'Single',
+      image: lettuceImage
     }),
     createProduct({
       name: 'Mushrooms',
       price: 2,
       description: 'White buttons that feature a classic umami flavor',
-      amount: '8 oz pack'
+      amount: '8 oz pack',
+      image: mushroomsImage
     }),
     createProduct({
       name: 'Raspberries',
       price: 5,
       description: 'Vibrant red fruit that have a fresh sweet taste with undertones of tartness',
-      amount: '12 oz container'
+      amount: '12 oz container',
+      image: raspberriesImage
     }),
     createProduct({
       name: 'Peach',
       price: 1,
       description: 'Fruit with a a delicate, floral sweetness',
-      amount: 'Single'
+      amount: 'Single',
+      image: peachImage
     }),
     createProduct({
       name: 'Watermelon',
       price: 6,
       description: 'Green stripped fruit witha juicy, sweet, and red center',
-      amount: 'Single' 
+      amount: 'Single',
+      image: watermelonImage
     }),
     createProduct({
       name: 'Grapes',
       price: 4,
       description: 'Green or Red. Red grapes are typically sweeter in taste, while green grapes are more sour and citrusy',
-      amount: '2.25 lb bag'
+      amount: '2.25 lb bag',
+      image: grapesImage
     }),
     createProduct({
       name: 'Strawberries',
       price: 3,
       description: 'Bright red fruit that is juicy and sweet with a little bit of acidity',
-      amount: '1 lb package'
+      amount: '1 lb package',
+      image: strawberriesImage
     }),
     createProduct({
-      name: 'Brocolli',
+      name: 'Broccoli',
       price: 3,
       description: 'Green veggie with a grassy, earthy flavor with a mildy bitter undertone',
-      amount: 'Single'
+      amount: 'Single',
+      image: broccoliImage
     }),
     createProduct({
       name: 'Zucchini',
       price: 1,
       description: 'Long green vegetable that is slightly sweet and slightly bitter',
-      amount: 'Single'
+      amount: 'Single',
+      image: zucchiniImage
     })
   ]);
 
