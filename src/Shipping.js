@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-function shippingForm({createAddress}) {
+function shippingForm({createAddress, auth}) {
   const [customer, setCustomer] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
@@ -11,12 +11,12 @@ function shippingForm({createAddress}) {
   const handleCreateAddress = async (ev) => {
     try{
     ev.preventDefault();
+    createAddress({ customer_name: customer, street: street, city: city, state: state, zip: postalCode, user_id: auth.id});
     setCustomer('');
     setStreet('');
     setCity('');
     setState('');
     setPostalCode('');
-    createAddress({ customer_name: customer, street: street, city: city, state: state, zip: postalCode });
 
     alert('Address created successfully!');
     } catch (error) {
