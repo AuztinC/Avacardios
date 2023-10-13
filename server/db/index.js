@@ -57,6 +57,7 @@ const seed = async()=> {
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS shipping;
     DROP TABLE IF EXISTS users;
+   
     
     
 
@@ -412,7 +413,7 @@ const seed = async()=> {
     createProduct({
       name: 'Black Beans',
       price: 3,
-      description: '',
+      description: 'These beans have an earthy and nutty flavor with an undertone that is subtly sweet',
       amount: '16 oz bag',
       image: beansImage
     })
