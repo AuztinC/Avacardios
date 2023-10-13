@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -65,7 +66,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
           </select>
         </>
         ) : (
-          <p>No addresses available for delivery. Please add an address <a href='/shipping'>Here.</a></p>
+          <p>No addresses available for delivery. Please add an address <Link to='/shipping'>Here.</Link></p>
         )
       }
       
