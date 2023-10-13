@@ -18,7 +18,7 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             wishLists = { wishLists }
             addWishList = { addWishList }
         />
-        <Cart
+        {/* <Cart
             cart = { cart }
             lineItems = { lineItems }
             products = { products }
@@ -26,7 +26,12 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             removeFromCart = { removeFromCart }
             increaseQuantity = { increaseQuantity }
             decreaseQuantity = { decreaseQuantity }
-        />
+        /> */}
+        {/* <Orders
+            orders = { orders }
+            products = { products }
+            lineItems = { lineItems }
+        /> */}
         {auth.id || auth.is_admin ? <WishLists
         products = { products }
         wishLists = { wishLists }

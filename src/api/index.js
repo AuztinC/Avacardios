@@ -39,7 +39,7 @@ const fetchWishList = async(setWishLists)=> {
 }
 
 const fetchAddress = async(setAddress) => {
-  const response = await axios.get('/api/shipping');
+  const response = await axios.get('/api/shipping', getHeaders());
   setAddress(response.data)
 }
 
@@ -164,7 +164,7 @@ const createReviews=async({review, reviews, setReviews})=>{
 }
 
 const createAddress = async({addy, address, setAddress}) => {
-  const response = await axios.post('/api/shipping', addy, getHeaders())
+  const response = await axios.post('/api/shipping', addy)
   setAddress([...address,response.data]);
 }
 

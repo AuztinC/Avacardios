@@ -133,6 +133,12 @@ button:hover {
 }
  /*  END CREATE USER PAGE  */
  
+/* ---- Cart Section ---- */
+.cart > ul{
+  list-style-type: none;
+}
+/* ---- END Cart Section ---- */
+
 /* ---- Dropdown menu ---- */
 .dropdown-menu {
   width: 100px;

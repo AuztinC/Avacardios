@@ -1,6 +1,7 @@
 import React from 'react';
+import Cart from './Cart';
 
-const Orders = ({ orders, products, lineItems, auth })=> {
+const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAddressDetails })=> {
   
   const userOrders = orders.filter(order => !order.is_cart && order.user_name === auth.username)
 
@@ -28,6 +29,16 @@ const Orders = ({ orders, products, lineItems, auth })=> {
                         </li>
                       );
                     })
+                  }
+                  {
+                    <div>
+                    <h4>Delivering to:</h4>
+                    {selectedAddressDetails && (
+                      <div>
+                        {selectedAddress.customer_name} - {selectedAddressDetails.street}, {selectedAddressDetails.city}, {selectedAddressDetails.state}
+                      </div>
+                    )}
+                  </div>
                   }
                 </ul>
               </li>

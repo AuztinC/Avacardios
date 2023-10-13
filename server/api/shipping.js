@@ -7,9 +7,9 @@ const {
   const app = express.Router();
   const { isLoggedIn, isAdmin } = require('./middleware');
 
-  app.get('/',async(req,res,next)=>{
+  app.get('/', isLoggedIn, async(req,res,next)=>{
     try {
-        res.send(await fetchAddress());
+        res.send(await fetchAddress(req.user.id));
     } catch (error) {
         next(error);
     }
@@ -17,7 +17,7 @@ const {
 
 app.post('/', isLoggedIn, async(req,res,next)=>{
     try {
-        res.send(await createAddress(req.body))
+        res.send(await createAddress({user_id: req.user.id}))
     } catch (error) {
         next(error);
     }
