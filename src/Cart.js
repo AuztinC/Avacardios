@@ -75,6 +75,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
           updateOrder({...cart, is_cart: false });
         }}>Create Order</button>: null
       }
+      <hr/>
     </div>
      
     </>
