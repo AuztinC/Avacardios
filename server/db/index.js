@@ -164,8 +164,50 @@ const seed = async()=> {
   const strawberriesImage = await loadImage('/images/strawberries.png');
   const broccoliImage = await loadImage('/images/broccoli.png');
   const zucchiniImage = await loadImage('/images/zucchini.png');
+  const oatsImage = await loadImage('/images/oats.png');
+  const almondsImage = await loadImage('/images/almonds.png');
+  const chiaseedsImage = await loadImage('/images/chiaseeds.png');
+  const eggsImage = await loadImage('/images/eggs.png');
+  const walnutsImage = await loadImage('/images/walnuts.png');
+  const salmonImage = await loadImage('/images/salmon.png');
+  const chickenImage = await loadImage('/images/chicken.png');
+  const quinoaImage = await loadImage('/images/quinoa.png');
+  const pistachioImage = await loadImage('/images/pistachio.png')
+  const beansImage = await loadImage('/images/blackbeans.png')
 
-  const [Avocado, Carrots, Tomato, Spinach, Blueberries, Asparagus, Pitaya, Cauliflower, Lemon, Bananas, Potatoes, Lettuce, Mushrooms, Raspberries, Peach, Watermelon, Grapes, Strawberries, Broccoli, Zucchini] = await Promise.all([
+
+  const [
+    Avocado, 
+    Carrots, 
+    Tomato, 
+    Spinach, 
+    Blueberries, 
+    Asparagus, 
+    Pitaya, 
+    Cauliflower, 
+    Lemon, 
+    Bananas, 
+    Potatoes, 
+    Lettuce, 
+    Mushrooms, 
+    Raspberries, 
+    Peach, 
+    Watermelon, 
+    Grapes, 
+    Strawberries, 
+    Broccoli, 
+    Zucchini,
+    Oats,
+    Almonds,
+    Chia,
+    Eggs,
+    Walnuts,
+    Salmon,
+    Chicken,
+    Quinoa,
+    Pistachios,
+    Beans
+  ] = await Promise.all([
     createProduct({ 
       name: 'Avocados', 
       price: 5, 
@@ -310,61 +352,71 @@ const seed = async()=> {
       name: 'Oats',
       price: 7,
       description: 'Old fashioned whole grain rolled oats',
-      amount: '32 oz bag'
+      amount: '32 oz bag',
+      image: oatsImage
     }),
     createProduct({
       name: 'Almonds',
       price: 9,
       description: 'Whole raw, natural almonds',
-      amount: '25 oz bag'
+      amount: '25 oz bag',
+      image: almondsImage
     }),
     createProduct({
       name: 'Chia Seeds',
       price: 8,
       description: 'seeds with a mild nutty flavor that complement both savory and sweet dishes',
-      amount: '20 oz bag'
+      amount: '20 oz bag',
+      image: chiaseedsImage
     }),
     createProduct({
       name: 'Eggs',
       price: 5,
       description: 'organic free range large brown eggs',
-      amount: '12 count'
+      amount: '12 count',
+      image: eggsImage
     }),
     createProduct({
       name: 'Walnuts',
       price: 13,
       description: 'unsalted raw walnut halves and pieces',
-      amount: '16 oz bag'
+      amount: '16 oz bag',
+      image: walnutsImage
     }),
     createProduct({
       name: 'Salmon',
       price: 11,
       description: 'Fresh skinless Atlantic salmon fillets',
-      amount: '0.95 lb to 1 lb'
+      amount: '0.95 lb to 1 lb',
+      image: salmonImage
     }),
     createProduct({
       name: 'Chicken',
       price: 15,
       description: 'Boneless, skinless, and fresh chicken breasts',
-      amount: '4 lb'
+      amount: '4 lb',
+      image: chickenImage
     }),
     createProduct({
       name: 'Quinoa',
       price: 9,
       description: 'Organic gluten free grain that has a nutty undertone',
-      amount: '24 oz container'
+      amount: '24 oz container',
+      image: quinoaImage
     }),
     createProduct({
       name: 'Pistachios',
       price: 7,
       description: 'Unsalted raw shelled pistachios',
-      amount: '16 oz bag'
+      amount: '16 oz bag',
+      image: pistachioImage
     }),
     createProduct({
       name: 'Black Beans',
       price: 3,
       description: '',
-      amount: '16 oz bag'
+      amount: '16 oz bag',
+      image: beansImage
     })
   ]);
 
