@@ -2,12 +2,12 @@ const client = require('./client');
 const { v4 } = require('uuid');
 const uuidv4 = v4;
 
-const fetchAddress = async()=> {
+const fetchAddress = async(userId)=> {
     const SQL = `
-      SELECT *
-      FROM shipping
+      SELECT * FROM shipping
+      WHERE user_id = $1
     `;
-    const response = await client.query(SQL);
+    const response = await client.query(SQL, [ userId ]);
     return response.rows;
   };
 

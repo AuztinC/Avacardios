@@ -77,7 +77,8 @@ const seed = async()=> {
       city VARCHAR(20),
       state VARCHAR(200),
       zip INTEGER,
-      user_id UUID REFERENCES users(id)
+      user_id UUID REFERENCES users(id) NOT NULL,
+      CONSTRAINT user_key UNIQUE (user_id)
     );
 
     CREATE TABLE products(

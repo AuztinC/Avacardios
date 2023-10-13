@@ -21,6 +21,7 @@ const App = ()=> {
   const [wishLists, setWishLists] = useState([]);
   const [reviews,setReviews]=useState([]);
   const [address, setAddress] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState('')
   const navigate = useNavigate()
 
 
@@ -36,14 +37,14 @@ const App = ()=> {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   if(auth.id){
-  //     const fetchData = async() => {
-  //       await api.fetchAddress(setAddress);
-  //     };
-  //     fetchData();
-  //   }
-  // })
+  useEffect(() => {
+    if(auth.id){
+      const fetchData = async() => {
+        await api.fetchAddress(setAddress);
+      };
+      fetchData();
+    };
+  }, [auth]);
   
   useEffect(()=> {
     if(auth.id){
@@ -155,15 +156,17 @@ const App = ()=> {
         addWishList = { addWishList }
         removeWishList  = { removeWishList }
         createAddress = { createAddress }
+        address = { address }
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       <Route path='login' element={ <Login login={ login }/> } />
       <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
       <Route path='/products/search/:term' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
-      <Route path='/cart' element={<Cart updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity}/>}/>
-      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList }/> } />
+      <Route path='/cart' element={<Cart auth = {auth} updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} 
+                                        increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} address = {address} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/>}/>
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } selectedAddress={selectedAddress}/> } />
       <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
-      <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress}/>}/>
+      <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/>}/>
     </Routes>
   </>);
 };
