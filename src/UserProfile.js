@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Settings from "./Settings";
 import WishLists from "./WishLists";
 
-const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList })=>{
+const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList})=>{
     // ---- Using Params to display each
     // ---- section of users "account"
     const { id } = useParams() 
