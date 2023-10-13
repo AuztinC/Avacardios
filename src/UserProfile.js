@@ -4,13 +4,11 @@ import { Link, useParams, Route, Routes } from "react-router-dom";
 import Settings from "./Settings";
 import WishLists from "./WishLists";
 import Users from "./Users";
+import User from "./User";
 
 
-const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users })=>{
-    // ---- Using Params to display each
-    // ---- section of users "account"
+const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser })=>{
     const { id } = useParams() 
-    // All users can change their avatar 
     return (
     (<div className="user-profile">
         <h1>{ id }</h1>
@@ -22,13 +20,14 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
                     products = { products }
                     lineItems = { lineItems }
             /> : null }
-            { id === 'settings' ? <Settings auth={ auth }/> : null}
+            { id === 'settings' ? <Settings auth={ auth } updateUser={ updateUser }/> : null}
             { id === 'wishlist' ? <WishLists
                 products = { products }
                 wishLists = { wishLists }
                 removeWishList = { removeWishList }
             /> : null}
             { id === 'users' ? <Users users={ users } orders={ orders } /> : null}
+            <User users={ users } lineItems={ lineItems } wishLists={ wishLists } orders={ orders } products={ products }/>
         </div>
         <div className="user-links">
             <Link to={'/account/wishlist'}>WishList</Link>
@@ -36,9 +35,6 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
             <Link to={'/account/settings'}>Settings</Link>
             { auth.is_admin ? <Link to={'/account/users'}>All Users</Link> : null }
         </div>
-        <Routes>
-            
-        </Routes>
     </div>) 
     )
 }

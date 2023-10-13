@@ -49,7 +49,7 @@ const loadImage = (filePath)=> {
   })
 }
 const seed = async()=> {
-  const defaultImage = await loadImage('/images/avatar01.png')
+  // const defaultImage = await loadImage('/images/avatar01.png')
   const SQL = `
     DROP TABLE IF EXISTS line_items;
     DROP TABLE IF EXISTS wishlist;
@@ -75,7 +75,7 @@ const seed = async()=> {
       password VARCHAR(100) NOT NULL,
       is_admin BOOLEAN DEFAULT false NOT NULL,
       shipping_id UUID REFERENCES shipping(id),
-      image TEXT DEFAULT '${defaultImage}'
+      image TEXT 
     );
     
     CREATE TABLE products(

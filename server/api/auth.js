@@ -49,10 +49,10 @@ app.get('/me', isLoggedIn, (req, res, next)=> {
   }
 });
 
-app.put('/me', isLoggedIn, async(req, res, next)=> {
+app.put('/me/:id', async(req, res, next)=> {
   try {
-    const response = await updateUser(user)
-    res.send(response.rows[0])
+    const response = await updateUser(req.body)
+    res.send(response)
   } 
   catch(ex){
     next(ex);

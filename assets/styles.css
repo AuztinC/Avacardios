@@ -5,8 +5,8 @@
   --backgroundColor: #8EAC50;
   --backgroundAccent: #17594A;
   --highlightColor: #D3D04F;
-  --borderSmall: 2px solid #D3D04F;
-  --borderRadius: 5px;
+  --borderSmall: 2px solid #8EAC50;
+  --borderRadius: .75em;
   --avatarIcon: 45px;
   --avatarFull: 90px;
   --hoverTransition: 0.3s;
@@ -217,15 +217,60 @@ button:hover {
   margin: 15px;
   min-height: 175px;
   flex: 3;
+  margin-bottom: 20px;
+}
+.settings {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  /* flex: 3; */
+}
+.settings *{
+  flex: 1;
+}
+
+.settings-section{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+}
+
+.admin-users{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admin-users * {
+  flex: 1;
+  text-transform: capitalize;
+}
+.admin-user-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.admin-user-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-transform: capitalize;
 }
 
 .user-links {
+  padding-top: 45px;
   flex: 1;
   border-left: 1px solid black;
   min-height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
 }
 

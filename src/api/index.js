@@ -65,6 +65,12 @@ const updateOrder = async({ order, setOrders })=> {
   setOrders(response.data);
 };
 
+const updateUser = async({ user, setUsers, users, setAuth })=> {
+  const response = await axios.put(`/api/me/${user.id}`, user);
+  setUsers(users.map(_user=>_user.id === response.data.id ? response.data : _user));
+  setAuth(response.data)
+};
+
 const addWishList = async({ wishList, setWishLists, wishLists })=> {
   const response = await axios.post('/api/wishList', wishList, getHeaders());
   setWishLists([...wishLists, response.data]);
@@ -170,6 +176,7 @@ const api = {
   fetchLineItems,
   fetchWishList,
   fetchUsers,
+  updateUser,
   createLineItem,
   updateLineItem,
   updateOrder,

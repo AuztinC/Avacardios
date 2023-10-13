@@ -17,7 +17,7 @@ const Orders = ({ orders, products, lineItems, auth })=> {
             // console.log(lineItems)
             return (
               <li key={ order.id }>
-                ({ new Date(order.created_at).toLocaleString() }) ({ order.user_name })
+                ({ new Date(order.created_at).toLocaleString() }) User - ({ order.user_name })
                 <ul>
                   {
                     orderLineItems.map( lineItem => {

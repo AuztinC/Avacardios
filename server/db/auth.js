@@ -81,13 +81,12 @@ const fetchUsers = async()=>{
 const updateUser = async(user)=>{
   const SQL = `
   UPDATE users
-  SET name = $1,
-  password = $2,
-  image = $3
-  where id = $4
+  SET username = $1, image = $2
+  where id = $3
   RETURNING *
   `;
-  const response = await client.query(SQL, [ user.username, user.password, user.image, user.id ])
+  const response = await client.query(SQL, [ user.username, user.image, user.id ])
+  return response.rows[0]
 }
 
 module.exports = {
