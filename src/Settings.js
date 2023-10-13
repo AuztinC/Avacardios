@@ -62,7 +62,7 @@ const Settings = ({ auth, updateUser })=>{
                 <button ref={updateButton} onClick={ flipForm }>Edit Username</button>
                 <form style={{visibility: 'hidden'}} ref={usernameForm} onSubmit={ submit }>
                     <input type="text" value={ newUsername } onChange={(ev)=>setNewUsername(ev.target.value)}/>
-                    <button>Submit</button>
+                    <button style={{transitionProperty: "none"}}>Submit</button>
                 </form> 
             </div>
             

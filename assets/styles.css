@@ -162,7 +162,7 @@ button:hover {
 }
 .menu-open{
   opacity: 1;
-  height: fit-content;
+  height: auto;
 }
 
 .menu-item {
