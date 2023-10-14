@@ -1,5 +1,4 @@
 import axios from 'axios';
-import WishLists from '../WishLists';
 
 const getHeaders = ()=> {
   return {
@@ -8,6 +7,11 @@ const getHeaders = ()=> {
     }
   };
 };
+
+const fetchUsers = async(setUsers)=>{
+  const response = await axios.get('/api/users');
+  setUsers(response.data)
+}
 
 const fetchProducts = async(setProducts)=> {
   const response = await axios.get('/api/products');
@@ -47,6 +51,10 @@ const createLineItem = async({ product, cart, lineItems, setLineItems })=> {
   setLineItems([...lineItems, response.data]);
 };
 
+const createProduct = async({ product, setProducts})=>{
+  const response = await axios.post('/api/products')
+}
+
 const updateLineItem = async({ lineItem, cart, lineItems, setLineItems })=> {
   const response = await axios.put(`/api/lineItems/${lineItem.id}`, {
     quantity: lineItem.quantity + 1,
@@ -59,6 +67,12 @@ const updateOrder = async({ order, setOrders })=> {
   await axios.put(`/api/orders/${order.id}`, order, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
+};
+
+const updateUser = async({ user, setUsers, users, setAuth })=> {
+  const response = await axios.put(`/api/me/${user.id}`, user);
+  setUsers(users.map(_user=>_user.id === response.data.id ? response.data : _user));
+  setAuth(response.data)
 };
 
 const addWishList = async({ wishList, setWishLists, wishLists })=> {
@@ -165,6 +179,8 @@ const api = {
   fetchOrders,
   fetchLineItems,
   fetchWishList,
+  fetchUsers,
+  updateUser,
   createLineItem,
   updateLineItem,
   updateOrder,

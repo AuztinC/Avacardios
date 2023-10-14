@@ -66,14 +66,33 @@ const createUser = async(user)=> {
   }
   user.password = await bcrypt.hash(user.password, 5);
   const SQL = `
-    INSERT INTO users (id, username, password, is_admin, image) VALUES($1, $2, $3, $4, $5) RETURNING *
+    INSERT INTO users (id, username, password, is_admin) VALUES($1, $2, $3, $4) RETURNING *
   `;
-  const response = await client.query(SQL, [ uuidv4(), user.username, user.password, user.is_admin, user.image || null ]);
+  const response = await client.query(SQL, [ uuidv4(), user.username, user.password, user.is_admin ]);
   return response.rows[0];
 };
+
+const fetchUsers = async()=>{
+  const SQL = `SELECT * from users`
+  const response = await client.query(SQL)
+  return response.rows
+}
+
+const updateUser = async(user)=>{
+  const SQL = `
+  UPDATE users
+  SET username = $1, image = $2
+  where id = $3
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [ user.username, user.image, user.id ])
+  return response.rows[0]
+}
 
 module.exports = {
   createUser,
   authenticate,
-  findUserByToken
+  findUserByToken,
+  fetchUsers,
+  updateUser
 };

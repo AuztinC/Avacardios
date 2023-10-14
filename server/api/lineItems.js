@@ -31,7 +31,6 @@ app.post('/', isLoggedIn, async(req, res, next)=> {
 
 app.put('/:id', isLoggedIn, async(req, res, next)=> {
   try {
-    //TODO make sure the order's user_id is req.user.id 
     res.send(await updateLineItem({...req.body, id: req.params.id}));
   }
   catch(ex){
@@ -39,9 +38,8 @@ app.put('/:id', isLoggedIn, async(req, res, next)=> {
   }
 });
 
-app.delete('/:id', isLoggedIn, async(req, res, next)=> {
+app.delete('/:id', async(req, res, next)=> {
   try {
-    //TODO make sure the order's user_id is req.user.id 
     await deleteLineItem({ id: req.params.id });
     res.sendStatus(204);
   }

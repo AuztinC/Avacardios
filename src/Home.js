@@ -6,7 +6,6 @@ import WishLists from "./WishLists";
 
 
 const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart, lineItems, updateOrder, removeFromCart, increaseQuantity, decreaseQuantity, wishLists, addWishList, removeWishList})=>{
-    
     return(<>
     <main>
         <Products
@@ -32,11 +31,11 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             products = { products }
             lineItems = { lineItems }
         /> */}
-        {auth.id || auth.is_admin ? <WishLists
+        {/* {auth.id || auth.is_admin ? <WishLists
         products = { products }
         wishLists = { wishLists }
         removeWishList = { removeWishList }
-        /> : null} 
+        /> : null}  */}
     </main>
     </>)
 }
