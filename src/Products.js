@@ -53,7 +53,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 </div>
                 {
                   auth.id ? (
-                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add</button>
+                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add to Cart</button>
                   ): null 
                 }
                 {
