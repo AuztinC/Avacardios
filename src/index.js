@@ -22,7 +22,7 @@ const App = ()=> {
   const [wishLists, setWishLists] = useState([]);
   const [reviews,setReviews]=useState([]);
   const [address, setAddress] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState('')
+  const [selectedAddress, setSelectedAddress] = useState('');
   const navigate = useNavigate()
 
 
@@ -177,7 +177,7 @@ const App = ()=> {
       
       <Route path='login' element={ <Login login={ login }/> } />
       
-      <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
+      <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} setProducts={setProducts}/>}/>
       
       <Route path='/products/search/:term' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
       

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link,useNavigate,useParams } from 'react-router-dom';
+import Pagination from './Pagination';
 
 const WishList = ({product, wishList, addWishList}) => {
   return (
@@ -11,11 +12,20 @@ const WishList = ({product, wishList, addWishList}) => {
   )
 }
 
-const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList})=> {
+const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList, setProducts})=> {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProduct = products.slice(indexOfFirstProduct, indexOfLastProduct)
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   const navigate=useNavigate();
   const {term}=useParams();
 
+  
   if(!products){
     return null
   }
@@ -26,7 +36,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       <button><Link to={'/createProduct'}>Create New Product</Link></button>
       <ul>
         {
-          products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
+          currentProduct.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <li key={ product.id }>
@@ -60,6 +70,11 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           })
         }
       </ul>
+      <Pagination 
+      productsPerPage={productsPerPage} 
+      totalProducts={products.length} 
+      paginate={paginate}
+      />
     </div>
   );
 };
