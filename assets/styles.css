@@ -68,14 +68,43 @@ nav * {
   flex: 1;
   font-weight: 800;
   text-shadow: 0px 1px 2px black;
+  transition: var(--hoverTransition);
 }
 nav a {
-  color: white;
+  color: black;
   font-size: 1.5em;
 }
 nav *:hover {
   text-shadow: 0px 1px 2px var(--backgroundColor);
-  color: black;
+  color: rgb(8, 7, 7);
+  scale: 1.2;
+}
+
+.nav-user {
+  border: 1px solid black;
+  max-width: 125px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.nav-inner *{
+  position: relative;
+  width: 100%;
+  
+}
+
+.cart-icon {
+  position: relative;
+  height: 60px;
+  
+}
+
+.cart-count {
+  top: 0;
+  left: 0;
+  position: absolute;
 }
 
 @keyframes welcome-message {
@@ -90,9 +119,11 @@ nav *:hover {
   }
 }
 .welcome-message{
-  top: 75px;
-  left: 50%;
   position: absolute;
+  text-align: center;
+  width: 200px;
+  top: 65px;
+  right: 110%;
   animation: welcome-message 2s infinite;
 }
 
@@ -162,7 +193,8 @@ button:hover {
 
 /* ---- Dropdown menu ---- */
 .dropdown-menu {
-  width: 100px;
+  margin-bottom: 5px;
+  /* width: 100%; */
   position: relative;
 }
 .dropdown-menu button{
@@ -175,7 +207,7 @@ button:hover {
 }
 
 .menu {
-  
+  z-index: 5;
   font-size: .7rem;
   display: flex;
   flex-direction: column;
@@ -203,6 +235,7 @@ button:hover {
   transition: hover var(--hoverTransition);
 }
 .menu a {
+  color: black;
   text-shadow: none;
   font-weight: 200;
 }
@@ -334,3 +367,8 @@ button:hover {
 }
 /* ---- END USER PROFILE ---- */
 
+
+.create-product {
+  background-color: white;
+  border: 1px solid black;
+}

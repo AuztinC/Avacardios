@@ -8,10 +8,8 @@ import User from "./User";
 import Shipping from "./Shipping";
 
 
-const UserProfile = ({ orders, allOrders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress })=>{
+const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress })=>{
     const { id } = useParams() 
-    console.log('allorders',allOrders)
-    console.log('orders', orders)
     return (
     (<div className="user-profile">
         <h1>{ id }</h1>

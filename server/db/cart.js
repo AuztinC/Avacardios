@@ -113,11 +113,6 @@ const fetchOrders = async(user)=> {
   return response.rows;
 };
 
-const fetchAllOrders = async()=> {
-  const SQL = `SELECT * FROM orders WHERE is_cart = false`
-  const response = await client.query(SQL)
-  return response.rows
-}
 
 module.exports = {
   fetchLineItems,
@@ -126,5 +121,4 @@ module.exports = {
   deleteLineItem,
   updateOrder,
   fetchOrders,
-  fetchAllOrders
 };

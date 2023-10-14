@@ -22,7 +22,6 @@ const {
   deleteLineItem,
   updateOrder,
   fetchOrders,
-  fetchAllOrders
 } = require('./cart');
 
 const {
@@ -420,7 +419,6 @@ const seed = async()=> {
 module.exports = {
   fetchProducts,
   fetchOrders,
-  fetchAllOrders,
   fetchLineItems,
   fetchWishList,
   createLineItem,

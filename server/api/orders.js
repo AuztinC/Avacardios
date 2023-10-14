@@ -1,6 +1,5 @@
 const {
   fetchOrders,
-  fetchAllOrders,
   updateOrder,
   fetchWishList,
   createWishList,
@@ -27,14 +26,7 @@ app.get('/', isLoggedIn, async(req, res, next)=> {
     next(ex);
   }
 });
-app.get('/allOrders', isLoggedIn, async(req, res, next)=> {
-  try {
-    res.send(await fetchAllOrders());
-  }
-  catch(ex){
-    next(ex);
-  }
-});
+
 
 
 module.exports = app;

@@ -16,7 +16,6 @@ import CreateProduct from './CreateProduct';
 const App = ()=> {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [allOrders, setAllOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [users, setUsers] = useState([])
   const [auth, setAuth] = useState({});
@@ -57,10 +56,6 @@ const App = ()=> {
       const fetchOrders = async()=> {
         await api.fetchOrders(setOrders);
       };
-      const fetchAllOrders = async()=> {
-        await api.fetchAllOrders(setAllOrders);
-      };
-      fetchAllOrders()
       fetchOrders();
       
     }
@@ -190,9 +185,9 @@ const App = ()=> {
       
       <Route path='/cart' element={<Cart auth = {auth} updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} address = {address} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/>}/>
       
-      <Route path='account/:id' element={ <UserProfile allOrders={ allOrders } auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } selectedAddress={selectedAddress} users={ users } updateUser={ updateUser }/> }  />
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } selectedAddress={selectedAddress} users={ users } updateUser={ updateUser }/> }  />
       
-      <Route path='account/:id/:user' element={ <UserProfile allOrders={ allOrders } auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser }/> } />
+      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser }/> } />
       
       <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
       <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/>}/>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
+import CartSVG from "./svg/CartSVG";
 
 const Nav = ({ cartCount, auth, logout })=> {
     const welcome = useRef()
@@ -21,13 +22,17 @@ const Nav = ({ cartCount, auth, logout })=> {
             <div className="nav-inner">
                 <Link to='/'>Home</Link>
                 <Link to='/products'>Products</Link>
-                <Link to='/cart'>Cart ({ cartCount })</Link>
-                <Link to='/shipping'>Shipping</Link>
-                <Link to='/reviews'>Reviews</Link>
+                    <Link to='/cart'>
+                        <CartSVG />
+                        <div className="cart-count">({ cartCount })</div>
+                    </Link>
+                    
+                {/* <Link to='/shipping'>Shipping</Link>
+                <Link to='/reviews'>Reviews</Link> */}
                 <div className="nav-user">
                     { auth.id ? (<>
                         <Dropdown />
-                        <button onClick={ logout }>logout</button>
+                        <button onClick={ logout }>Logout</button>
                         <span className="welcome-message" ref={welcome}>Welcome back, { upperCaseName }!</span>
                     </>) : (<>
                         <Link to={'/login'}>Login</Link>
