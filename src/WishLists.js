@@ -15,7 +15,6 @@ const WishLists = ({products, wishLists, removeWishList, auth}) => {
     if(!wishLists){
         return null
       }
-      console.log(wishLists)
     return (
        <div>
         { wishLists.length === 0 ? <>

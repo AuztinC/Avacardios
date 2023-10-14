@@ -144,6 +144,7 @@ const seed = async()=> {
       }),
     ]);
 
+  const cookiesImage = await loadImage('/images/chocolate-chip-cookies.png')
   const avocadoImage = await loadImage('/images/avocadoprod.png');
   const carrotImage = await loadImage('/images/carrotsnew.png');
   const tomatoImage = await loadImage('/images/tomato.png');
@@ -176,6 +177,14 @@ const seed = async()=> {
   const beansImage = await loadImage('/images/blackbeans.png')
 
   await Promise.all([
+    createProduct({ 
+      name: 'HomeMade Chocolate Chip Cookies', 
+      price: 7, 
+      description: 'A sweet baked treat, soft, loaded with chocolate chips, and ready for snack time',
+      amount: '6 count',
+      image: cookiesImage,
+      vip: true
+    }),
     createProduct({ 
       name: 'Avocados', 
       price: 5, 
@@ -365,6 +374,10 @@ const seed = async()=> {
       amount: '4 lb',
       image: chickenImage
     }),
+    
+  ]);
+  
+  const [quinoa, pistachios, blackbeans] = await Promise.all([
     createProduct({
       name: 'Quinoa',
       price: 9,
@@ -386,23 +399,24 @@ const seed = async()=> {
       amount: '16 oz bag',
       image: beansImage
     })
-  ]);
+  ])
+  
 
 
-  // await Promise.all([
-  //   createWishList({
-  //     user_id: ethyl.id,
-  //     product_id: Spinach.id
-  //   }),
-  //   createWishList({
-  //     user_id: ethyl.id,
-  //     product_id: Tomato.id
-  //   }),
-  //   createWishList({
-  //     user_id: moe.id,
-  //     product_id: Spinach.id
-  //   })
-  // ])
+  await Promise.all([
+    createWishList({
+      user_id: ethyl.id,
+      product_id: quinoa.id
+    }),
+    createWishList({
+      user_id: ethyl.id,
+      product_id: pistachios.id
+    }),
+    createWishList({
+      user_id: moe.id,
+      product_id: blackbeans.id
+    })
+  ])
   
   // let orders = await fetchOrders(ethyl.id);
   // let shippingAddress = addy;
