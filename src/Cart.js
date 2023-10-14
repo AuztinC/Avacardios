@@ -1,4 +1,7 @@
-import React, { useEffect } from 'react';
+
+import React from 'react';
+import { Link } from 'react-router-dom'
+
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -24,9 +27,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
   }
   return (
     <>
-    {/* {
-      auth.id ?
-     */}
+    
     <div className='cart'>
       
       <h2>Cart</h2>
@@ -56,7 +57,10 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
       }
       {
       userAddresses.length > 0 ? (
+        <>
+        <h4>Deliver to:</h4>
           <select value={selectedAddress} onChange={e => setSelectedAddress(e.target.value)}>
+          
             <option value="">Select an Address</option>
             {userAddresses.map(address => (
               <option key={address.id} value={address.id}>
@@ -64,8 +68,9 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
               </option>
             ))}
           </select>
+        </>
         ) : (
-          <p>No addresses available for delivery. Please add an address <a href='/shipping'>Here.</a></p>
+          <p>No addresses available for delivery. Please add an address <Link to='/shipping'>Here.</Link></p>
         )
       }
       
@@ -77,9 +82,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
       }
       <hr/>
     </div>
-      {/* :
-      null
-    } */}
+     
     </>
   );
 };
