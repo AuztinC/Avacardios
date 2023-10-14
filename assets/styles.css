@@ -5,8 +5,8 @@
   --backgroundColor: #8EAC50;
   --backgroundAccent: #17594A;
   --highlightColor: #D3D04F;
-  --borderSmall: 2px solid #D3D04F;
-  --borderRadius: 5px;
+  --borderSmall: 2px solid #8EAC50;
+  --borderRadius: .75em;
   --avatarIcon: 45px;
   --avatarFull: 90px;
   --hoverTransition: 0.3s;
@@ -17,11 +17,11 @@
 }
 
 body {
-  margin: 0;
-  width: 100vw;
+  margin: 0 auto;
+  max-width: 70vw;
   min-height: 100%;
   font-family: verdana;
-  background-color: white;
+  background-color: var(--backgroundColor);
   overflow-x: hidden;
 }
 
@@ -44,24 +44,92 @@ form > * {
 }
 
 nav{
+  
   width: 100%;
   color: white;
   background-color: #17594A;
   box-shadow: 5px 5px 20px -5px var(--backgroundAccent);
-  border: var(--borderSmall);
+  border: 1px solid black;
+  border-top: none;
 }
 .nav-inner{
+  
+  height: 100px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
-  border: 1px solid black;
+  border: var(--borderSmall);
+  border-top: none;
+  
 }
 nav * {
+  margin: 0;
   flex: 1;
+  font-weight: 800;
+  text-shadow: 0px 1px 2px black;
+  transition: var(--hoverTransition);
+}
+nav a {
+  color: black;
+  font-size: 1.5em;
+}
+nav *:hover {
+  text-shadow: 0px 1px 2px var(--backgroundColor);
+  color: rgb(8, 7, 7);
+  scale: 1.2;
+}
+
+.nav-user {
+  border: 1px solid black;
+  max-width: 125px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.nav-inner *{
+  position: relative;
+  width: 100%;
+  
+}
+
+.cart-icon {
+  position: relative;
+  height: 60px;
+  
+}
+
+.cart-count {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+@keyframes welcome-message {
+  0% { 
+    scale: 1;
+  }
+  50% {
+    scale: 1.1;
+  }
+  100% { 
+    scale: 1;
+  }
+}
+.welcome-message{
+  position: absolute;
+  text-align: center;
+  width: 200px;
+  top: 65px;
+  right: 110%;
+  animation: welcome-message 2s infinite;
 }
 
 a{
   text-decoration: none;
-  color: var(--highlightColor);
+  color: black;
   transition: var(--hoverTransition);
 }
 a:hover {
@@ -69,6 +137,8 @@ a:hover {
 }
 
 button {
+  text-shadow: none;
+  font-size: .8rem;
   background-color: var(--highlightColor);
   border-style: none;
   border-radius: 1.25em;
@@ -85,12 +155,13 @@ button:active {
 button:hover {
   color: white;
 }
-
+ /* CREATE USER PAGE  */
 .signup{
-  background-color: var(--backgroundAccent);
+  background-color: white;
   box-shadow: 5px 5px 10px black;
   position: absolute;
-  border: var(--borderLarge);
+  border: 5px solid var(--backgroundColor);
+  border-radius: .75em;
   width: 60%;
   height: 80%;
   top: 0;
@@ -99,15 +170,31 @@ button:hover {
   bottom: 0;
   margin: auto;
 }
+.admin-check{
+  text-align: center;
+  background-color: white;
+  padding: 5px;
+  width: 30%;
+  border:1px solid;
+  border-radius: 1.25em;
+  padding: 0.75em;
+}
+ /*  END CREATE USER PAGE  */
+ 
+ 
+ 
 /* ---- Cart Section ---- */
 .cart > ul{
   list-style-type: none;
 }
 /* ---- END Cart Section ---- */
 
+
+
 /* ---- Dropdown menu ---- */
 .dropdown-menu {
-  width: 100px;
+  margin-bottom: 5px;
+  /* width: 100%; */
   position: relative;
 }
 .dropdown-menu button{
@@ -120,38 +207,55 @@ button:hover {
 }
 
 .menu {
+  z-index: 5;
+  font-size: .7rem;
   display: flex;
   flex-direction: column;
   opacity: 0;
   width: 100%;
   height: 0;
-  background-color: var(--backgroundAccent);
+  background-color: white;
   top: 35px;
   position: absolute;
-  border: 1px solid black;
+  border: 2px solid black;
   overflow: hidden;
   transition: height .5s;
 }
 .menu-open{
   opacity: 1;
-  height: fit-content;
+  height: auto;
 }
 
 .menu-item {
+  
   /* height: 50%; */
   padding: 15px;
   text-align: center;
-  border: 1px solid black;
+  border: var(--borderSmall);
   transition: hover var(--hoverTransition);
 }
-
+.menu a {
+  color: black;
+  text-shadow: none;
+  font-weight: 200;
+}
 .menu-item:hover{
   background-color: #8EAC50;
 }
 /* ---- END Dropdown menu ---- */
 
+
+/* ---- Products ---- */
+.products{
+  background-color: white;
+  border: 1px solid black
+}
+
+/* ---- End Products ---- */
+
+
 /* ---- USER PROFILE ---- */
-.avatar-full {
+.user-image {
   max-height: var(--avatarFull);
   border: var(--borderSmall);
   border-radius: 50%;
@@ -189,15 +293,60 @@ button:hover {
   margin: 15px;
   min-height: 175px;
   flex: 3;
+  margin-bottom: 20px;
+}
+.settings {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  /* flex: 3; */
+}
+.settings *{
+  flex: 1;
+}
+
+.settings-section{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+}
+
+.admin-users{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admin-users * {
+  flex: 1;
+  text-transform: capitalize;
+}
+.admin-user-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.admin-user-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-transform: capitalize;
 }
 
 .user-links {
+  padding-top: 45px;
   flex: 1;
   border-left: 1px solid black;
   min-height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
 }
 
@@ -218,3 +367,8 @@ button:hover {
 }
 /* ---- END USER PROFILE ---- */
 
+
+.create-product {
+  background-color: white;
+  border: 1px solid black;
+}
