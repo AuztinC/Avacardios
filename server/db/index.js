@@ -65,7 +65,8 @@ const seed = async()=> {
       username VARCHAR(100) UNIQUE NOT NULL,
       password VARCHAR(100) NOT NULL,
       is_admin BOOLEAN DEFAULT false NOT NULL,
-      image TEXT 
+      image TEXT,
+      vip BOOLEAN DEFAULT false
     );
     
     CREATE TABLE shipping(
@@ -87,7 +88,7 @@ const seed = async()=> {
       description TEXT,
       amount VARCHAR(100),
       image TEXT,
-      vip BOOLEAN
+      vip BOOLEAN DEFAULT false
     );
 
     CREATE TABLE orders(
@@ -127,7 +128,7 @@ const seed = async()=> {
       await client.query(SQL);
       
   const [moe, lucy, ethyl] = await Promise.all([
-    createUser({ username: 'moe', password: '1', is_admin: false}),
+    createUser({ username: 'moe', password: '1', is_admin: false, vip: true}),
     createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
@@ -418,6 +419,7 @@ const seed = async()=> {
 
 module.exports = {
   fetchProducts,
+  createProduct,
   fetchOrders,
   fetchLineItems,
   fetchWishList,
