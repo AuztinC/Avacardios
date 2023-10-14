@@ -71,7 +71,7 @@ nav * {
   transition: var(--hoverTransition);
 }
 nav a {
-  color: black;
+  color: #8EAC50;
   font-size: 1.5em;
 }
 nav *:hover {
