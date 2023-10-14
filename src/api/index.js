@@ -51,8 +51,9 @@ const createLineItem = async({ product, cart, lineItems, setLineItems })=> {
   setLineItems([...lineItems, response.data]);
 };
 
-const createProduct = async({ product, setProducts})=>{
-  const response = await axios.post('/api/products')
+const createProduct = async({ product, setProducts, products})=>{
+  const response = await axios.post('/api/products', product, getHeaders())
+  setProducts( products.map(_product=>_product.id === response.data.id ? response.data : _product) )
 }
 
 const updateLineItem = async({ lineItem, cart, lineItems, setLineItems })=> {
@@ -194,7 +195,8 @@ const api = {
   createReviews,
   fetchReviews,
   fetchAddress,
-  createAddress
+  createAddress,
+  createProduct
 };
 
 export default api;

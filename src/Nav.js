@@ -22,11 +22,13 @@ const Nav = ({ cartCount, auth, logout })=> {
             <div className="nav-inner">
                 <Link to='/'>Home</Link>
                 <Link to='/products'>Products</Link>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Link to='/cart'>
                         <CartSVG />
-                        <div className="cart-count">({ cartCount })</div>
-                    </Link>
+                        { cartCount > 0 ? <div className="cart-count">({ cartCount })</div> : null }
                     
+                    </Link>
+                </div>
                 {/* <Link to='/shipping'>Shipping</Link>
                 <Link to='/reviews'>Reviews</Link> */}
                 <div className="nav-user">

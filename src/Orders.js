@@ -1,5 +1,5 @@
 import React from 'react';
-import Cart from './Cart';
+import { Link } from 'react-router-dom';
 
 const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAddressDetails })=> {
   
@@ -7,7 +7,10 @@ const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAd
   // console.log(orders)
   
   if(userOrders.length === 0){
-    return <h2>It looks like you haven't placed any orders yet.</h2>
+    return <>
+      <h2>Check out our fresh produce and make your first order!</h2>
+      <Link style={{textDecoration: 'underline'}} to='/products'>All Products -{'>'}</Link>
+    </>
   }
   return (
     <div>

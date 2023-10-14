@@ -65,7 +65,8 @@ const seed = async()=> {
       username VARCHAR(100) UNIQUE NOT NULL,
       password VARCHAR(100) NOT NULL,
       is_admin BOOLEAN DEFAULT false NOT NULL,
-      image TEXT 
+      image TEXT,
+      vip BOOLEAN DEFAULT false
     );
     
     CREATE TABLE shipping(
@@ -87,7 +88,7 @@ const seed = async()=> {
       description TEXT,
       amount VARCHAR(100),
       image TEXT,
-      vip BOOLEAN
+      vip BOOLEAN DEFAULT false
     );
 
     CREATE TABLE orders(
@@ -127,7 +128,7 @@ const seed = async()=> {
       await client.query(SQL);
       
   const [moe, lucy, ethyl] = await Promise.all([
-    createUser({ username: 'moe', password: '1', is_admin: false}),
+    createUser({ username: 'moe', password: '1', is_admin: false, vip: true}),
     createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
     createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
@@ -143,6 +144,7 @@ const seed = async()=> {
       }),
     ]);
 
+  const cookiesImage = await loadImage('/images/chocolate-chip-cookies.png')
   const avocadoImage = await loadImage('/images/avocadoprod.png');
   const carrotImage = await loadImage('/images/carrotsnew.png');
   const tomatoImage = await loadImage('/images/tomato.png');
@@ -175,6 +177,14 @@ const seed = async()=> {
   const beansImage = await loadImage('/images/blackbeans.png')
 
   await Promise.all([
+    createProduct({ 
+      name: 'HomeMade Chocolate Chip Cookies', 
+      price: 7, 
+      description: 'A sweet baked treat, soft, loaded with chocolate chips, and ready for snack time',
+      amount: '6 count',
+      image: cookiesImage,
+      vip: true
+    }),
     createProduct({ 
       name: 'Avocados', 
       price: 5, 
@@ -364,6 +374,10 @@ const seed = async()=> {
       amount: '4 lb',
       image: chickenImage
     }),
+    
+  ]);
+  
+  const [quinoa, pistachios, blackbeans] = await Promise.all([
     createProduct({
       name: 'Quinoa',
       price: 9,
@@ -385,23 +399,24 @@ const seed = async()=> {
       amount: '16 oz bag',
       image: beansImage
     })
-  ]);
+  ])
+  
 
 
-  // await Promise.all([
-  //   createWishList({
-  //     user_id: ethyl.id,
-  //     product_id: Spinach.id
-  //   }),
-  //   createWishList({
-  //     user_id: ethyl.id,
-  //     product_id: Tomato.id
-  //   }),
-  //   createWishList({
-  //     user_id: moe.id,
-  //     product_id: Spinach.id
-  //   })
-  // ])
+  await Promise.all([
+    createWishList({
+      user_id: ethyl.id,
+      product_id: quinoa.id
+    }),
+    createWishList({
+      user_id: ethyl.id,
+      product_id: pistachios.id
+    }),
+    createWishList({
+      user_id: moe.id,
+      product_id: blackbeans.id
+    })
+  ])
   
   // let orders = await fetchOrders(ethyl.id);
   // let shippingAddress = addy;
@@ -418,6 +433,7 @@ const seed = async()=> {
 
 module.exports = {
   fetchProducts,
+  createProduct,
   fetchOrders,
   fetchLineItems,
   fetchWishList,
