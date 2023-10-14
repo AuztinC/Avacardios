@@ -17,11 +17,11 @@
 }
 
 body {
-  margin: 0;
-  width: 100vw;
+  margin: 0 auto;
+  max-width: 70vw;
   min-height: 100%;
   font-family: verdana;
-  background-color: white;
+  background-color: var(--backgroundColor);
   overflow-x: hidden;
 }
 
@@ -49,18 +49,33 @@ nav{
   color: white;
   background-color: #17594A;
   box-shadow: 5px 5px 20px -5px var(--backgroundAccent);
-  border: var(--borderSmall);
+  border: 1px solid black;
+  border-top: none;
 }
 .nav-inner{
+  
   height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border: 1px solid black;
+  border: var(--borderSmall);
+  border-top: none;
+  
 }
 nav * {
+  margin: 0;
   flex: 1;
+  font-weight: 800;
+  text-shadow: 0px 1px 2px black;
+}
+nav a {
+  color: white;
+  font-size: 1.5em;
+}
+nav *:hover {
+  text-shadow: 0px 1px 2px var(--backgroundColor);
+  color: black;
 }
 
 @keyframes welcome-message {
@@ -83,7 +98,7 @@ nav * {
 
 a{
   text-decoration: none;
-  color: var(--highlightColor);
+  color: black;
   transition: var(--hoverTransition);
 }
 a:hover {
@@ -91,6 +106,8 @@ a:hover {
 }
 
 button {
+  text-shadow: none;
+  font-size: .8rem;
   background-color: var(--highlightColor);
   border-style: none;
   border-radius: 1.25em;
@@ -133,11 +150,15 @@ button:hover {
 }
  /*  END CREATE USER PAGE  */
  
+ 
+ 
 /* ---- Cart Section ---- */
 .cart > ul{
   list-style-type: none;
 }
 /* ---- END Cart Section ---- */
+
+
 
 /* ---- Dropdown menu ---- */
 .dropdown-menu {
@@ -154,15 +175,17 @@ button:hover {
 }
 
 .menu {
+  
+  font-size: .7rem;
   display: flex;
   flex-direction: column;
   opacity: 0;
   width: 100%;
   height: 0;
-  background-color: var(--backgroundAccent);
+  background-color: white;
   top: 35px;
   position: absolute;
-  border: 1px solid black;
+  border: 2px solid black;
   overflow: hidden;
   transition: height .5s;
 }
@@ -172,17 +195,31 @@ button:hover {
 }
 
 .menu-item {
+  
   /* height: 50%; */
   padding: 15px;
   text-align: center;
-  border: 1px solid black;
+  border: var(--borderSmall);
   transition: hover var(--hoverTransition);
 }
-
+.menu a {
+  text-shadow: none;
+  font-weight: 200;
+}
 .menu-item:hover{
   background-color: #8EAC50;
 }
 /* ---- END Dropdown menu ---- */
+
+
+/* ---- Products ---- */
+.products{
+  background-color: white;
+  border: 1px solid black
+}
+
+/* ---- End Products ---- */
+
 
 /* ---- USER PROFILE ---- */
 .user-image {

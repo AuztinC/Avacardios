@@ -5,28 +5,38 @@ import Settings from "./Settings";
 import WishLists from "./WishLists";
 import Users from "./Users";
 import User from "./User";
+import Shipping from "./Shipping";
 
 
-const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser })=>{
+const UserProfile = ({ orders, allOrders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress })=>{
     const { id } = useParams() 
+    console.log('allorders',allOrders)
+    console.log('orders', orders)
     return (
     (<div className="user-profile">
         <h1>{ id }</h1>
         <div className="user-section">
             { auth.is_admin ? "*Admin user" : null}
+            
             { id === "orders" ? <Orders
                     auth={ auth }
                     orders = { orders }
                     products = { products }
                     lineItems = { lineItems }
             /> : null }
+            
             { id === 'settings' ? <Settings auth={ auth } updateUser={ updateUser }/> : null}
+            
             { id === 'wishlist' ? <WishLists
                 products = { products }
                 wishLists = { wishLists }
                 removeWishList = { removeWishList }
             /> : null}
+            
             { id === 'users' ? <Users users={ users } orders={ orders } /> : null}
+            
+            {/* { id === 'shipping' ? <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/> : null} */}
+            
             <User users={ users } lineItems={ lineItems } wishLists={ wishLists } orders={ orders } products={ products }/>
         </div>
         <div className="user-links">

@@ -21,7 +21,8 @@ const {
   updateLineItem,
   deleteLineItem,
   updateOrder,
-  fetchOrders
+  fetchOrders,
+  fetchAllOrders
 } = require('./cart');
 
 const {
@@ -58,8 +59,6 @@ const seed = async()=> {
     DROP TABLE IF EXISTS shipping;
     DROP TABLE IF EXISTS users;
    
-    
-    
 
     CREATE TABLE users(
       id UUID PRIMARY KEY,
@@ -88,15 +87,16 @@ const seed = async()=> {
       price INT,
       description TEXT,
       amount VARCHAR(100),
-      image TEXT
+      image TEXT,
+      vip BOOLEAN
     );
 
     CREATE TABLE orders(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
       is_cart BOOLEAN NOT NULL DEFAULT true,
-      user_id UUID REFERENCES users(id) NOT NULL,
-      user_name VARCHAR(20) NOT NULL,
+      user_id UUID REFERENCES users(id),
+      user_name VARCHAR(20),
       shipping_id UUID REFERENCES shipping(id)
     );
     
@@ -175,38 +175,7 @@ const seed = async()=> {
   const pistachioImage = await loadImage('/images/pistachio.png')
   const beansImage = await loadImage('/images/blackbeans.png')
 
-  const [
-    Avocado, 
-    Carrots, 
-    Tomato, 
-    Spinach, 
-    Blueberries, 
-    Asparagus, 
-    Pitaya, 
-    Cauliflower, 
-    Lemon, 
-    Bananas, 
-    Potatoes, 
-    Lettuce, 
-    Mushrooms, 
-    Raspberries, 
-    Peach, 
-    Watermelon, 
-    Grapes, 
-    Strawberries, 
-    Broccoli, 
-    Zucchini,
-    Oats,
-    Almonds,
-    Chia,
-    Eggs,
-    Walnuts,
-    Salmon,
-    Chicken,
-    Quinoa,
-    Pistachios,
-    Beans
-  ] = await Promise.all([
+  await Promise.all([
     createProduct({ 
       name: 'Avocados', 
       price: 5, 
@@ -420,20 +389,20 @@ const seed = async()=> {
   ]);
 
 
-  await Promise.all([
-    createWishList({
-      user_id: ethyl.id,
-      product_id: Spinach.id
-    }),
-    createWishList({
-      user_id: ethyl.id,
-      product_id: Tomato.id
-    }),
-    createWishList({
-      user_id: moe.id,
-      product_id: Spinach.id
-    })
-  ])
+  // await Promise.all([
+  //   createWishList({
+  //     user_id: ethyl.id,
+  //     product_id: Spinach.id
+  //   }),
+  //   createWishList({
+  //     user_id: ethyl.id,
+  //     product_id: Tomato.id
+  //   }),
+  //   createWishList({
+  //     user_id: moe.id,
+  //     product_id: Spinach.id
+  //   })
+  // ])
   
   // let orders = await fetchOrders(ethyl.id);
   // let shippingAddress = addy;
@@ -451,6 +420,7 @@ const seed = async()=> {
 module.exports = {
   fetchProducts,
   fetchOrders,
+  fetchAllOrders,
   fetchLineItems,
   fetchWishList,
   createLineItem,

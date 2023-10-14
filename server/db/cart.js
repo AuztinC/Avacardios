@@ -102,7 +102,8 @@ const fetchOrders = async(user)=> {
     ); 
     response = await client.query(SQL);
     return response.rows;
-  } else if (cart.user_name !== user.username){
+  } 
+  else if (cart.user_name !== user.username){
     const SQL = `
     DELETE FROM orders WHERE id = $1
     `;
@@ -112,11 +113,18 @@ const fetchOrders = async(user)=> {
   return response.rows;
 };
 
+const fetchAllOrders = async()=> {
+  const SQL = `SELECT * FROM orders WHERE is_cart = false`
+  const response = await client.query(SQL)
+  return response.rows
+}
+
 module.exports = {
   fetchLineItems,
   createLineItem,
   updateLineItem,
   deleteLineItem,
   updateOrder,
-  fetchOrders
+  fetchOrders,
+  fetchAllOrders
 };

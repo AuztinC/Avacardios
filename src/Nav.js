@@ -4,7 +4,6 @@ import Dropdown from "./Dropdown";
 
 const Nav = ({ cartCount, auth, logout })=> {
     const welcome = useRef()
-
         useEffect(()=>{
             if(auth.id){
                 setTimeout(()=>{
@@ -16,6 +15,7 @@ const Nav = ({ cartCount, auth, logout })=> {
     if(auth.id){
       upperCaseName = auth.username.charAt(0).toUpperCase() + auth.username.slice(1)
     }
+    
     return (
         <nav>
             <div className="nav-inner">
