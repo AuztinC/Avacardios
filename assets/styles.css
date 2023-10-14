@@ -248,7 +248,12 @@ button:hover {
 /* ---- Products ---- */
 .products{
   background-color: white;
-  border: 1px solid black
+  border: 1px solid black;
+  text-align: center;
+}
+
+.product-list{
+  list-style-type: none;
 }
 
 /* ---- End Products ---- */

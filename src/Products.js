@@ -34,7 +34,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       <h2>Products</h2>
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
       <button><Link to={'/createProduct'}>Create New Product</Link></button>
-      <ul>
+      <ul className='product-list'>
         {
           currentProduct.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
@@ -45,7 +45,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                     product.image ? <img src={product.image}/> : null
                   }
                 </div>
-                { product.name }
+                <h3>{ product.name }</h3>
                 <div>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
