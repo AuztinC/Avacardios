@@ -266,6 +266,18 @@ button:hover {
 /* ---- End Products ---- */
 
 
+/* ---- Product ---- */
+.product{
+  background-color: white;
+  border: 1px solid black
+}
+.product img {
+  max-height: 150px;
+}
+
+/* ---- End Product ---- */
+
+
 /* ---- USER PROFILE ---- */
 .user-image {
   max-height: var(--avatarFull);
