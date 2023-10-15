@@ -376,7 +376,7 @@ const seed = async()=> {
     }),
     
   ]);
-  
+  // --- these are seperated to make default wishlists
   const [quinoa, pistachios, blackbeans] = await Promise.all([
     createProduct({
       name: 'Quinoa',

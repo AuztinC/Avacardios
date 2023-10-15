@@ -93,6 +93,9 @@ nav a {
   
 }
 
+.crown-icon{
+  scale: .5;
+}
 .cart-icon {
   /* top: 0; */
   /* position: absolute; */
@@ -114,6 +117,18 @@ nav a {
   height: 35px;
   max-width: 35px;
   border-radius: 50%;
+}
+
+.cart {
+  text-shadow: 1px 1px 1px white;
+  background-color: white;
+  border: var(--borderSmall);
+  border-radius: var(--borderRadius);
+  box-shadow: 5px 5px 20px -5px var(--backgroundAccent);
+  min-height: 300px;
+  background-color: white;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 @keyframes welcome-message {
@@ -275,7 +290,7 @@ button:hover {
 }
 
 .user-profile {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   display: flex;
   flex-wrap: wrap;
   text-shadow: 1px 1px 1px white;
@@ -284,6 +299,8 @@ button:hover {
   border-radius: var(--borderRadius);
   box-shadow: 5px 5px 20px -5px var(--backgroundAccent);
   min-height: 300px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .user-profile h1{

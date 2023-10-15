@@ -2,13 +2,17 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import CartSVG from "./svg/CartSVG";
+import VipCrown from "./svg/VipCrown";
 
 const Nav = ({ cartCount, auth, logout })=> {
     const welcome = useRef()
+    const vip = useRef()
+    
         useEffect(()=>{
             if(auth.id){
                 setTimeout(()=>{
                     welcome.current.style.display = "none"
+                    vip.current.style.visibility = "visible"
                 }, 5000)
             }
         },[auth])
@@ -29,8 +33,21 @@ const Nav = ({ cartCount, auth, logout })=> {
                     
                     </Link>
                 </div>
-                {/* <Link to='/shipping'>Shipping</Link>
-                <Link to='/reviews'>Reviews</Link> */}
+                <div>
+                    { auth.vip === true ? <>
+                        <VipCrown /> 
+                        <p ref={vip}
+                        style={{
+                        position: 'absolute', 
+                        top: "85px", 
+                        visibility: 'hidden',
+                        left: 0}}>
+                            VIP
+                        </p>
+                    </>
+                    : null}
+                    
+                </div>
                 <div className="nav-user">
                     { auth.id ? (<>
                         <Dropdown />

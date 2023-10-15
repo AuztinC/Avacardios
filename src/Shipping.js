@@ -26,7 +26,7 @@ function shippingForm({createAddress, auth}) {
 
   return (
     <div className='address'>
-      <h1>Create Address</h1>
+      <h2>Create Address</h2>
       <div>
         <label>Full Name:</label>
         <input type="text" value={customer} onChange={(ev) => setCustomer(ev.target.value)} />
