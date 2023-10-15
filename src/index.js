@@ -154,7 +154,6 @@ const App = ()=> {
     api.logout(setAuth);
     navigate('/')
   }
-
   return (<>
     <Nav cartCount={ cartCount } login={ login } auth={ auth } logout={ logout }/>
     
@@ -189,11 +188,11 @@ const App = ()=> {
       
       <Route path='/cart' element={<Cart auth = {auth} updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} address = {address} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/>}/>
       
-      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } selectedAddress={selectedAddress} users={ users } updateUser={ updateUser }/> }  />
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} users={ users } updateUser={ updateUser } address={ address } createAddress={ createAddress }/> }   />
       
-      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser }/> } />
+      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser } address={ address } createAddress={ createAddress } selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/> }  />
       
-      <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
+      <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth} />}/>
       {/* <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/>}/> */}
     </Routes>
   </>);

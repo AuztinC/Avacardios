@@ -59,7 +59,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
       userAddresses.length > 0 ? (
         <>
         <h4>Deliver to:</h4>
-          <select value={selectedAddress} onChange={e => setSelectedAddress(e.target.value)}>
+          <select className='addy-dropdown' value={selectedAddress} onChange={e => setSelectedAddress(e.target.value)}>
           
             <option value="">Select an Address</option>
             {userAddresses.map(address => (
@@ -68,19 +68,22 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
               </option>
             ))}
           </select>
-        </>
-        ) : (
-          <p>No addresses available for delivery. Please add an address <Link to='/shipping'>Here.</Link></p>
-        )
-      }
-      
-      {
-        lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? <button onClick={()=> {
+          {
+        lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? <>
+        <button onClick={()=> {
           handleSelect();
           updateOrder({...cart, is_cart: false });
-        }}>Create Order</button>: null
+        }}>Create Order </button>
+         <button>
+          <Link to={'/account/shipping'}>Create New Address</Link>
+          </button>
+          </>: null
       }
-      {/* <hr/> */}
+        </>
+        ) : (
+          <p>No addresses available for delivery. Please add an address <Link to='/account/shipping'>Here.</Link></p>
+        )
+      }
     </div>
      
     </>

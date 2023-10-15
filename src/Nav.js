@@ -12,7 +12,9 @@ const Nav = ({ cartCount, auth, logout })=> {
             if(auth.id){
                 setTimeout(()=>{
                     welcome.current.style.display = "none"
-                    vip.current.style.visibility = "visible"
+                    if(auth.vip){
+                        vip.current.style.visibility = "visible"
+                    }
                 }, 5000)
             }
         },[auth])

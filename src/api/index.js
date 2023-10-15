@@ -169,7 +169,7 @@ const createReviews=async({review, reviews, setReviews})=>{
 }
 
 const createAddress = async({addy, address, setAddress}) => {
-  const response = await axios.post('/api/shipping', addy)
+  const response = await axios.post('/api/shipping', addy, getHeaders())
   setAddress([...address,response.data]);
 }
 

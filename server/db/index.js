@@ -76,8 +76,8 @@ const seed = async()=> {
       city VARCHAR(20),
       state VARCHAR(200),
       zip INTEGER,
-      user_id UUID REFERENCES users(id) NOT NULL,
-      CONSTRAINT user_key UNIQUE (user_id)
+      user_id UUID REFERENCES users(id) NOT NULL
+      --CONSTRAINT user_key UNIQUE (user_id)
     );
 
     CREATE TABLE products(
@@ -178,9 +178,9 @@ const seed = async()=> {
 
   await Promise.all([
     createProduct({ 
-      name: 'HomeMade Chocolate Chip Cookies', 
+      name: 'Chocolate Chip Cookies', 
       price: 7, 
-      description: 'A sweet baked treat, soft, loaded with chocolate chips, and ready for snack time',
+      description: 'A sweet soft baked treat, loaded with chocolate chips, and ready for snack time',
       amount: '6 count',
       image: cookiesImage,
       vip: true
