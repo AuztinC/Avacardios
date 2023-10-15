@@ -31,11 +31,11 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
                 removeWishList = { removeWishList }
             /> : null}
             
-            { id === 'users' ? <Users users={ users } orders={ orders } /> : null}
+            { id === 'users' ? <Users users={ users } orders={ orders }  /> : null}
             
             {/* { id === 'shipping' ? <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/> : null} */}
             
-            <User users={ users } lineItems={ lineItems } wishLists={ wishLists } orders={ orders } products={ products }/>
+            <User users={ users } lineItems={ lineItems } wishLists={ wishLists } orders={ orders } products={ products } updateUser={ updateUser }/>
         </div>
         <div className="user-links">
             <Link to={'/account/wishlist'}>WishList</Link>

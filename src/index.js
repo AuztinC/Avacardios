@@ -99,6 +99,10 @@ const App = ()=> {
   const createAddress = async(addy)=>{
     await api.createAddress({addy, address, setAddress});
   };
+  
+  const createProduct = async(product)=>{
+    await api.createProduct({product, setProducts, products})
+  }
 
   const updateLineItem = async(lineItem)=> {
     await api.updateLineItem({ lineItem, cart, lineItems, setLineItems });
@@ -181,7 +185,7 @@ const App = ()=> {
       
       <Route path='/products/search/:term' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
       
-      <Route path='/createProduct' element={ <CreateProduct />}/>
+      <Route path='/createProduct' element={ <CreateProduct createProduct={ createProduct }/>}/>
       
       <Route path='/cart' element={<Cart auth = {auth} updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} address = {address} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/>}/>
       
