@@ -73,9 +73,11 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                     <Link to={`/products/${product.id}/edit`}>Edit</Link>
                   ): null
                 }
-                {
-                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
-                }
+                <div className='wish-space'>
+                  {
+                    auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
+                  }
+                </div>
                 <hr/>
               </div>
             );
@@ -92,7 +94,10 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 <Link to={`/products/${product.id}`}>{ product.name }</Link>
                 <div>
                   <p>${product.price.toFixed(2)}</p>
-                  <p>Amount: {product.amount}</p>
+                  <p>
+                    <h3>Amount:</h3> 
+                    {product.amount}
+                  </p>
                   <p>{product.description}</p>
                 </div>
                 {
@@ -105,9 +110,11 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                     <Link to={`/products/${product.id}/edit`}>Edit</Link>
                   ): null
                 }
-                {
-                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
-                }
+                <div className='wish-space'>
+                  {
+                    auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
+                  }
+                </div>
                 <hr/>
               </div>
             );

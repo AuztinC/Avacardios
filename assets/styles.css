@@ -80,7 +80,7 @@ nav *:hover {
   scale: 1.1;
 }
 nav a {
-  color: white;
+  color: #8EAC50;
   font-size: 1.5em;
 }
 
@@ -444,4 +444,8 @@ button:hover {
   animation: blinker 1s linear infinite;
   color: gold;
   text-shadow: 2px 2px black;
+}
+
+.wish-space {
+  padding-top: 7px;
 }
