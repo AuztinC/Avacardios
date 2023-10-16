@@ -6,7 +6,7 @@ const ReviewForm=({product,createReviews,auth})=>{
 
     const save=async(ev)=>{
         ev.preventDefault();
-        setStar('');
+        setStar(1);
         document.getElementById('revv').value='';
         createReviews({username:auth.username,product_id:product.id,stars:star,body:review});
     }
