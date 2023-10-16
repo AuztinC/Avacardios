@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 const ReviewForm=({product,createReviews,auth})=>{
-    const [star,setStar]=useState('');
+    const [star,setStar]=useState(1);
     const [review,setReview]=useState('');
 
     const save=async(ev)=>{
