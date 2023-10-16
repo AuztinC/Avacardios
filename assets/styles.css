@@ -419,19 +419,16 @@ button:hover {
   border-top-right-radius: 0;
 }
 
-<<<<<<< HEAD
 .addy-dropdown{
   max-width: 150px;
 }
 
-=======
 .pagination {
   display: flex;
   padding-top: 8px;
   padding-bottom: 8px;
   list-style-type: none;
 }
->>>>>>> main
 
 .page-link {
   border-radius: 5px;
