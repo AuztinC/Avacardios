@@ -187,7 +187,7 @@ button:hover {
   position: absolute;
   border: 5px solid var(--backgroundColor);
   border-radius: .75em;
-  width: 60%;
+  width: 40%;
   height: 80%;
   top: 0;
   left: 0;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import GithubSVG from './svg/GithubSVG';
 
-const Login = ({ login })=> {
+const Login = ({ login, handleGithubLogin })=> {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('')
@@ -31,6 +32,13 @@ const Login = ({ login })=> {
         onChange={ ev => setPassword(ev.target.value)}
       />
       <button disabled={!username || !password}>Login</button>
+      <button><Link to={'/signup'}>Sign Up</Link></button>
+      <div style={{
+        textAlign: 'center'
+      }}
+      onClick={ handleGithubLogin }>
+        <GithubSVG />
+      </div>
       { error ? <p className='error'>{error.response.data.message}</p> : null}
     </form>
   </div>);

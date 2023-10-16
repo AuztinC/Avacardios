@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { firebaseAuth, firebaseProvider} from './FirebaseConfig'
+import { signInWithPopup } from 'firebase/auth';
 
 const getHeaders = ()=> {
   return {
@@ -136,6 +138,7 @@ const attemptLoginWithToken = async(setAuth)=> {
   if(token){
     try {
       const response = await axios.get('/api/me', getHeaders());
+      console.log('response', response.data)
       setAuth(response.data);
     }
     catch(ex){
@@ -158,8 +161,9 @@ const logout = (setAuth)=> {
   setAuth({});
 }
 
-const createUser = async({user})=>{
+const createUser = async({user, users, setUsers})=>{
   const response = await axios.post('/api/signup', user)
+  setUsers([...users, response.data])
   return response
 }
 
@@ -171,6 +175,33 @@ const createReviews=async({review, reviews, setReviews})=>{
 const createAddress = async({addy, address, setAddress}) => {
   const response = await axios.post('/api/shipping', addy, getHeaders())
   setAddress([...address,response.data]);
+}
+
+const handleGithubLogin= async(users, setUsers)=>{
+  let user = null
+  await signInWithPopup(firebaseAuth, firebaseProvider).then(async(result)=>{
+    user = users.find(_user=>_user.username === result.user.reloadUserInfo.screenName)
+    if(!user){
+      user = {
+        username: result.user.reloadUserInfo.screenName,
+        password: result.user.accessToken,
+        is_admin: false,
+        image: result.user.reloadUserInfo.photoUrl
+      }
+      createUser({user, users, setUsers})
+    } else {
+      user = {
+        username: result.user.reloadUserInfo.screenName,
+        password: result.user.accessToken,
+        is_admin: false,
+        image: result.user.reloadUserInfo.photoUrl
+      }
+    }
+  }).catch((err)=>{
+    console.log(err)
+  })
+  // console.log(user)
+  return {username: user.username, password: user.password}
 }
 
 const api = {
@@ -196,7 +227,8 @@ const api = {
   fetchReviews,
   fetchAddress,
   createAddress,
-  createProduct
+  createProduct,
+  handleGithubLogin
 };
 
 export default api;

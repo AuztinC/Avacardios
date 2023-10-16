@@ -17,11 +17,17 @@ const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAd
       <ul>
         { auth.is_admin ? // If user is admin, see all orders
           orders.filter(order => !order.is_cart).map( order => {
+            
             const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id);
-            // console.log(lineItems)
+            const price = orderLineItems.reduce((acc, curr)=>{
+              
+            const product = products.find(product => product.id === curr.product_id);
+            return acc += (product.price * curr.quantity) 
+            }, 0)
             return (
               <li key={ order.id }>
                 ({ new Date(order.created_at).toLocaleString() }) User - ({ order.user_name })
+                <p>Order Total - ${price.toFixed(2)}</p>
                 <ul>
                   {
                     orderLineItems.map( lineItem => {
@@ -50,9 +56,15 @@ const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAd
           : // ---- If user is not an admin, see only your orders
           userOrders.map( order => {
           const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id && order.user_id === auth.id);
+          const price = orderLineItems.reduce((acc, curr)=>{
+              
+            const product = products.find(product => product.id === curr.product_id);
+            return acc += (product.price * curr.quantity) 
+            }, 0)
           return (
             <li key={ order.id }>
               ({ new Date(order.created_at).toLocaleString() }) 
+              <p>Order Total - ${price.toFixed(2)}</p>
               <ul>
                 {
                   orderLineItems.map( lineItem => {
