@@ -31,7 +31,7 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
         return <h2>Loading...</h2>
     }else{
         return(
-            <div className="products">
+            <div className="product">
                 <h2>{product.name}</h2>
                 {
                   auth.id ? (
