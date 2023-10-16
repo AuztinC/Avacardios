@@ -11,7 +11,8 @@ const DeleteWishList = ({product, wishList, addWishList, removeWishList}) => {
     )
   }
 
-const WishLists = ({products, wishLists, removeWishList, auth}) => {
+const WishLists = ({products, wishLists, removeWishList}) => {
+
     if(!wishLists){
         return null
       }

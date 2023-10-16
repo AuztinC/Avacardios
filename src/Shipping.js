@@ -24,7 +24,7 @@ const Addresses = ({ address, createAddress, auth, destination })=> {
         const place = autocomplete.getPlace();
         const address = { data: place };
         await createAddress(address);
-        console.log(address); 
+        // console.log(address); 
         el.current.value = '';
       });
     });

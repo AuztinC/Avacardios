@@ -72,6 +72,10 @@ nav * {
   text-shadow: 0px 1px 2px black;
   transition: var(--hoverTransition);
 }
+nav a {
+  color: #8EAC50;
+  font-size: 1.5em;
+}
 nav *:hover {
   scale: 1.1;
 }
@@ -273,7 +277,12 @@ button:hover {
 /* ---- Products ---- */
 .products{
   background-color: white;
-  border: 1px solid black
+  border: 1px solid black;
+  text-align: center;
+}
+
+.product-list{
+  list-style-type: none;
 }
 .products img {
   max-height: 150px;
@@ -410,9 +419,21 @@ button:hover {
   border-top-right-radius: 0;
 }
 
+<<<<<<< HEAD
 .addy-dropdown{
   max-width: 150px;
 }
 
+=======
+.pagination {
+  display: flex;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  list-style-type: none;
+}
+>>>>>>> main
 
+.page-link {
+  border-radius: 5px;
+}
 
