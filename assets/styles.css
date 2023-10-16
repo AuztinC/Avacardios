@@ -412,3 +412,14 @@ button:hover {
   border-radius: 5px;
 }
 
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.vip {
+  animation: blinker 1s linear infinite;
+  color: gold;
+  text-shadow: 2px 2px black;
+}
