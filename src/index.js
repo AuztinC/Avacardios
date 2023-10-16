@@ -12,6 +12,7 @@ import Nav from './Nav';
 import Products from './Products';
 import Cart from './Cart';
 import CreateProduct from './CreateProduct';
+import Product from './Product';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -183,6 +184,8 @@ const App = ()=> {
       
       <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} setProducts={setProducts}/>}/>
       
+      <Route path='/products/:id' element={<Product products={products} reviews={reviews} setReviews={setReviews} createReviews={createReviews} cartItems={cartItems} updateLineItem={updateLineItem} createLineItem={createLineItem} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} auth={auth} />}/>
+
       <Route path='/products/search/:term' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
       
       <Route path='/createProduct' element={ <CreateProduct createProduct={ createProduct }/>}/>
@@ -193,7 +196,6 @@ const App = ()=> {
       
       <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser }/> } />
       
-      <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>}/>
       <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/>}/>
     </Routes>
   </>);

@@ -60,7 +60,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                     product.image ? <img src={product.image}/> : null
                   }
                 </div>
-                <h3>{ product.name }</h3>
+                <Link to={`/products/${product.id}`}>{ product.name }</Link>
                 <div>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
