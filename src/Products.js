@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link,useNavigate,useParams } from 'react-router-dom';
 import Pagination from './Pagination';
-
-const WishList = ({product, wishList, addWishList, removeWishList}) => {
-  return (
-    <div>
-      {
-        wishList ? <button onClick={() => removeWishList(wishList)}>Remove from Wish List</button> : 
-        <button onClick={() => addWishList({product_id: product.id})}>Add to Wish List</button>
-      }
-    </div>
-  )
-}
+import WishList from './WishList';
 
 const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList, setProducts, removeWishList})=> {
   const [currentPage, setCurrentPage] = useState(1);

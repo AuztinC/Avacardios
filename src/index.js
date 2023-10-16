@@ -39,8 +39,12 @@ const App = ()=> {
     const fetchUsers = async()=>{
       await api.fetchUsers(setUsers)
     }
+    const fetchReviews = async()=>{
+      await api.fetchReviews(setReviews)
+    }
     fetchData();
-    fetchUsers()
+    fetchUsers();
+    fetchReviews();
   }, []);
 
   useEffect(() => {
@@ -79,7 +83,6 @@ const App = ()=> {
       fetchData();
     }
   }, [auth]);
-
 
   const createUser = async(user)=>{
     await api.createUser(user)

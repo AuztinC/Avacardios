@@ -1,18 +1,7 @@
 import React, {useEffect} from "react";
 import {useParams,Link} from "react-router-dom";
 import Reviews from "./Reviews";
-//import WishList from "./Products";
-
-const WishList = ({product, wishList, addWishList, removeWishList}) => {
-    return (
-      <div>
-        {
-          wishList ? <button onClick={() => removeWishList(wishList)}>Remove from Wish List</button> : 
-          <button onClick={() => addWishList({product_id: product.id})}>Add to Wish List</button>
-        }
-      </div>
-    )
-}
+import WishList from "./WishList";
 
 const Product =({products,reviews,createReviews,cartItems,updateLineItem,createLineItem,addWishList,removeWishList,wishLists,auth})=>{
     const {id}=useParams();

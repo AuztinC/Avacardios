@@ -279,13 +279,13 @@ button:hover {
 .product{
   background-color: white;
   border: 1px solid black;
-  text-align: left;
+  text-align: right;
 }
 
 .product img {
   max-height: 150px;
   display: block;
-  float: right;
+  float: left;
   margin-top: -5rem;
 }
 
