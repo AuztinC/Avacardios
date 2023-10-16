@@ -41,7 +41,7 @@ const Addresses = ({ address, createAddress, auth, destination, removeAddress })
             return (
               <li key={ address.id }>
                 { address.data.formatted_address }
-                {/* <DeleteAddress address = {address.find(wish => wish.product_id === product.id)} removeAddress= { removeAddress } /> */}
+                <DeleteAddress address = {address} removeAddress = { removeAddress } />
               </li>
             );
           })

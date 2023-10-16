@@ -32,7 +32,7 @@
 - [ ] as a user I should be able to page through products in groups of 10 products per page
 - [ ] as a user I should be able to filter products based on tags
 - [X] as a user I should be able to login via a third party app (github)
-- [ ] as a user I should be able to use Google places to enter an address for my order
+- [x] as a user I should be able to use Google places to enter an address for my order
 - [ ] as a non logged in user, I should be able to add items to my cart, with those items getting added to my cart when I authenticate
 
 - [ ] as an administrator I should be able to add and edit products

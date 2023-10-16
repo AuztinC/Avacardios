@@ -72,7 +72,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
          : null
       }
       {
-        userAddresses.length > 0 ? null : <p>No addresses available for delivery. Please add an address <Link to='/account/shipping'>Here.</Link></p>
+        userAddresses.length > 0 ? null : <p>No addresses available for delivery. Please add an address <Link style={{textDecoration:'underline'}} to='/account/shipping'>Here -{'>'} </Link></p>
       }
       {
         auth.id ?

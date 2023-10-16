@@ -71,7 +71,6 @@ const seed = async()=> {
     
     CREATE TABLE shipping(
       id UUID PRIMARY KEY,
-      customer_name VARCHAR(100),
       data JSON DEFAULT '{}',
       user_id UUID REFERENCES users(id) NOT NULL
     );
