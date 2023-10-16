@@ -1,29 +1,19 @@
 import React, {useState} from 'react'
 
-const ReviewForm=({products,createReviews,auth})=>{
-    const [product,setProduct]=useState('');
+const ReviewForm=({product,createReviews,auth})=>{
     const [star,setStar]=useState('');
     const [review,setReview]=useState('');
 
     const save=async(ev)=>{
         ev.preventDefault();
-        setProduct('');
         setStar('');
         document.getElementById('revv').value='';
-        createReviews({username:auth.username,product_id:product,stars:star,body:review});
+        createReviews({username:auth.username,product_id:product.id,stars:star,body:review});
     }
 
     return(
         <form onSubmit={save}>
             <h4>Enter a new review here!</h4>
-            <select value={product} onChange={ev=>setProduct(ev.target.value)}>
-                <option key='' value=''>Select a Product</option>
-                {
-                    products.map((prod)=>{
-                        return <option key={prod.id} value={prod.id}>{prod.name}</option>
-                    })
-                }
-            </select>
             <span>
             <label>Stars (1-5): {star}</label>
             <button type='button' className='star' onClick={()=>increaseRating(star,setStar)}>+</button>
@@ -50,41 +40,21 @@ const decreaseRating=(star,setStar)=>{
     }
 }
 
-const Reviews=({reviews,setReviews,products,createReviews,auth})=>{
+const Reviews=({reviews,product,createReviews,auth})=>{
     return(
         <>
-            <h1>Reviews</h1>
-            <hr/>
+            <h4>Reviews</h4>
+            <ul>
             {
-                products.map((prod)=>{
-                     const RevItUp=()=>{
-                        if(!prod){
-                            return null;
-                        }
-                         return(
-                             <>
-                                <ul>
-                                {
-                                    reviews.map((rev)=>{
-                                        if(prod.id===rev.product_id){
-                                            return <li key={rev.id}>{rev.username?rev.username:'Guest'}:{rev.stars} - {rev.body}</li>
-                                        }
-                                    })
-                                 }
-                                </ul>
-                             </>
-                         )
-                     }
-                     return(
-                         <>
-                             <h4 key={prod.id}>{prod.name}</h4>
-                             <RevItUp />
-                         </>
-                     )
+                reviews.map((rev)=>{
+                    if(product.id===rev.product_id){
+                        return <li key={rev.id}>{rev.username?rev.username:'Guest'}: {rev.stars} - {rev.body}</li>
+                    }
                 })
              }
+            </ul>
             <hr/>
-            <ReviewForm reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth}/>
+            <ReviewForm product={product} createReviews={createReviews} auth={auth}/>
             <hr/>
         </>
     )
