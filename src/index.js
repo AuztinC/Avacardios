@@ -28,6 +28,8 @@ const App = ()=> {
   const navigate = useNavigate()
 
 
+  
+  
   const attemptLoginWithToken = async()=> {
     await api.attemptLoginWithToken(setAuth);
   }
@@ -81,9 +83,10 @@ const App = ()=> {
     }
   }, [auth]);
 
-
+  
+ 
   const createUser = async(user)=>{
-    await api.createUser(user)
+    await api.createUser({user, users, setUsers})
   }
   
   const updateUser = async(user)=>{
@@ -148,6 +151,11 @@ const App = ()=> {
 
   const login = async(credentials)=> {
     await api.login({ credentials, setAuth });
+    navigate('/')
+  }
+  const handleGithubLogin = async()=>{
+    const user = await api.handleGithubLogin(users, setUsers)
+    await login(user)
   }
 
   const logout = ()=> {
@@ -160,7 +168,6 @@ const App = ()=> {
     api.logout(setAuth);
     navigate('/')
   }
-
   return (<>
     <Nav cartCount={ cartCount } login={ login } auth={ auth } logout={ logout }/>
     
@@ -185,7 +192,7 @@ const App = ()=> {
       /> }/>
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       
-      <Route path='login' element={ <Login login={ login }/> } />
+      <Route path='login' element={ <Login login={ login }  handleGithubLogin={ handleGithubLogin }/> } />
       
       <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} setProducts={setProducts}/>}/>
       
@@ -197,11 +204,12 @@ const App = ()=> {
       
       <Route path='/cart' element={<Cart auth = {auth} updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} address = {address} destination={destination} setDestination={setDestination}/>}/>
       
-      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } destination={destination} users={ users } updateUser={ updateUser }/> }  />
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } destination={destination} users={ users } updateUser={ updateUser } address = {address} createAddress={ createAddress }/> }  />
       
-      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser }/> } />
+      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser } address={ address } createAddress={ createAddress }/> }  />
       
-      <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} removeAddress={removeAddress} auth={auth}/>}/>
+      <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth} />}/>
+      {/* <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/>}/> */}
     </Routes>
   </>);
 };

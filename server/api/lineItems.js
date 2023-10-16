@@ -38,7 +38,7 @@ app.put('/:id', isLoggedIn, async(req, res, next)=> {
   }
 });
 
-app.delete('/:id', async(req, res, next)=> {
+app.delete('/:id', isLoggedIn, async(req, res, next)=> {
   try {
     await deleteLineItem({ id: req.params.id });
     res.sendStatus(204);
