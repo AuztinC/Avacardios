@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity, address, selectedAddress, setSelectedAddress, auth })=> {
+const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity, address, destination, setDestination, auth })=> {
   const [selectedAddressDetails, setSelectedAddressDetails] = useState(null)
   
   const lineItemsinCart = lineItems.filter( item => item.order_id === cart.id);
@@ -15,7 +15,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
 
   const userAddresses = address.filter(addy => addy.user_id === auth.id);
   const handleSelect = () => {
-    const selected = address.find(addy => addy.id === selectedAddress);
+    const selected = address.find(addy => addy.id === destination);
     setSelectedAddressDetails(selected);
     // console.log(selectedAddress)
   };
@@ -53,17 +53,17 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
       {
         lineItems.filter(lineItem => lineItem.order_id === cart.id).length ? <p>Order Total: ${ totalPrice }</p> : null
       }
-      {/* {
+      {
         auth.id ?  
         lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? (
             <>
             <h4>Deliver to:</h4>
-              <select value={selectedAddress} onChange={e => setSelectedAddress(e.target.value)}>
+              <select value={destination} onChange={e => setDestination(e.target.value)}>
               
                 <option value="">Select an Address</option>
                 {userAddresses.map(address => (
                   <option key={address.id} value={address.id}>
-                    {address.customer_name} - {address.street}, {address.city}, {address.state}
+                    {auth.username} - {address.data.formatted_address}
                   </option>
                 ))}
               </select>
@@ -81,7 +81,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
           updateOrder({...cart, is_cart: false });
         }}>Create Order</button>: null
         : null
-      } */}
+      }
       <hr/>
     </div>
      
