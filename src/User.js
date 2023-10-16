@@ -50,7 +50,7 @@ const User = ({ users, lineItems, wishLists, orders, products, updateUser })=>{
                     <option style={ user.vip ? {display: 'none'} : {display: 'block'}} value={true} >True</option>
                     <option style={ user.vip ? {display: 'block'} : {display: 'none'}} value={false} >False</option>
                 </select>
-                <button> Commit </button>
+                <button disabled={ user.vip === vip ? true : false}> Commit </button>
                 <button onClick={()=> setOpen(false)}> Cancel </button>
             </form>}
             

@@ -58,6 +58,7 @@ const Settings = ({ auth, updateUser })=>{
             </div>
             
             <div className="settings-section">
+                { auth.vip ? <span>VIP</span> : null}
                 <p>Account Username | { auth.username }</p>
                 <button ref={updateButton} onClick={ flipForm }>Edit Username</button>
                 <form style={{visibility: 'hidden'}} ref={usernameForm} onSubmit={ submit }>

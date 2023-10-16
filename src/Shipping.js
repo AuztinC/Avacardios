@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const DeleteAddress = ({address, removeAddress}) => {
   return (
@@ -10,7 +11,7 @@ const DeleteAddress = ({address, removeAddress}) => {
   )
 }
 
-const Addresses = ({ address, createAddress })=> {
+const Addresses = ({ address, createAddress, auth, destination })=> {
   const el = useRef();
   useEffect(()=> {
       const options = {
@@ -23,12 +24,12 @@ const Addresses = ({ address, createAddress })=> {
         const place = autocomplete.getPlace();
         const address = { data: place };
         await createAddress(address);
-        console.log(address); 
+        // console.log(address); 
         el.current.value = '';
       });
     });
 
-  return (
+  return (<>
     <div className='address'>
       <h2>Search address to add to account</h2>
       <input ref={ el } />
@@ -46,7 +47,24 @@ const Addresses = ({ address, createAddress })=> {
         }
       </ol>
     </div>
-  );
-};
+    {/* {
+        auth.id ?  
+            <>
+            <h4>Deliver to:</h4>
+              <select value={destination} onChange={e => setDestination(e.target.value)}>
+              
+                <option value="">Select an Address</option>
+                {address.map(address => (
+                  <option key={address.id} value={address.id}>
+                    {auth.username} - {address.data.formatted_address}
+                  </option>
+                ))}
+              </select>
+            </>
+         : null
+      } */}
+      
+  </>);
+}
 
 export default Addresses;
