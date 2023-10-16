@@ -170,9 +170,9 @@ const seed = async()=> {
 
   await Promise.all([
     createProduct({ 
-      name: 'HomeMade Chocolate Chip Cookies', 
+      name: 'Chocolate Chip Cookies', 
       price: 7, 
-      description: 'A sweet baked treat, soft, loaded with chocolate chips, and ready for snack time',
+      description: 'A sweet soft baked treat, loaded with chocolate chips, and ready for snack time',
       amount: '6 count',
       image: cookiesImage,
       vip: true
@@ -368,7 +368,7 @@ const seed = async()=> {
     }),
     
   ]);
-  
+  // --- these are seperated to make default wishlists
   const [quinoa, pistachios, blackbeans] = await Promise.all([
     createProduct({
       name: 'Quinoa',

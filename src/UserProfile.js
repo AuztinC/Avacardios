@@ -8,7 +8,7 @@ import User from "./User";
 import Shipping from "./Shipping";
 
 
-const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress })=>{
+const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress, destination })=>{
     const { id } = useParams() 
     return (
     (<div className="user-profile">
@@ -33,13 +33,14 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
             
             { id === 'users' ? <Users users={ users } orders={ orders }  /> : null}
             
-            {/* { id === 'shipping' ? <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/> : null} */}
+            { id === 'shipping' ? <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth} destination={ destination }/> : null}
             
             <User users={ users } lineItems={ lineItems } wishLists={ wishLists } orders={ orders } products={ products } updateUser={ updateUser }/>
         </div>
         <div className="user-links">
             <Link to={'/account/wishlist'}>WishList</Link>
             <Link to={'/account/orders'}>Orders</Link>
+            <Link to={'/account/shipping'}>Shipping</Link>
             <Link to={'/account/settings'}>Settings</Link>
             { auth.is_admin ? <Link to={'/account/users'}>All Users</Link> : null }
         </div>
