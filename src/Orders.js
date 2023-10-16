@@ -1,7 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAddressDetails })=> {
+const DeleteOrder = ({product, wishList, addWishList, removeWishList}) => {
+  return (
+    <div>
+      {
+        wishList ? <button onClick={() => removeWishList(wishList)}>Remove from Wish List</button>: null
+      }
+    </div>
+  )
+}
+
+const Orders = ({ orders, products, lineItems, auth, destination, selectedAddressDetails })=> {
   
   const userOrders = orders.filter(order => !order.is_cart && order.user_name === auth.username)
   // console.log(orders)
@@ -38,7 +48,7 @@ const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAd
                     <h4>Delivering to:</h4>
                     {selectedAddressDetails && (
                       <div>
-                        {selectedAddress.customer_name} - {selectedAddressDetails.street}, {selectedAddressDetails.city}, {selectedAddressDetails.state}
+                        {destination.customer_name} - {selectedAddressDetails.street}, {selectedAddressDetails.city}, {selectedAddressDetails.state}
                       </div>
                     )}
                   </div>
