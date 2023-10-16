@@ -66,6 +66,12 @@ const createAddress = async({addy, setAddress, address}) => {
   setAddress([...address,response.data]);
 }
 
+const updateProduct = async({product, products, setProducts})=>{
+  // console.log(product)
+  const response = await axios.put(`/api/products/${product.id}`, product, getHeaders())
+  console.log(response.data)
+}
+
 const updateLineItem = async({ lineItem, cart, lineItems, setLineItems })=> {
   const response = await axios.put(`/api/lineItems/${lineItem.id}`, {
     quantity: lineItem.quantity + 1,
@@ -151,7 +157,7 @@ const attemptLoginWithToken = async(setAuth)=> {
   if(token){
     try {
       const response = await axios.get('/api/me', getHeaders());
-      console.log('response', response.data)
+      // console.log('response', response.data)
       setAuth(response.data);
     }
     catch(ex){
@@ -225,6 +231,7 @@ const api = {
   createLineItem,
   updateLineItem,
   updateOrder,
+  updateProduct,
   removeFromCart,
   attemptLoginWithToken,
   increaseQuantity,

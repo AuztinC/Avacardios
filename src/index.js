@@ -13,6 +13,7 @@ import Products from './Products';
 import Cart from './Cart';
 import CreateProduct from './CreateProduct';
 import Product from './Product';
+import EditProduct from './EditProduct';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -108,6 +109,10 @@ const App = ()=> {
   const createProduct = async(product)=>{
     await api.createProduct({product, setProducts, products})
   }
+  
+  const updateProduct = async(product)=>{
+    await api.updateProduct({product, products, setProducts})
+  }
 
   const updateLineItem = async(lineItem)=> {
     await api.updateLineItem({ lineItem, cart, lineItems, setLineItems });
@@ -197,10 +202,14 @@ const App = ()=> {
       <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} setProducts={setProducts}/>}/>
       
       <Route path='/products/:id' element={<Product products={products} reviews={reviews} setReviews={setReviews} createReviews={createReviews} cartItems={cartItems} updateLineItem={updateLineItem} createLineItem={createLineItem} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} auth={auth} />}/>
+      
+      <Route path='/products/:id/edit' element={ <EditProduct products={ products } updateProduct={ updateProduct } />} />
 
       <Route path='/products/search/:term' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
       
       <Route path='/createProduct' element={ <CreateProduct createProduct={ createProduct }/>}/>
+      
+      
       
       <Route path='/cart' element={<Cart auth = {auth} updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} address = {address} destination={destination} setDestination={setDestination}/>}/>
       
