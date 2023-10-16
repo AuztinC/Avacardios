@@ -59,6 +59,11 @@ const createProduct = async({ product, setProducts, products})=>{
   setProducts( products.map(_product=>_product.id === response.data.id ? response.data : _product) )
 }
 
+const createAddress = async({addy, setAddress, address}) => {
+  const response = await axios.post('/api/shipping', addy, getHeaders())
+  setAddress([...address,response.data]);
+}
+
 const updateLineItem = async({ lineItem, cart, lineItems, setLineItems })=> {
   const response = await axios.put(`/api/lineItems/${lineItem.id}`, {
     quantity: lineItem.quantity + 1,
@@ -87,6 +92,11 @@ const addWishList = async({ wishList, setWishLists, wishLists })=> {
 const removeWishList = async({ wishList, wishLists, setWishLists })=> {
   await axios.delete(`/api/wishList/${wishList.id}`, getHeaders());
   setWishLists(wishLists.filter(wish => wish.id != wishList.id))
+};
+
+const removeAddress = async({ addy, address, setAddress })=> {
+  await axios.delete(`/api/wishList/${addy.id}`, getHeaders());
+  setAddress(address.filter(addy => addy.id != address.id))
 };
 
 const removeFromCart = async({ lineItem, lineItems, setLineItems })=> {
@@ -171,10 +181,6 @@ const createReviews=async({review, reviews, setReviews})=>{
   setReviews([...reviews,response.data]);
 }
 
-const createAddress = async({addy, address, setAddress}) => {
-  const response = await axios.post('/api/shipping', addy)
-  setAddress([...address,response.data]);
-}
 
 const api = {
   login,
@@ -199,6 +205,7 @@ const api = {
   fetchReviews,
   fetchAddress,
   createAddress,
+  removeAddress,
   createProduct
 };
 
