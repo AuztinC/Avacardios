@@ -1,10 +1,17 @@
 import React from "react";
 
-const Pagination = ({productsPerPage, totalProducts, paginate}) => {
+const Pagination = ({productsPerPage, totalProducts, paginate, auth, products}) => {
+    const vipProducts = products.filter(product => product.vip);
     const pageNumbers = [];
 
-    for(let i = 1; i <= Math.ceil((totalProducts - 1)/ productsPerPage); i++){
-        pageNumbers.push(i);
+    if(!auth.vip){
+        for(let i = 1; i <= Math.ceil((totalProducts - vipProducts.length) / productsPerPage); i++){
+            pageNumbers.push(i);
+        }
+    } else {
+        for(let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++){
+            pageNumbers.push(i);
+    }
     }
 
     return (

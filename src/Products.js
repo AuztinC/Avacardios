@@ -18,9 +18,9 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  let nonVipProducts = products.filter(product=>!product.vip);
-  let currentProduct = nonVipProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-
+  const nonVipProducts = products.filter(product=>!product.vip);
+  const currentProduct = nonVipProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const vipProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -29,16 +29,6 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
 
   const navigate=useNavigate();
   const {term}=useParams();
-
-  useEffect(() => {
-    if(auth.vip === true || auth.is_admin){
-      currentProduct = products.slice(indexOfFirstProduct, indexOfLastProduct)
-    }
-  }, [auth])
-  
-  useEffect(()=>{
-    nonVipProducts = products.filter(product=>!product.vip)
-  }, [products])
   
   if(!products || !nonVipProducts){
     return null
@@ -48,9 +38,40 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
     <div className='products'>
       <h2>Products</h2>
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
-      <button><Link to={'/createProduct'}>Create New Product</Link></button>
       { auth.is_admin ? <button><Link to={'/createProduct'}>Create New Product</Link></button> : null}
-        {
+        {auth.vip ?
+          vipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
+            const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
+            return (
+              <div key={ product.id }>
+                <div>
+                  {
+                    product.image ? <img src={product.image}/> : null
+                  }
+                </div>
+                <Link to={`/products/${product.id}`}>{ product.name }</Link>
+                <div>
+                  <p>${product.price.toFixed(2)}</p>
+                  <p>Amount: {product.amount}</p>
+                  <p>{product.description}</p>
+                </div>
+                {
+                  auth.id ? (
+                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add to Cart</button>
+                  ): null 
+                }
+                {
+                  auth.is_admin ? (
+                    <Link to={`/products/${product.id}/edit`}>Edit</Link>
+                  ): null
+                }
+                {
+                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
+                }
+                <hr/>
+              </div>
+            );
+          }) :
           currentProduct.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
@@ -88,8 +109,9 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       productsPerPage={productsPerPage} 
       totalProducts={products.length} 
       paginate={paginate}
+      auth={auth}
+      products={products}
       />
-
     </div>
   );
 };
