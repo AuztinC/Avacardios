@@ -21,8 +21,20 @@ const {
   updateLineItem,
   deleteLineItem,
   updateOrder,
-  fetchOrders
+  fetchOrders,
 } = require('./cart');
+
+const {
+  fetchAddress,
+  createAddress
+} = require('./shipping');
+const { flushSync } = require('react-dom');
+
+const {
+  createWishList,
+  fetchWishList,
+  deleteWishList
+} = require('./wishList')
 
 const loadImage = (filePath)=> {
   return new Promise((resolve, reject)=>{
@@ -36,21 +48,6 @@ const loadImage = (filePath)=> {
     })
   })
 }
-
-const {
-fetchAddress,
-createAddress
-} = require('./shipping');
-
-const { flushSync } = require('react-dom');
-
-const {
-  createWishList,
-  fetchWishList,
-  deleteWishList
-} = require('./wishList')
-
-
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
@@ -61,8 +58,6 @@ const seed = async()=> {
     DROP TABLE IF EXISTS shipping;
     DROP TABLE IF EXISTS users;
    
-    
-    
 
     CREATE TABLE users(
       id UUID PRIMARY KEY,
@@ -70,7 +65,8 @@ const seed = async()=> {
       username VARCHAR(100) UNIQUE NOT NULL,
       password VARCHAR(100) NOT NULL,
       is_admin BOOLEAN DEFAULT false NOT NULL,
-      image TEXT 
+      image TEXT,
+      vip BOOLEAN DEFAULT false
     );
     
     CREATE TABLE shipping(
@@ -91,16 +87,16 @@ const seed = async()=> {
       price INT,
       description TEXT,
       amount VARCHAR(100),
-      image TEXT
+      image TEXT,
+      vip BOOLEAN DEFAULT false
     );
-
 
     CREATE TABLE orders(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
       is_cart BOOLEAN NOT NULL DEFAULT true,
-      user_id UUID REFERENCES users(id) NOT NULL,
-      user_name VARCHAR(20) NOT NULL,
+      user_id UUID REFERENCES users(id),
+      user_name VARCHAR(20),
       shipping_id UUID REFERENCES shipping(id)
     );
     
@@ -131,13 +127,12 @@ const seed = async()=> {
       
       await client.query(SQL);
       
-  const defaultUserImage = await loadImage('/images/avatar01.png')
   const [moe, lucy, ethyl] = await Promise.all([
-    createUser({ username: 'moe', password: '1', is_admin: false, image: defaultUserImage}),
-    createUser({ username: 'lucy', password: 'l_password', is_admin: false, image: defaultUserImage}),
-    createUser({ username: 'ethyl', password: '1234', is_admin: true, image: defaultUserImage})
+    createUser({ username: 'moe', password: '1', is_admin: false, vip: true}),
+    createUser({ username: 'lucy', password: 'l_password', is_admin: false}),
+    createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
-
+  
   const [addy] = await Promise.all([
     createAddress({ 
       customer_name: 'Ethyl', 
@@ -149,6 +144,7 @@ const seed = async()=> {
       }),
     ]);
 
+  const cookiesImage = await loadImage('/images/chocolate-chip-cookies.png')
   const avocadoImage = await loadImage('/images/avocadoprod.png');
   const carrotImage = await loadImage('/images/carrotsnew.png');
   const tomatoImage = await loadImage('/images/tomato.png');
@@ -180,38 +176,15 @@ const seed = async()=> {
   const pistachioImage = await loadImage('/images/pistachio.png')
   const beansImage = await loadImage('/images/blackbeans.png')
 
-  const [
-    Avocado, 
-    Carrots, 
-    Tomato, 
-    Spinach, 
-    Blueberries, 
-    Asparagus, 
-    Pitaya, 
-    Cauliflower, 
-    Lemon, 
-    Bananas, 
-    Potatoes, 
-    Lettuce, 
-    Mushrooms, 
-    Raspberries, 
-    Peach, 
-    Watermelon, 
-    Grapes, 
-    Strawberries, 
-    Broccoli, 
-    Zucchini,
-    Oats,
-    Almonds,
-    Chia,
-    Eggs,
-    Walnuts,
-    Salmon,
-    Chicken,
-    Quinoa,
-    Pistachios,
-    Beans
-  ] = await Promise.all([
+  await Promise.all([
+    createProduct({ 
+      name: 'HomeMade Chocolate Chip Cookies', 
+      price: 7, 
+      description: 'A sweet baked treat, soft, loaded with chocolate chips, and ready for snack time',
+      amount: '6 count',
+      image: cookiesImage,
+      vip: true
+    }),
     createProduct({ 
       name: 'Avocados', 
       price: 5, 
@@ -401,6 +374,10 @@ const seed = async()=> {
       amount: '4 lb',
       image: chickenImage
     }),
+    
+  ]);
+  
+  const [quinoa, pistachios, blackbeans] = await Promise.all([
     createProduct({
       name: 'Quinoa',
       price: 9,
@@ -422,21 +399,22 @@ const seed = async()=> {
       amount: '16 oz bag',
       image: beansImage
     })
-  ]);
+  ])
+  
 
 
   await Promise.all([
     createWishList({
       user_id: ethyl.id,
-      product_id: Spinach.id
+      product_id: quinoa.id
     }),
     createWishList({
       user_id: ethyl.id,
-      product_id: Tomato.id
+      product_id: pistachios.id
     }),
     createWishList({
       user_id: moe.id,
-      product_id: Spinach.id
+      product_id: blackbeans.id
     })
   ])
   
@@ -449,11 +427,13 @@ const seed = async()=> {
   // lineItem = await createLineItem({ order_id: cart.id, product_id: Tomato.id});
   // cart.is_cart = false;
   // await updateOrder(cart);
+  
 };
 
 
 module.exports = {
   fetchProducts,
+  createProduct,
   fetchOrders,
   fetchLineItems,
   fetchWishList,

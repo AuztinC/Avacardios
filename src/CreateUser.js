@@ -29,9 +29,13 @@ const CreateUser = ({ createUser })=> {
         <form onSubmit={ submit }>
             <input type='text' placeholder='username' value={username} onChange={(ev)=>setUsername(ev.target.value)}/>
             <input type='password' placeholder='password' value={password} onChange={(ev)=>setPassword(ev.target.value)}/>
-            <label>Admin User?
-                <input type='checkbox' onChange={()=>setAdmin(!admin)} value={admin}/>
-            </label>
+            
+            <div className='admin-check'>
+                <label>Admin User?
+                    <input type='checkbox' onChange={()=>setAdmin(!admin)} value={admin}/>
+                </label>
+            </div>
+            
             <button disabled={ !username || !password ? true : false}>Create Account</button>
             { error ? <p className='error'>{error.response.data.message}</p> : null}
         </form>

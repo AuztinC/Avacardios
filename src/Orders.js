@@ -1,13 +1,16 @@
 import React from 'react';
-import Cart from './Cart';
+import { Link } from 'react-router-dom';
 
 const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAddressDetails })=> {
   
   const userOrders = orders.filter(order => !order.is_cart && order.user_name === auth.username)
-
+  // console.log(orders)
   
   if(userOrders.length === 0){
-    return <h2>It looks like you haven't placed any orders yet.</h2>
+    return <>
+      <h2>Check out our fresh produce and make your first order!</h2>
+      <Link style={{textDecoration: 'underline'}} to='/products'>All Products -{'>'}</Link>
+    </>
   }
   return (
     <div>
@@ -18,7 +21,7 @@ const Orders = ({ orders, products, lineItems, auth, selectedAddress, selectedAd
             // console.log(lineItems)
             return (
               <li key={ order.id }>
-                ({ new Date(order.created_at).toLocaleString() }) ({ order.user_name })
+                ({ new Date(order.created_at).toLocaleString() }) User - ({ order.user_name })
                 <ul>
                   {
                     orderLineItems.map( lineItem => {

@@ -4,13 +4,21 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity, address, selectedAddress, setSelectedAddress, auth })=> {
+  const [selectedAddressDetails, setSelectedAddressDetails] = useState(null)
   
   const lineItemsinCart = lineItems.filter( item => item.order_id === cart.id);
+  
   const totalPrice = lineItemsinCart.reduce((total, item) => {
     const product = products.find(product => product.id === item.product_id)
     return total + (product ? product.price * item.quantity : 0);
   }, 0);
 
+  const userAddresses = address.filter(addy => addy.user_id === auth.id);
+  const handleSelect = () => {
+    const selected = address.find(addy => addy.id === selectedAddress);
+    setSelectedAddressDetails(selected);
+    // console.log(selectedAddress)
+  };
   
   if(!lineItems){
     return null
