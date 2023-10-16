@@ -10,7 +10,7 @@ const DeleteAddress = ({address, removeAddress}) => {
   )
 }
 
-const Addresses = ({ address, createAddress })=> {
+const Addresses = ({ address, createAddress, removeAddress })=> {
   const el = useRef();
   useEffect(()=> {
       const options = {
@@ -23,7 +23,7 @@ const Addresses = ({ address, createAddress })=> {
         const place = autocomplete.getPlace();
         const address = { data: place };
         await createAddress(address);
-        console.log(address); 
+        // console.log(address); 
         el.current.value = '';
       });
     });
@@ -35,11 +35,12 @@ const Addresses = ({ address, createAddress })=> {
       <h3> Your addresses on file:</h3>
       <ol>
         {
-          address.map( address => {
+          address.map( (address) => {
+            // const addy = address.find( address_ => address_.id === address.id)
             return (
               <li key={ address.id }>
                 { address.data.formatted_address }
-                {/* <DeleteAddress address= { address } address = {address.find(wish => wish.product_id === product.id)} removeWishList= { removeWishList } /> */}
+                {/* <DeleteAddress address = {address.find(wish => wish.product_id === product.id)} removeAddress= { removeAddress } /> */}
               </li>
             );
           })
