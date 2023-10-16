@@ -275,7 +275,7 @@ button:hover {
 /* ---- End Products ---- */
 
 
-/* ---- Products ---- */
+/* ---- Product ---- */
 .product{
   background-color: white;
   border: 1px solid black;
@@ -285,10 +285,11 @@ button:hover {
 .product img {
   max-height: 150px;
   display: block;
-  margin-left: 50%;
+  float: right;
+  margin-top: -5rem;
 }
 
-/* ---- End Products ---- */
+/* ---- End Product ---- */
 
 
 /* ---- USER PROFILE ---- */

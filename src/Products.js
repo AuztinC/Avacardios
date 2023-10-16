@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link,useNavigate,useParams } from 'react-router-dom';
 import Pagination from './Pagination';
 
-const WishList = ({product, wishList, addWishList}) => {
+const WishList = ({product, wishList, addWishList, removeWishList}) => {
   return (
     <div>
       {
-        wishList ? null : <button onClick={() => addWishList({product_id: product.id})}>Add to Wish List</button>
+        wishList ? <button onClick={() => removeWishList(wishList)}>Remove from Wish List</button> : 
+        <button onClick={() => addWishList({product_id: product.id})}>Add to Wish List</button>
       }
     </div>
   )
 }
 
-const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList, setProducts})=> {
+const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList, setProducts, removeWishList})=> {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
 
@@ -40,7 +41,8 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
       {auth.is_admin ? <button><Link to={'/createProduct'}>Create New Product</Link></button> : null}
       {!term ?
-        auth.vip ?
+        <div>
+        {auth.vip ?
           vipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
@@ -67,7 +69,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   ): null
                 }
                 {
-                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
+                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} />: null
                 }
                 <hr/>
               </div>
@@ -99,13 +101,22 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   ): null
                 }
                 {
-                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
+                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
                 }
                 <hr/>
               </div>
             );
           })
-        
+        }
+          <Pagination 
+          productsPerPage={productsPerPage} 
+          totalProducts={products.length} 
+          paginate={paginate}
+          auth={auth}
+          products={products}
+          />
+          </div>
+
         : 
 
         auth.vip ?
@@ -135,7 +146,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 ): null
               }
               {
-                auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
+                auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
               }
               <hr/>
             </div>
@@ -167,23 +178,16 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 ): null
               }
               {
-                auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} />: null
+                auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
               }
               <hr/>
             </div>
           );
         })
       }
-      
-      <Pagination 
-      productsPerPage={productsPerPage} 
-      totalProducts={products.length} 
-      paginate={paginate}
-      auth={auth}
-      products={products}
-      />
     </div>
   );
 };
+
 
 export default Products;

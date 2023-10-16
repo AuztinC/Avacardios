@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {useParams,Link} from "react-router-dom";
 import Reviews from "./Reviews";
+//import WishList from "./Products";
 
 const WishList = ({product, wishList, addWishList, removeWishList}) => {
     return (
@@ -11,7 +12,7 @@ const WishList = ({product, wishList, addWishList, removeWishList}) => {
         }
       </div>
     )
-  }
+}
 
 const Product =({products,reviews,createReviews,cartItems,updateLineItem,createLineItem,addWishList,removeWishList,wishLists,auth})=>{
     const {id}=useParams();
@@ -33,16 +34,19 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
         return(
             <div className="product">
                 <h2>{product.name}</h2>
+                
                 {
                   auth.id ? (
                     cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add</button>
                   ): null 
                 }
+                
                 {
                     auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} />: null
-                }<br/>
+                }
                 <img src={product.image}/>
                 <h4>${product.price}</h4>
+                <br/>
                 <h4>{product.description}</h4>
                 <hr/>
                 <Reviews reviews={reviews} product={product} createReviews={createReviews} auth={auth}/>
