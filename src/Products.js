@@ -43,7 +43,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       {!term ?
         <div>
         {auth.vip ?
-          vipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
+          vipProducts.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <div key={ product.id }>
@@ -75,7 +75,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
               </div>
             );
           }) :
-          currentProduct.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
+          currentProduct.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <div key={ product.id }>
