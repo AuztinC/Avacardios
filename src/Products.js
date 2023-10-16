@@ -32,7 +32,9 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       {auth.is_admin ? <button><Link to={'/createProduct'}>Create New Product</Link></button> : null}
       {!term ?
         <div>
-        {auth.vip ?
+
+        {auth.vip || auth.is_admin ?
+
           vipProducts.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
