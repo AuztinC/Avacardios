@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link,useNavigate,useParams } from 'react-router-dom';
+import Pagination from './Pagination';
 
 const WishList = ({product, wishList, addWishList}) => {
   return (
@@ -11,28 +12,35 @@ const WishList = ({product, wishList, addWishList}) => {
   )
 }
 
-const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList})=> {
+const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, wishLists, addWishList, setProducts})=> {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const nonVipProducts = products.filter(product=>!product.vip);
+  const currentProduct = nonVipProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const vipProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({top: 0, left: 0, behavior:'instant'})
+  };
 
   const navigate=useNavigate();
   const {term}=useParams();
-  let nonVipProducts = products.filter(product=>!product.vip)
-  
-  useEffect(()=>{
-    nonVipProducts = products.filter(product=>!product.vip)
-  }, [products])
   
   if(!products || !nonVipProducts){
     return null
   }
+
   return (
     <div className='products'>
       <h2>Products</h2>
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
       { auth.is_admin ? <button><Link to={'/createProduct'}>Create New Product</Link></button> : null}
-
-        {
-         auth.vip || auth.is_admin && auth.id ? 
-          products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
+        {auth.vip ?
+          vipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <div key={ product.id }>
@@ -49,7 +57,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 </div>
                 {
                   auth.id ? (
-                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add</button>
+                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add to Cart</button>
                   ): null 
                 }
                 {
@@ -63,9 +71,8 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 <hr/>
               </div>
             );
-          })
-        : 
-          nonVipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
+          }) :
+          currentProduct.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <div key={ product.id }>
@@ -82,7 +89,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 </div>
                 {
                   auth.id ? (
-                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add</button>
+                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add to Cart</button>
                   ): null 
                 }
                 {
@@ -98,7 +105,13 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             );
           })
         }
-
+      <Pagination 
+      productsPerPage={productsPerPage} 
+      totalProducts={products.length} 
+      paginate={paginate}
+      auth={auth}
+      products={products}
+      />
     </div>
   );
 };

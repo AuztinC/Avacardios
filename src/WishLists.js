@@ -11,7 +11,8 @@ const DeleteWishList = ({product, wishList, addWishList, removeWishList}) => {
     )
   }
 
-const WishLists = ({products, wishLists, removeWishList, auth}) => {
+const WishLists = ({products, wishLists, removeWishList}) => {
+
     if(!wishLists){
         return null
       }
@@ -30,8 +31,6 @@ const WishLists = ({products, wishLists, removeWishList, auth}) => {
                             <h4>{product.name}</h4>
                             <DeleteWishList product= { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} removeWishList= { removeWishList } />
                         </div>
-                       
-                      
                     )
                 })
             }
