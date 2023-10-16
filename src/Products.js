@@ -39,7 +39,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       <h2>Products</h2>
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
       { auth.is_admin ? <button><Link to={'/createProduct'}>Create New Product</Link></button> : null}
-        {auth.vip ?
+        {auth.vip || auth.is_admin ?
           vipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
