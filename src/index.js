@@ -4,7 +4,6 @@ import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import api from './api';
-import Reviews from './Reviews';
 import CreateUser from './CreateUser';
 import UserProfile from './UserProfile';
 import Shipping from './Shipping';
@@ -13,6 +12,7 @@ import Products from './Products';
 import Cart from './Cart';
 import CreateProduct from './CreateProduct';
 import Product from './Product';
+import EditProduct from './EditProduct';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -42,8 +42,12 @@ const App = ()=> {
     const fetchUsers = async()=>{
       await api.fetchUsers(setUsers)
     }
+    const fetchReviews = async()=>{
+      await api.fetchReviews(setReviews)
+    }
     fetchData();
-    fetchUsers()
+    fetchUsers();
+    fetchReviews();
   }, []);
 
   useEffect(() => {
@@ -83,8 +87,6 @@ const App = ()=> {
     }
   }, [auth]);
 
-  
- 
   const createUser = async(user)=>{
     await api.createUser({user, users, setUsers})
   }
@@ -107,6 +109,10 @@ const App = ()=> {
   
   const createProduct = async(product)=>{
     await api.createProduct({product, setProducts, products})
+  }
+  
+  const updateProduct = async(product)=>{
+    await api.updateProduct({product, products, setProducts})
   }
 
   const updateLineItem = async(lineItem)=> {
@@ -194,11 +200,13 @@ const App = ()=> {
       
       <Route path='login' element={ <Login login={ login }  handleGithubLogin={ handleGithubLogin }/> } />
       
-      <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} setProducts={setProducts}/>}/>
+      <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} setProducts={setProducts}/>}/>
       
       <Route path='/products/:id' element={<Product products={products} reviews={reviews} setReviews={setReviews} createReviews={createReviews} cartItems={cartItems} updateLineItem={updateLineItem} createLineItem={createLineItem} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} auth={auth} />}/>
+      
+      <Route path='/products/:id/edit' element={ <EditProduct products={ products } updateProduct={ updateProduct } />} />
 
-      <Route path='/products/search/:term' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList}/>}/>
+      <Route path='/products/search/:term' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList}/>}/>
       
       <Route path='/createProduct' element={ <CreateProduct createProduct={ createProduct }/>}/>
       
