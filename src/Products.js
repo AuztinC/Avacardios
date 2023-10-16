@@ -18,10 +18,14 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  let nonVipProducts = products.filter(product=>!product.vip)
-  let currentProduct = nonVipProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+  let nonVipProducts = products.filter(product=>!product.vip);
+  let currentProduct = nonVipProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({top: 0, left: 0, behavior:'instant'})
+  };
 
   const navigate=useNavigate();
   const {term}=useParams();
@@ -44,7 +48,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
     <div className='products'>
       <h2>Products</h2>
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
-       <button><Link to={'/createProduct'}>Create New Product</Link></button>
+      <button><Link to={'/createProduct'}>Create New Product</Link></button>
       { auth.is_admin ? <button><Link to={'/createProduct'}>Create New Product</Link></button> : null}
         {
           currentProduct.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
