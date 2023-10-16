@@ -72,12 +72,8 @@ const seed = async()=> {
     CREATE TABLE shipping(
       id UUID PRIMARY KEY,
       customer_name VARCHAR(100),
-      street VARCHAR(200),
-      city VARCHAR(20),
-      state VARCHAR(200),
-      zip INTEGER,
+      data JSON DEFAULT '{}',
       user_id UUID REFERENCES users(id) NOT NULL
-      --CONSTRAINT user_key UNIQUE (user_id)
     );
 
     CREATE TABLE products(
@@ -133,16 +129,12 @@ const seed = async()=> {
     createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
   
-  const [addy] = await Promise.all([
-    createAddress({ 
+   await createAddress({ 
       customer_name: 'Ethyl', 
-      street:'1234 Ethylville Drive',
-      city: 'Paris',
-      state: 'TX',
-      zip: 76892,
+      data: { formatted_address: 'USA'},
       user_id: ethyl.id
-      }),
-    ]);
+      });
+    
 
   const cookiesImage = await loadImage('/images/chocolate-chip-cookies.png')
   const avocadoImage = await loadImage('/images/avocadoprod.png');

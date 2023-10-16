@@ -1,11 +1,9 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom'
-
 import { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity, address, selectedAddress, setSelectedAddress, auth })=> {
+const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity, address, destination, setDestination, auth })=> {
   const [selectedAddressDetails, setSelectedAddressDetails] = useState(null)
   
   const lineItemsinCart = lineItems.filter( item => item.order_id === cart.id);
@@ -17,7 +15,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
 
   const userAddresses = address.filter(addy => addy.user_id === auth.id);
   const handleSelect = () => {
-    const selected = address.find(addy => addy.id === selectedAddress);
+    const selected = address.find(addy => addy.id === destination);
     setSelectedAddressDetails(selected);
     // console.log(selectedAddress)
   };
@@ -56,33 +54,33 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
         lineItems.filter(lineItem => lineItem.order_id === cart.id).length ? <p>Order Total: ${ totalPrice }</p> : null
       }
       {
-      userAddresses.length > 0 ? (
-        <>
-        <h4>Deliver to:</h4>
-          <select className='addy-dropdown' value={selectedAddress} onChange={e => setSelectedAddress(e.target.value)}>
-          
-            <option value="">Select an Address</option>
-            {userAddresses.map(address => (
-              <option key={address.id} value={address.id}>
-                {address.customer_name} - {address.street}, {address.city}, {address.state}
-              </option>
-            ))}
-          </select>
-          {
-        lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? <>
-        <button onClick={()=> {
+        auth.id ?  
+        lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? (
+            <>
+            <h4>Deliver to:</h4>
+              <select value={destination} onChange={e => setDestination(e.target.value)}>
+              
+                <option value="">Select an Address</option>
+                {userAddresses.map(address => (
+                  <option key={address.id} value={address.id}>
+                    {auth.username} - {address.data.formatted_address}
+                  </option>
+                ))}
+              </select>
+            </>
+            ) : null
+         : null
+      }
+      {
+        userAddresses.length > 0 ? null : <p>No addresses available for delivery. Please add an address <Link to='/account/shipping'>Here.</Link></p>
+      }
+      {
+        auth.id ?
+        lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? <button onClick={()=> {
           handleSelect();
           updateOrder({...cart, is_cart: false });
-        }}>Create Order </button>
-         <button>
-          <Link to={'/account/shipping'}>Create New Address</Link>
-          </button>
-          </>: null
-      }
-        </>
-        ) : (
-          <p>No addresses available for delivery. Please add an address <Link to='/account/shipping'>Here.</Link></p>
-        )
+        }}>Create Order</button>: null
+        : null
       }
     </div>
      

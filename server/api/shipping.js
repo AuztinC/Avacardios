@@ -17,7 +17,7 @@ const {
 
 app.post('/', isLoggedIn, async(req,res,next)=>{
     try {
-        res.send(await createAddress(req.body))
+        res.send(await createAddress({user_id: req.user.id, ...req.body}))
     } catch (error) {
         next(error);
     }
