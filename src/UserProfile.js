@@ -8,7 +8,7 @@ import User from "./User";
 import Shipping from "./Shipping";
 
 
-const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress, destination })=>{
+const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress, destination, allOrders })=>{
     const { id } = useParams() 
     return (
     (<div className="user-profile">
@@ -21,6 +21,8 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
                     orders = { orders }
                     products = { products }
                     lineItems = { lineItems }
+                    allOrders = { allOrders }
+                    
             /> : null }
             
             { id === 'settings' ? <Settings auth={ auth } updateUser={ updateUser }/> : null}
@@ -35,7 +37,7 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
             
             { id === 'shipping' ? <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth} destination={ destination }/> : null}
             
-            <User users={ users } lineItems={ lineItems } wishLists={ wishLists } orders={ orders } products={ products } updateUser={ updateUser }/>
+            <User users={ users } lineItems={ lineItems } wishLists={ wishLists } orders={ orders } products={ products } updateUser={ updateUser } allOrders={ allOrders }/>
         </div>
         <div className="user-links">
             <Link to={'/account/wishlist'}>WishList</Link>

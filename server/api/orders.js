@@ -1,5 +1,6 @@
 const {
   fetchOrders,
+  fetchAllOrders,
   updateOrder,
   fetchWishList,
   createWishList,
@@ -21,6 +22,14 @@ app.put('/:id', isLoggedIn, async(req, res, next)=> {
 app.get('/', isLoggedIn, async(req, res, next)=> {
   try {
     res.send(await fetchOrders(req.user));
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+app.get('/allOrders', isLoggedIn, isAdmin, async(req, res, next)=> {
+  try {
+    res.send(await fetchAllOrders());
   }
   catch(ex){
     next(ex);
