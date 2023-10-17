@@ -24,5 +24,5 @@ const isAdmin = (req, res, next)=> {
 const createreview=()=>{
   
 }
-console.log(createreview)
+// console.log(createreview)
 module.exports = { isLoggedIn, isAdmin }
