@@ -2,11 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const DeleteAddress = ({address, deleteAddress}) => {
-  // console.log(deleteAddress)
+
   return (
     <div>
       {
-        address ? <button onClick={() => deleteAddress(address)}>Remove address</button>: null
+        address ? <button onClick={async() => await deleteAddress(address)}>Remove address</button>: null
       }
     </div>
   )
@@ -25,7 +25,6 @@ const Addresses = ({ address, createAddress, auth, destination, deleteAddress })
         const place = autocomplete.getPlace();
         const address = { data: place };
         await createAddress(address);
-        // console.log(address); 
         el.current.value = '';
       });
     });
@@ -38,7 +37,7 @@ const Addresses = ({ address, createAddress, auth, destination, deleteAddress })
       <ol>
         {
           address.map( (address) => {
-            // console.log(address)
+            console.log(address)
             // const addy = address.find( address_ => address_.id === address.id)
             return (
               <li key={ address.id }>
