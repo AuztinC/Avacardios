@@ -215,8 +215,6 @@ const App = ()=> {
       <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } destination={destination} users={ users } updateUser={ updateUser } address = {address} createAddress={ createAddress }/> }  />
       
       <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser } address={ address } createAddress={ createAddress }/> }  />
-      
-      <Route path='/reviews' element={<Reviews reviews={reviews} setReviews={setReviews} products={products} createReviews={createReviews} auth={auth} />}/>
 
       <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} removeAddress={removeAddress} auth={auth}/>}/>
     </Routes>
