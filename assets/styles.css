@@ -332,13 +332,22 @@ button:hover {
   background-color: white;
   border: 1px solid black;
   text-align: right;
+  padding: 1rem;
 }
 
 .product img {
   max-height: 150px;
-  display: block;
+  display: inline;
   float: left;
   margin-top: -5rem;
+}
+
+/*.product h2 {
+  text-align: center;
+}*/
+
+.review {
+  text-align: left;
 }
 
 /* ---- End Product ---- */

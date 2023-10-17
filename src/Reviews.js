@@ -42,7 +42,7 @@ const decreaseRating=(star,setStar)=>{
 
 const Reviews=({reviews,product,createReviews,auth})=>{
     return(
-        <>
+        <div className='review'>
             <h4>Reviews</h4>
             <ul>
             {
@@ -56,7 +56,7 @@ const Reviews=({reviews,product,createReviews,auth})=>{
             <hr/>
             <ReviewForm product={product} createReviews={createReviews} auth={auth}/>
             <hr/>
-        </>
+        </div>
     )
 }
 
