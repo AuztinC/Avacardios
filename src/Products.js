@@ -33,6 +33,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       {!term ?
         <div className='products-container'>
         {auth.vip || auth.is_admin ?
+
           vipProducts.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
