@@ -7,7 +7,7 @@ const CreateUser = ({ createUser })=> {
     const [password, setPassword] = useState('')
     const [admin, setAdmin] = useState(false)
     const [error, setError] = useState('')
-    const [animate, setAnimate] = useState(false)
+    
     const navigate = useNavigate()
     
     async function submit(ev){
@@ -18,8 +18,8 @@ const CreateUser = ({ createUser })=> {
             is_admin: admin
         }
         try {
-            await createUser({ user, setError })
-            navigate('/')
+            await createUser( user, setError )
+            navigate('/login')
         } catch (error) {
             setError(error)
             console.log(error.response.data.message)
