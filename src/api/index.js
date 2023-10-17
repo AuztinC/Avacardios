@@ -30,6 +30,7 @@ const fetchOrders = async(setOrders)=> {
 
 const fetchReviews=async(setReviews)=>{
   const response=await axios.get('/api/reviews');
+  console.log(response.data)
   setReviews(response.data);
 }
 
