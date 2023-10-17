@@ -61,7 +61,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   ): null
                 }
                 {
-                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} />: null
+                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} auth={auth}/>: null
                 }
               </div>
             );
