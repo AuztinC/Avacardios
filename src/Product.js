@@ -22,7 +22,7 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
     }else{
         return(
             <div className="product">
-                <h2>{product.name}</h2>
+                <h2 className='products'>{product.name}</h2>
                 
                 {
                   auth.id ? (
@@ -35,7 +35,6 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
                 }
                 <img src={product.image}/>
                 <h4>${product.price}</h4>
-                <br/>
                 <h4>{product.description}</h4>
                 <hr/>
                 <Reviews reviews={reviews} product={product} createReviews={createReviews} auth={auth}/>
