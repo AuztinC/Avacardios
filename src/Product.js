@@ -22,16 +22,18 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
     }else{
         return(
             <div className="product">
-                <h2 className='products'>{product.name}</h2>
+                <h2 className="products">{product.name}</h2>
                 
                 {
                   auth.id ? (
-                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add</button>
-                  ): null 
+                    cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)} style={auth.id? {visibility:'visible'}:{visibility:'hidden'}}>Add</button>
+                  ):<p>Login to add items to</p> 
                 }
                 
                 {
-                    auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} />: null
+                    auth.id ? 
+                    <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} auth={auth}/>
+                    : <p>your cart or wishlist</p>
                 }
                 <img src={product.image}/>
                 <h4>${product.price}</h4>
