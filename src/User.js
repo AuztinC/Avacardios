@@ -1,11 +1,10 @@
-
 import React, { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 
-const User = ({ users, lineItems, wishLists, orders, products, updateUser })=>{
+const User = ({ users, lineItems, wishLists, allOrders, products, updateUser })=>{
     const userId = useParams().user
     let user = users.find(user=>user.id === userId)
-    let userOrders = orders.filter(order=>!order.is_cart && order.user_id === userId)
+    let userOrders = allOrders.filter(order=>!order.is_cart && order.user_id === userId)
     const userWishLists = wishLists.filter(list=>list.user_id === userId)
     const [vip, setVip] = useState(false)
     const [open, setOpen] = useState(false)

@@ -89,29 +89,36 @@ const updateOrder = async(order)=> {
 const fetchOrders = async(user)=> {
   const SQL = `
     SELECT * FROM orders
-    --WHERE user_id = $1
+    WHERE user_id = $1
   `;
-  let response = await client.query(SQL);
+  let response = await client.query(SQL, [user.id]);
   const cart = response.rows.find(row => row.is_cart);
-  
+  // console.log(cart)
   if(!cart){
     await client.query(`
     INSERT INTO orders(is_cart, id, user_id, user_name) VALUES(true, $1, $2, $3)
     `,
     [uuidv4(), user.id, user.username]
     ); 
-    response = await client.query(SQL);
+    response = await client.query(SQL, [user.id]);
     return response.rows;
   } 
-  else if (cart.user_name !== user.username){
-    const SQL = `
-    DELETE FROM orders WHERE id = $1
-    `;
-    await client.query(SQL, [cart.id])
-  }
+  // else if (cart.user_name !== user.username){
+  //   const SQL = `
+  //   INSERT INTO orders(is_cart, id, user_id, user_name) VALUES(true, $1, $2, $3)
+  //   --DELETE FROM orders WHERE id = $1
+  //   `;
+  //   await client.query(SQL, [uuidv4(), user.id, user.username])
+  // }
   // return fetchOrders(userId);
   return response.rows;
 };
+
+const fetchAllOrders = async()=>{
+  const SQL = `SELECT * FROM orders`
+  const response = await client.query(SQL)
+  return response.rows
+}
 
 
 module.exports = {
@@ -121,4 +128,5 @@ module.exports = {
   deleteLineItem,
   updateOrder,
   fetchOrders,
+  fetchAllOrders,
 };

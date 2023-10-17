@@ -17,6 +17,7 @@ import EditProduct from './EditProduct';
 const App = ()=> {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [users, setUsers] = useState([])
   const [auth, setAuth] = useState({});
@@ -57,6 +58,12 @@ const App = ()=> {
       };
       fetchData();
     };
+    if(auth.is_admin){
+      const fetchAllOrders = async()=>{
+        await api.fetchAllOrders(setAllOrders)
+      }
+      fetchAllOrders()
+    }
   }, [auth]);
   
   useEffect(()=> {
@@ -158,6 +165,7 @@ const App = ()=> {
   const login = async(credentials)=> {
     await api.login({ credentials, setAuth });
     navigate('/')
+    
   }
   const handleGithubLogin = async()=>{
     const user = await api.handleGithubLogin(users, setUsers)
@@ -213,11 +221,11 @@ const App = ()=> {
       
       <Route path='/cart' element={<Cart auth = {auth} updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} address = {address} destination={destination} setDestination={setDestination}/>}/>
       
-      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } destination={destination} users={ users } updateUser={ updateUser } address = {address} createAddress={ createAddress } deleteAddress={ deleteAddress }/> }  />
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } allOrders={ allOrders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } destination={destination} users={ users } updateUser={ updateUser } address = {address} deleteAddress={deleteAddress} createAddress={ createAddress }/> }  />
       
-      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } deleteAddress={ deleteAddress } users={ users }  updateUser={ updateUser } address={ address } createAddress={ createAddress }/> }  />
-
-      <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} deleteAddress={deleteAddress} auth={auth}/>}/>
+      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser } address={ address } deleteAddress={deleteAddress} createAddress={ createAddress } allOrders={ allOrders }/> }  />
+      
+      {/* <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/>}/> */}
     </Routes>
   </>);
 };

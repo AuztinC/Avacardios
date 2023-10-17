@@ -11,10 +11,9 @@ const DeleteOrder = ({product, wishList, addWishList, removeWishList}) => {
   )
 }
 
-const Orders = ({ orders, products, lineItems, auth, destination, selectedAddressDetails })=> {
+const Orders = ({ orders, products, lineItems, auth, destination, selectedAddressDetails, allOrders })=> {
   
   const userOrders = orders.filter(order => !order.is_cart && order.user_name === auth.username)
-  // console.log(orders)
   
   if(userOrders.length === 0){
     return <>
@@ -26,7 +25,7 @@ const Orders = ({ orders, products, lineItems, auth, destination, selectedAddres
     <div>
       <ul>
         { auth.is_admin ? // If user is admin, see all orders
-          orders.filter(order => !order.is_cart).map( order => {
+          allOrders.filter(order => !order.is_cart).map( order => {
             
             const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id);
             const price = orderLineItems.reduce((acc, curr)=>{
