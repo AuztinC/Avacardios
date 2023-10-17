@@ -99,6 +99,11 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             );
           })
         }
+        <div style={{
+          width: "100%",
+          position: 'static',
+          bottom: '0px'
+        }}>
           <Pagination 
           productsPerPage={productsPerPage} 
           totalProducts={products.length} 
@@ -106,7 +111,8 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           auth={auth}
           products={products}
           />
-          </div>
+        </div>
+      </div>
 
         : 
 
