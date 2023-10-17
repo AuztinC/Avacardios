@@ -46,7 +46,6 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 <hr/>
                 <Link to={`/products/${product.id}`}>{ product.name }</Link>
                 {product.vip ? <div>
-                  <h2 className='vip'>VIP</h2>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
                   <p>{product.description}</p>
