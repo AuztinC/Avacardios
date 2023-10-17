@@ -23,6 +23,7 @@ const {
   deleteLineItem,
   updateOrder,
   fetchOrders,
+  fetchAllOrders,
 } = require('./cart');
 
 const {
@@ -446,6 +447,7 @@ module.exports = {
   deleteLineItem,
   deleteWishList,
   updateOrder,
+  fetchAllOrders,
   authenticate,
   findUserByToken,
   createAddress,

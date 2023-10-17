@@ -27,10 +27,13 @@ const fetchOrders = async(setOrders)=> {
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
 };
+const fetchAllOrders = async(setAllOrders)=> {
+  const response = await axios.get('/api/orders/allOrders', getHeaders());
+  setAllOrders(response.data);
+};
 
 const fetchReviews=async(setReviews)=>{
   const response=await axios.get('/api/reviews');
-  console.log(response.data)
   setReviews(response.data);
 }
 
@@ -247,6 +250,7 @@ const api = {
   createProduct,
   handleGithubLogin,
   removeAddress,
+  fetchAllOrders
 };
 
 export default api;
