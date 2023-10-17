@@ -31,19 +31,19 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
       {auth.is_admin ? <button><Link to={'/createProduct'}>Create New Product</Link></button> : null}
       {!term ?
-        <div>
-
+        <div className='products-container'>
         {auth.vip || auth.is_admin ?
 
           vipProducts.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
-              <div key={ product.id }>
+              <div key={ product.id } className='product-div'>
                 <div>
                   {
                     product.image ? <img src={product.image}/> : null
                   }
                 </div>
+                <hr/>
                 <Link to={`/products/${product.id}`}>{ product.name }</Link>
                 {product.vip ? <div>
                   <h2 className='vip'>VIP</h2>
@@ -55,7 +55,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 <div>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
-                  <p>{product.description}</p>
+                  {/* <p>{product.description}</p> */}
                 </div>
                 }
                 {
@@ -68,32 +68,27 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                     <Link to={`/products/${product.id}/edit`}>Edit</Link>
                   ): null
                 }
-                <div className='wish-space'>
-                  {
-                    auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
-                  }
-                </div>
-                <hr/>
+                {
+                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} />: null
+                }
               </div>
             );
           }) :
           currentProduct.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
-              <div key={ product.id }>
+              <div key={ product.id } className='product-div'>
                 <div>
                   {
                     product.image ? <img src={product.image}/> : null
                   }
                 </div>
+                <hr/>
                 <Link to={`/products/${product.id}`}>{ product.name }</Link>
                 <div>
                   <p>${product.price.toFixed(2)}</p>
-                  <p>
-                    <h3>Amount:</h3> 
-                    {product.amount}
-                  </p>
-                  <p>{product.description}</p>
+                  <p>Amount: {product.amount}</p>
+                  {/* <p>{product.description}</p> */}
                 </div>
                 {
                   auth.id ? (
@@ -115,6 +110,11 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             );
           })
         }
+        <div style={{
+          width: "100%",
+          position: 'static',
+          bottom: '0px'
+        }}>
           <Pagination 
           productsPerPage={productsPerPage} 
           totalProducts={products.length} 
@@ -122,7 +122,8 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           auth={auth}
           products={products}
           />
-          </div>
+        </div>
+      </div>
 
         : 
 
@@ -130,17 +131,18 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
         products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
-            <div key={ product.id }>
+            <div key={ product.id } className='product-div'>
               <div>
                 {
                   product.image ? <img src={product.image}/> : null
                 }
               </div>
+              <hr/>
               <Link to={`/products/${product.id}`}>{ product.name }</Link>
               <div>
                 <p>${product.price.toFixed(2)}</p>
                 <p>Amount: {product.amount}</p>
-                <p>{product.description}</p>
+                {/* <p>{product.description}</p> */}
               </div>
               {
                 auth.id ? (
@@ -150,35 +152,35 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
               {
                 auth.is_admin ? (
                   <Link to={`/products/${product.id}/edit`}>Edit</Link>
-                ): null
+                  ): null
               }
               {
                 auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
               }
-              <hr/>
             </div>
           );
         }) :
         nonVipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
-            <div key={ product.id }>
+            <div key={ product.id } className='product-div'>
               <div>
                 {
                   product.image ? <img src={product.image}/> : null
                 }
               </div>
+              <hr/>
               <Link to={`/products/${product.id}`}>{ product.name }</Link>
               <div>
                 <p>${product.price.toFixed(2)}</p>
                 <p>Amount: {product.amount}</p>
-                <p>{product.description}</p>
+                {/* <p>{product.description}</p> */}
               </div>
               {
                 auth.id ? (
                   cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add to Cart</button>
-                ): null 
-              }
+                  ): null 
+                }
               {
                 auth.is_admin ? (
                   <Link to={`/products/${product.id}/edit`}>Edit</Link>
@@ -187,7 +189,6 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
               {
                 auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
               }
-              <hr/>
             </div>
           );
         })
@@ -195,6 +196,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
     </div>
   );
 };
+
 
 
 export default Products;

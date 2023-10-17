@@ -137,7 +137,8 @@ const seed = async()=> {
       });
     
 
-  const cookiesImage = await loadImage('/images/chocolate-chip-cookies.png')
+  const cookiesImage = await loadImage('/images/chocolate-chip-cookies.png');
+  const muffinImage = await loadImage('/images/blue-muffin.png');
   const avocadoImage = await loadImage('/images/avocadoprod.png');
   const carrotImage = await loadImage('/images/carrotsnew.png');
   const tomatoImage = await loadImage('/images/tomato.png');
@@ -176,6 +177,14 @@ const seed = async()=> {
       description: 'A sweet soft baked treat, loaded with chocolate chips, and ready for snack time',
       amount: '6 count',
       image: cookiesImage,
+      vip: true
+    }),
+    createProduct({
+      name: 'Blueberries Muffin',
+      price: 8,
+      description: 'buttery and soft muffin bursting with blueberries',
+      amount: '6 count',
+      image: muffinImage,
       vip: true
     }),
     createProduct({ 
