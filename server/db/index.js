@@ -27,8 +27,10 @@ const {
 
 const {
   fetchAddress,
-  createAddress
+  createAddress,
+  deleteAddress
 } = require('./shipping');
+
 const { flushSync } = require('react-dom');
 
 const {
@@ -440,6 +442,7 @@ module.exports = {
   findUserByToken,
   createAddress,
   fetchAddress,
+  deleteAddress,
   seed,
   client
 };

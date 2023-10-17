@@ -103,9 +103,9 @@ const removeWishList = async({ wishList, wishLists, setWishLists })=> {
   setWishLists(wishLists.filter(wish => wish.id != wishList.id))
 };
 
-const removeAddress = async({ addy, address, setAddress })=> {
-  await axios.delete(`/api/wishList/${addy.id}`, getHeaders());
-  setAddress(address.filter(addy => addy.id != address.id))
+const deleteAddress = async({ addy, address, setAddress })=> {
+  await axios.delete(`/api/shipping/${addy.id}`, getHeaders());
+  setAddress(address.filter(addy_ => addy_.id !== address.id))
 };
 
 const removeFromCart = async({ lineItem, lineItems, setLineItems })=> {
@@ -246,7 +246,7 @@ const api = {
   createAddress,
   createProduct,
   handleGithubLogin,
-  removeAddress,
+  deleteAddress,
 };
 
 export default api;

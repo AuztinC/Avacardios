@@ -1,17 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const DeleteAddress = ({address, removeAddress}) => {
+const DeleteAddress = ({address, deleteAddress}) => {
+  // console.log(deleteAddress)
   return (
     <div>
       {
-        address ? <button onClick={() => removeAddress(address)}>Remove address</button>: null
+        address ? <button onClick={() => deleteAddress(address)}>Remove address</button>: null
       }
     </div>
   )
 }
 
-const Addresses = ({ address, createAddress, auth, destination, removeAddress })=> {
+const Addresses = ({ address, createAddress, auth, destination, deleteAddress })=> {
   const el = useRef();
   useEffect(()=> {
       const options = {
@@ -37,11 +38,12 @@ const Addresses = ({ address, createAddress, auth, destination, removeAddress })
       <ol>
         {
           address.map( (address) => {
+            // console.log(address)
             // const addy = address.find( address_ => address_.id === address.id)
             return (
               <li key={ address.id }>
                 { address.data.formatted_address }
-                <DeleteAddress address = {address} removeAddress = { removeAddress } />
+                <DeleteAddress address = {address} deleteAddress = { deleteAddress } />
               </li>
             );
           })

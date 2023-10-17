@@ -131,8 +131,8 @@ const App = ()=> {
     await api.removeWishList({ wishList, wishLists, setWishLists });
   };
 
-  const removeAddress = async(address)=> {
-    await api.removeAddress({ addy, address, setAddress });
+  const deleteAddress = async(addy)=> {
+    await api.deleteAddress({ addy, address, setAddress });
   };
 
   const removeFromCart = async(lineItem)=> {
@@ -193,6 +193,7 @@ const App = ()=> {
         wishLists = { wishLists }
         addWishList = { addWishList }
         removeWishList  = { removeWishList }
+        deleteAddress = {deleteAddress}
         createAddress = { createAddress }
         address = { address }
       /> }/>
@@ -214,9 +215,9 @@ const App = ()=> {
       
       <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } destination={destination} users={ users } updateUser={ updateUser } address = {address} createAddress={ createAddress }/> }  />
       
-      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser } address={ address } createAddress={ createAddress }/> }  />
+      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } deleteAddress={ deleteAddress } users={ users }  updateUser={ updateUser } address={ address } createAddress={ createAddress }/> }  />
 
-      <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} removeAddress={removeAddress} auth={auth}/>}/>
+      <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} deleteAddress={deleteAddress} auth={auth}/>}/>
     </Routes>
   </>);
 };
