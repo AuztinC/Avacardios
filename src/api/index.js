@@ -71,7 +71,6 @@ const createAddress = async({addy, setAddress, address}) => {
 }
 
 const updateProduct = async({product, products, setProducts})=>{
-  // console.log(product)
   const response = await axios.put(`/api/products/${product.id}`, product, getHeaders())
   console.log(response.data)
 }
@@ -84,8 +83,8 @@ const updateLineItem = async({ lineItem, cart, lineItems, setLineItems })=> {
   setLineItems(lineItems.map( lineItem => lineItem.id == response.data.id ? response.data: lineItem));
 };
 
-const updateOrder = async({ order, setOrders, setAllOrders, allOrders })=> {
-  await axios.put(`/api/orders/${order.id}`, order, getHeaders());
+const updateOrder = async({ order, setOrders })=> {
+  await axios.put(`/api/orders/${order.id}`, {is_cart: order.is_cart, shipping_id: order.shipping_id}, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
   setAllOrders([...allOrders, response.data])
@@ -107,9 +106,9 @@ const removeWishList = async({ wishList, wishLists, setWishLists })=> {
   setWishLists(wishLists.filter(wish => wish.id != wishList.id))
 };
 
-const removeAddress = async({ addy, address, setAddress })=> {
-  await axios.delete(`/api/wishList/${addy.id}`, getHeaders());
-  setAddress(address.filter(addy => addy.id != address.id))
+const deleteAddress = async({ addy, address, setAddress })=> {
+  await axios.delete(`/api/shipping/${addy.id}`, getHeaders());
+  setAddress(address.filter(addy_ => addy_.id != addy.id))
 };
 
 const removeFromCart = async({ lineItem, lineItems, setLineItems })=> {
@@ -250,7 +249,7 @@ const api = {
   createAddress,
   createProduct,
   handleGithubLogin,
-  removeAddress,
+  deleteAddress,
   fetchAllOrders
 };
 

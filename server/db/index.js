@@ -28,8 +28,10 @@ const {
 
 const {
   fetchAddress,
-  createAddress
+  createAddress,
+  deleteAddress
 } = require('./shipping');
+
 const { flushSync } = require('react-dom');
 
 const {
@@ -73,7 +75,6 @@ const seed = async()=> {
     
     CREATE TABLE shipping(
       id UUID PRIMARY KEY,
-      customer_name VARCHAR(100),
       data JSON DEFAULT '{}',
       user_id UUID REFERENCES users(id) NOT NULL
     );
@@ -443,6 +444,7 @@ module.exports = {
   findUserByToken,
   createAddress,
   fetchAddress,
+  deleteAddress,
   seed,
   client
 };

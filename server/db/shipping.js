@@ -23,7 +23,16 @@ const fetchAddress = async(userId)=> {
     return response.rows[0];
   };
   
+  const deleteAddress = async(addy)=> {
+    const SQL = `
+      DELETE FROM shipping
+      WHERE id = $1 and user_id = $2
+    `;
+    await client.query(SQL, [addy.id, addy.user_id]);
+  };
+
   module.exports = {
     fetchAddress,
-    createAddress
+    createAddress,
+    deleteAddress
   };

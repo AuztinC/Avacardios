@@ -1,6 +1,7 @@
 const {
     fetchAddress,
-    createAddress
+    createAddress,
+    deleteAddress
   } = require('../db/shipping');
   
   const express = require('express');
@@ -22,5 +23,15 @@ app.post('/', isLoggedIn, async(req,res,next)=>{
         next(error);
     }
 })
+
+app.delete('/:id', isLoggedIn, async(req, res, next)=> {
+    try {
+      await deleteAddress({ id: req.params.id, user_id: req.user.id });
+      res.sendStatus(204);
+    }
+    catch(ex){
+      next(ex);
+    }
+  });
 
 module.exports=app;
