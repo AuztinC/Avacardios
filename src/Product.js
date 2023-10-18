@@ -9,7 +9,7 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
     let product=products.find((prod)=>{
         return prod.id===id
     });
-
+    window.scrollTo({top: 0, left: 0, behavior:'instant'})
     const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
 
     useEffect(()=>{
