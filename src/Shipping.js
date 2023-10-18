@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom';
 
 const DeleteAddress = ({address, deleteAddress}) => {
@@ -14,6 +15,7 @@ const DeleteAddress = ({address, deleteAddress}) => {
 const Addresses = ({ address, createAddress, deleteAddress })=> {
   const el = useRef();
   useEffect(()=> {
+    try{
       const options = {
         fields: [
           'formatted_address'
@@ -26,6 +28,15 @@ const Addresses = ({ address, createAddress, deleteAddress })=> {
         await createAddress(address);
         el.current.value = '';
       });
+      toast.success('Order created successfully!', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    } catch (error) {
+      console.error('Error creating order:', error);
+      toast.error('Error creating order. Please try again.', {
+      position: toast.POSITION.TOP_CENTER
+      });
+    }
     });
 
   return (<>
