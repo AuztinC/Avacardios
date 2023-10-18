@@ -33,14 +33,14 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
                   <p>{product.description}</p>
                 
                 {
-                  auth.id ? 
-                  <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} auth={auth}/>
-                  : <p>your cart or wishlist</p>
-                }
-                {
                   auth.id ? (
                     cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)} style={auth.id? {visibility:'visible'}:{visibility:'hidden'}}>Add</button>
                   ):<p>Login to add items to</p> 
+                }
+                {
+                  auth.id ? 
+                  <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} auth={auth}/>
+                  : <p>your cart or wishlist</p>
                 }
                 </div>
                 <hr style={{width: '100%'}}/>

@@ -26,9 +26,11 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
   return (
     <>
     
-    <div className='cart'>
-      
-      <h2>Cart</h2>
+    <div >
+      <div className='cart-header'>
+        <h1 >Your Cart</h1>
+      </div>
+      <div className='cart'>
       {
          lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? null : <p> Add Items to your cart. </p>
       }
@@ -36,12 +38,13 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
         {
           lineItems.filter(lineItem=> lineItem.order_id === cart.id).map( lineItem => {
             const product = products.find(product => product.id === lineItem.product_id) || {};
+            const price = product.price * lineItem.quantity
             return (
               <li key={ lineItem.id }>
-                { product.name }
+                <h3>{ product.name }</h3>
+                <p>${ price }</p>
                 <p> QTY: { lineItem.quantity }
-                <button onClick={() => decreaseQuantity(lineItem)}>-</button>
-                <button onClick={() => increaseQuantity(lineItem)}>+</button>
+                <button onClick={() => decreaseQuantity(lineItem)}>-</button>-<button onClick={() => increaseQuantity(lineItem)}>+</button>
                 <button onClick={ ()=> removeFromCart(lineItem)}>Remove From Cart</button>
                 </p>
               </li>
@@ -50,13 +53,15 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
         }
         
       </ul>
+      <div className='cart-totals' style={lineItemsinCart.length > 0 ? { visibility: 'visible'} : { visibility: 'hidden' }}>
       {
         lineItems.filter(lineItem => lineItem.order_id === cart.id).length ? <p>Order Total: ${ totalPrice }</p> : null
       }
+      
       {
         auth.id ?  
         lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? (
-            <>
+            <div className='deliver-to-section'>
             <h4>Deliver to:</h4>
               <select value={destination} onChange={e => setDestination(e.target.value)}>
               
@@ -67,21 +72,24 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
                   </option>
                 ))}
               </select>
-            </>
+            </div>
             ) : null
          : null
       }
+      
       {
-        userAddresses.length > 0 ? null : <p>No addresses available for delivery. Please add an address <Link to='/account/shipping'>Here.</Link></p>
+        userAddresses.length > 0 ? null : <p>No addresses available for delivery. Please add an address in your <Link to='/account/shipping'>Settings.</Link></p>
       }
       {
-        auth.id ?
+        userAddresses.length > 0 ?
         lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? <button onClick={()=> {
           handleSelect();
           updateOrder({...cart, is_cart: false });
         }}>Create Order</button>: null
         : null
       }
+      </div>
+      </div>
     </div>
      
     </>

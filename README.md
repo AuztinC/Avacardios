@@ -11,7 +11,7 @@
 
 - [X] as a user I should see that a product has prices
 - [X] as a user I should see a description for a product
-- [ ] as a user I should be able to bookmark a product (product detail page)
+- [X] as a user I should be able to bookmark a product (product detail page)
 - [X] as a user I should see the total amount in my cart as well as my orders
 - [X] as a user I should be able to increment and decrement items in my cart
 - [X] as a user if I decrement an quantity to zero, the line_item should be deleted
@@ -25,7 +25,7 @@
 - [X] as a user I should be able to add and remove products from a wish list
 - [ ] as a user I should be able to rank the products in my wishlist
 - [X] as a user I should be able to search for products, based on the name of the product.
-- [ ] as a user I should be able to bookmark the search results
+- [X] as a user I should be able to bookmark the search results
 - [X] as a vip user I should be able to see that I am a vip user
 - [X] as a vip user I should be able to see vip_only products
 - [X] as a non-vip user, I should not be able to see vip_only products
