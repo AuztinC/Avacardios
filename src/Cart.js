@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity, address, destination, setDestination, auth })=> {
-  const [selectedAddressDetails, setSelectedAddressDetails] = useState(null)
   
   const lineItemsinCart = lineItems.filter( item => item.order_id === cart.id);
   
@@ -14,11 +13,6 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
   }, 0);
 
   const userAddresses = address.filter(addy => addy.user_id === auth.id);
-  const handleSelect = () => {
-    const selected = address.find(addy => addy.id === destination);
-    setSelectedAddressDetails(selected);
-    // console.log(selectedAddress)
-  };
   
   if(!lineItems){
     return null
@@ -58,7 +52,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
         lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? (
             <>
             <h4>Deliver to:</h4>
-              <select value={destination} onChange={e => setDestination(e.target.value)}>
+              <select value={destination} onChange={ev => setDestination(ev.target.value)}>
               
                 <option value="">Select an Address</option>
                 {userAddresses.map(address => (
@@ -72,13 +66,14 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
          : null
       }
       {
-        userAddresses.length > 0 ? null : <p>No addresses available for delivery. Please add an address <Link to='/account/shipping'>Here.</Link></p>
+        userAddresses.length > 0 ? null : <p>No addresses available for delivery. Please add an address <Link style={{textDecoration:'underline'}} to='/account/shipping'>Here -{'>'} </Link></p>
       }
       {
         auth.id ?
-        lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? <button onClick={()=> {
-          handleSelect();
-          updateOrder({...cart, is_cart: false });
+        lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? <button 
+        disabled={ !destination }
+        onClick={()=> {
+          updateOrder({...cart, is_cart: false, shipping_id: destination });
         }}>Create Order</button>: null
         : null
       }
