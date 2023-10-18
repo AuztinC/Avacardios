@@ -13,7 +13,8 @@ const Settings = ({ auth, updateUser })=>{
         const user = {
             id: auth.id,
             username: newUsername,
-            image: auth.image
+            image: auth.image,
+            vip: auth.vip
         }
         updateUser( user )
         setNewUsername('')

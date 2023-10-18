@@ -84,10 +84,11 @@ const updateLineItem = async({ lineItem, cart, lineItems, setLineItems })=> {
   setLineItems(lineItems.map( lineItem => lineItem.id == response.data.id ? response.data: lineItem));
 };
 
-const updateOrder = async({ order, setOrders })=> {
+const updateOrder = async({ order, setOrders, setAllOrders, allOrders })=> {
   await axios.put(`/api/orders/${order.id}`, order, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
+  setAllOrders([...allOrders, response.data])
 };
 
 const updateUser = async({ user, setUsers, users, setAuth })=> {

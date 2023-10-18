@@ -1,4 +1,4 @@
-# the store 
+# Avacardios
 
 - npm install
 - modify connection string
@@ -35,7 +35,7 @@
 - [x] as a user I should be able to use Google places to enter an address for my order
 - [ ] as a non logged in user, I should be able to add items to my cart, with those items getting added to my cart when I authenticate
 
-- [ ] as an administrator I should be able to add and edit products
+- [X] as an administrator I should be able to add and edit products
 - [X] as an administrator I should be able to make a user a vip
 - [X] as an administrator adminstrator I should be able to mark a product as vip_only, which can only be purchased by vip users.
 - [X] as an administrator I should be able to see all users

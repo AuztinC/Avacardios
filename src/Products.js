@@ -38,7 +38,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <div key={ product.id } className='product-div'>
-                <div>
+                <div className='products-image-div'>
                   {
                     product.image ? <img src={product.image}/> : null
                   }
@@ -68,9 +68,9 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           }) :
           currentProduct.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
-            return (
+            return (<>
               <div key={ product.id } className='product-div'>
-                <div>
+                <div className='products-image-div'>
                   {
                     product.image ? <img src={product.image}/> : null
                   }
@@ -80,7 +80,6 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 <div>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
-                  {/* <p>{product.description}</p> */}
                 </div>
                 {
                   auth.id ? (
@@ -96,7 +95,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
                 }
               </div>
-            );
+            </>);
           })
         }
         <div style={{
@@ -121,7 +120,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
             <div key={ product.id } className='product-div'>
-              <div>
+              <div className='products-image-div'>
                 {
                   product.image ? <img src={product.image}/> : null
                 }
@@ -153,7 +152,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
             <div key={ product.id } className='product-div'>
-              <div>
+              <div className='products-image-div'>
                 {
                   product.image ? <img src={product.image}/> : null
                 }
