@@ -619,9 +619,13 @@ button:hover {
 
 .pagination {
   display: flex;
+  justify-content: center;
   padding-top: 8px;
   padding-bottom: 8px;
   list-style-type: none;
+}
+.pagination * {
+  margin: 5px;
 }
 
 .page-link {

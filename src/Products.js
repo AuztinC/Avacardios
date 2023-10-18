@@ -78,7 +78,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           }) :
           currentProduct.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
-            return (<>
+            return (
               <div key={ product.id } className='product-div'>
                 <div className='products-image-div'>
                   {
@@ -106,9 +106,8 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                     auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
                   }
                 </div>
-                <hr/>
               </div>
-            </>);
+            );
           })
         }
         <div style={{
@@ -127,7 +126,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       </div>
 
         : 
-        <div className='products-container'>
+        <div className='products-container'  key={ product.id }>
         {auth.vip ?
         products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
