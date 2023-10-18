@@ -29,7 +29,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
     <div className='products'>
       <h2>Products</h2>
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
-      {auth.is_admin ? <button><Link to={'/createProduct'}>Create New Product</Link></button> : null}
+      {auth.is_admin ? <Link to={'/createProduct'}><button>Create New Product</button></Link> : null}
       {!term ?
         <div className='products-container'>
         {auth.vip || auth.is_admin ?
@@ -50,7 +50,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   <h2 className='vip'>VIP</h2>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
-                  <p>{product.description}</p>
+                  {/* <p>{product.description}</p> */}
                 </div>
                 :
                 <div>

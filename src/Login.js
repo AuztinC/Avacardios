@@ -32,10 +32,8 @@ const Login = ({ login, handleGithubLogin })=> {
         onChange={ ev => setPassword(ev.target.value)}
       />
       <button disabled={!username || !password}>Login</button>
-      <button><Link to={'/signup'}>Sign Up</Link></button>
-      <div style={{
-        textAlign: 'center'
-      }}
+      <Link to={'/signup'}><button style={{width: '100%'}}>Sign Up</button></Link>
+      <div style={{textAlign: 'center'}}
       onClick={ handleGithubLogin }>
         <GithubSVG />
       </div>
