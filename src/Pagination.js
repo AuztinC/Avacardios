@@ -16,7 +16,12 @@ const Pagination = ({productsPerPage, totalProducts, paginate, auth, products}) 
 
     return (
         <nav>
-            <div className="pagination">
+            <div className="pagination" style={{
+          textAlign: 'ceneter',
+          width: "100%",
+          position: 'static',
+          bottom: '0px'
+        }}>
                 {
                     pageNumbers.map(number => (
                         <span key={number} className="page-item">
