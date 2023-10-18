@@ -87,6 +87,7 @@ const updateOrder = async({ order, setOrders })=> {
   await axios.put(`/api/orders/${order.id}`, {is_cart: order.is_cart, shipping_id: order.shipping_id}, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
+  setAllOrders([...allOrders, response.data])
 };
 
 const updateUser = async({ user, setUsers, users, setAuth })=> {

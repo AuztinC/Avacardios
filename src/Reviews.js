@@ -12,12 +12,12 @@ const ReviewForm=({product,createReviews,auth})=>{
     }
 
     return(
-        <form onSubmit={save}>
+        <form onSubmit={save} className='reviews-form'>
             <h4>Enter a new review here!</h4>
             <span>
             <label>Stars (1-5): {star}</label>
-            <button type='button' className='star' onClick={()=>increaseRating(star,setStar)}>+</button>
             <button type='button' className='star' onClick={()=>decreaseRating(star,setStar)}>-</button>
+            <button type='button' className='star' onClick={()=>increaseRating(star,setStar)}>+</button>
             </span>
             <label>Review:<input id='revv' type='text' onChange={ev=>setReview(ev.target.value)}></input></label>
             <button type='submit' disabled={!product||!star||!review}>Post Review</button>
@@ -42,20 +42,24 @@ const decreaseRating=(star,setStar)=>{
 
 const Reviews=({reviews,product,createReviews,auth})=>{
     return(
-        <div className='review'>
-            <h4>Reviews</h4>
-            <ul>
+        <div>
+            <h2 style={{ textAlign: 'center' }}>Reviews</h2>
+            <div className='reviews'>
             {
                 reviews.map((rev)=>{
                     if(product.id===rev.product_id){
-                        return <li key={rev.id}>{rev.username?rev.username:'Guest'}: {rev.stars} - {rev.body}</li>
+                        return (
+                        <div key={rev.id}>
+                            <h4>{rev.username ? rev.username:'Guest'}</h4> 
+                            Rating : {rev.stars} 
+                            <p>- {rev.body}</p> 
+                        </div>
+                        )
                     }
                 })
              }
-            </ul>
-            <hr/>
+            </div>
             <ReviewForm product={product} createReviews={createReviews} auth={auth}/>
-            <hr/>
         </div>
     )
 }

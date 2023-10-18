@@ -49,7 +49,7 @@ const authenticate = async(credentials)=> {
     throw error;
   }
   
-  fetchOrders({username: credentials.username, id: response.rows[0].id})
+  // fetchOrders({username: credentials.username, id: response.rows[0].id})
   
   return jwt.sign({ id: response.rows[0].id }, process.env.JWT);
 };

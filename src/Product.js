@@ -22,29 +22,36 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
     }else{
         return(
             <div className="product">
-                <h2 className="products">{product.name}</h2>
+                
+                <div className="product-image-div">
+                  <img src={product.image}/>
+                </div>
+                <div className="product-info">
+                  <h1>{product.name}</h1>
+                  <h4>${product.price}</h4>
+                  <div>Sold as: <h3>{product.amount}</h3></div>
+                  <p>{product.description}</p>
                 
                 {
                   auth.id ? (
                     cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)} style={auth.id? {visibility:'visible'}:{visibility:'hidden'}}>Add</button>
                   ):<p>Login to add items to</p> 
                 }
-                
                 {
-                    auth.id ? 
-                    <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} auth={auth}/>
-                    : <p>your cart or wishlist</p>
+                  auth.id ? 
+                  <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList} auth={auth}/>
+                  : <p>your cart or wishlist</p>
                 }
-                <img src={product.image}/>
-                <h4>${product.price}</h4>
-                <h4>{product.description}</h4>
-                <hr/>
-                <Reviews reviews={reviews} product={product} createReviews={createReviews} auth={auth}/>
-                {
-                  auth.is_admin ? (
-                    <Link to={`/products/${product.id}/edit`}>Edit</Link>
-                  ): null
-                }
+                </div>
+                <hr style={{width: '100%'}}/>
+                <div className="product-reviews">
+                  <Reviews reviews={reviews} product={product} createReviews={createReviews} auth={auth}/>
+                  {
+                    auth.is_admin ? (
+                      <Link to={`/products/${product.id}/edit`}>Edit</Link>
+                    ): null
+                  }
+                </div>
             </div>
         );
     }
