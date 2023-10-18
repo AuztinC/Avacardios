@@ -193,7 +193,7 @@ const seed = async()=> {
     createProduct({
       name: 'Brownies',
       price: 6,
-      description: 'These brownies are gooey and fudgy and all the right spots with a perfect crispy crackly top',
+      description: 'These brownies are gooey and fudgy in all the right spots with a perfect crispy crackly top',
       amount: '3 count',
       image: brownieImage,
       vip: true
