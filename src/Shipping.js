@@ -2,17 +2,16 @@ import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const DeleteAddress = ({address, deleteAddress}) => {
-
   return (
     <div>
       {
-        address ? <button onClick={async() => await deleteAddress(address)}>Remove address</button>: null
+        address ? <button onClick={() => deleteAddress(address)}>Remove address</button>: null
       }
     </div>
   )
 }
 
-const Addresses = ({ address, createAddress, auth, destination, deleteAddress })=> {
+const Addresses = ({ address, createAddress, deleteAddress })=> {
   const el = useRef();
   useEffect(()=> {
       const options = {
@@ -37,8 +36,6 @@ const Addresses = ({ address, createAddress, auth, destination, deleteAddress })
       <ol>
         {
           address.map( (address) => {
-            console.log(address)
-            // const addy = address.find( address_ => address_.id === address.id)
             return (
               <li key={ address.id }>
                 { address.data.formatted_address }
@@ -49,22 +46,6 @@ const Addresses = ({ address, createAddress, auth, destination, deleteAddress })
         }
       </ol>
     </div>
-    {/* {
-        auth.id ?  
-            <>
-            <h4>Deliver to:</h4>
-              <select value={destination} onChange={e => setDestination(e.target.value)}>
-              
-                <option value="">Select an Address</option>
-                {address.map(address => (
-                  <option key={address.id} value={address.id}>
-                    {auth.username} - {address.data.formatted_address}
-                  </option>
-                ))}
-              </select>
-            </>
-         : null
-      } */}
       
   </>);
 }

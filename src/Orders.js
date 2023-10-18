@@ -1,18 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const DeleteOrder = ({product, wishList, addWishList, removeWishList}) => {
-  return (
-    <div>
-      {
-        wishList ? <button onClick={() => removeWishList(wishList)}>Remove from Wish List</button>: null
-      }
-    </div>
-  )
-}
-
-const Orders = ({ orders, products, lineItems, auth, destination, selectedAddressDetails, allOrders })=> {
-  
+const Orders = ({ orders, products, lineItems, auth, destination, address, allOrders })=> {
+  // console.log(orders)
   const userOrders = orders.filter(order => !order.is_cart && order.user_name === auth.username)
   
   if(userOrders.length === 0){
@@ -23,13 +13,12 @@ const Orders = ({ orders, products, lineItems, auth, destination, selectedAddres
   }
   return (
     <div>
-      <ul>
+      <ol>
         { auth.is_admin ? // If user is admin, see all orders
           allOrders.filter(order => !order.is_cart).map( order => {
             
             const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id);
             const price = orderLineItems.reduce((acc, curr)=>{
-              
             const product = products.find(product => product.id === curr.product_id);
             return acc += (product.price * curr.quantity) 
             }, 0)
@@ -49,15 +38,15 @@ const Orders = ({ orders, products, lineItems, auth, destination, selectedAddres
                     })
                   }
                   {
-                    <div>
-                    <h4>Delivering to:</h4>
-                    {selectedAddressDetails && (
-                      <div>
-                        {destination.customer_name} - {selectedAddressDetails.street}, {selectedAddressDetails.city}, {selectedAddressDetails.state}
-                      </div>
-                    )}
-                  </div>
-                  }
+                          <div>
+                          <h4>Delivering to:</h4>
+                            {order.shipping_id && (
+                          <p>
+                            {order.user_name} - {address.find(addy => addy.id === order.shipping_id).data.formatted_address}
+                          </p>
+                          )}
+                         </div>
+                            }
                 </ul>
               </li>
             );
@@ -85,12 +74,22 @@ const Orders = ({ orders, products, lineItems, auth, destination, selectedAddres
                     );
                   })
                 }
+                {
+                          <div>
+                          <h4>Delivering to:</h4>
+                            {order.shipping_id && (
+                          <div>
+                            {order.user_name} - {address.find(addy => addy.id === order.shipping_id).data.formatted_address}
+                          </div>
+                          )}
+                         </div>
+                            }
               </ul>
             </li>
           );
         })
         }
-      </ul>
+      </ol>
       
     </div>
   );

@@ -8,7 +8,7 @@ import User from "./User";
 import Shipping from "./Shipping";
 
 
-const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress, destination, deleteAddress })=>{
+const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishList, users, updateUser, address, setAddress, createAddress, destination, allOrders, deleteAddress })=>{
     const { id } = useParams() 
     return (
     (<div className="user-profile">
@@ -22,6 +22,7 @@ const UserProfile = ({ orders, products, lineItems, auth, wishLists, removeWishL
                     products = { products }
                     lineItems = { lineItems }
                     allOrders = { allOrders }
+                    address = { address }
                     
             /> : null }
             

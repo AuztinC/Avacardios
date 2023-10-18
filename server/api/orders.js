@@ -12,7 +12,8 @@ const { isLoggedIn, isAdmin } = require('./middleware');
 
 app.put('/:id', isLoggedIn, async(req, res, next)=> {
   try {
-    res.send(await updateOrder({ ...req.body, id: req.params.id}));
+    const { is_cart, shipping_id } = req.body;
+    res.send(await updateOrder({ is_cart, shipping_id, id: req.params.id}));
   }
   catch(ex){
     next(ex);
