@@ -38,18 +38,28 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
               <div key={ product.id } className='product-div'>
-                <div>
+                <div className='products-image-div'>
                   {
                     product.image ? <img src={product.image}/> : null
                   }
                 </div>
                 <hr/>
-                <Link to={`/products/${product.id}`}>{ product.name }</Link>
+                {product.vip ? 
                 <div>
+                  <Link to={`/products/${product.id}`}>{ product.name }</Link>
+                  <h2 className='vip'>VIP</h2>
+                  <p>${product.price.toFixed(2)}</p>
+                  <p>Amount: {product.amount}</p>
+                  <p>{product.description}</p>
+                </div>
+                :
+                <div>
+                  <Link to={`/products/${product.id}`}>{ product.name }</Link>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
                   {/* <p>{product.description}</p> */}
                 </div>
+                }
                 {
                   auth.id ? (
                     cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add to Cart</button>
@@ -68,9 +78,9 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           }) :
           currentProduct.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
-            return (
+            return (<>
               <div key={ product.id } className='product-div'>
-                <div>
+                <div className='products-image-div'>
                   {
                     product.image ? <img src={product.image}/> : null
                   }
@@ -80,7 +90,6 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 <div>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
-                  {/* <p>{product.description}</p> */}
                 </div>
                 {
                   auth.id ? (
@@ -92,11 +101,14 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                     <Link to={`/products/${product.id}/edit`}>Edit</Link>
                   ): null
                 }
-                {
-                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
-                }
+                <div className='wish-space'>
+                  {
+                    auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
+                  }
+                </div>
+                <hr/>
               </div>
-            );
+            </>);
           })
         }
         <div style={{
@@ -121,7 +133,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
             <div key={ product.id } className='product-div'>
-              <div>
+              <div className='products-image-div'>
                 {
                   product.image ? <img src={product.image}/> : null
                 }
@@ -153,7 +165,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
             <div key={ product.id } className='product-div'>
-              <div>
+              <div className='products-image-div'>
                 {
                   product.image ? <img src={product.image}/> : null
                 }
