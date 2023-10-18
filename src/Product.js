@@ -11,7 +11,11 @@ const Product =({products,reviews,createReviews,cartItems,updateLineItem,createL
     });
 
     const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
-
+    
+    useEffect(()=>{
+      window.scrollTo({top: 0, left: 0, behavior:'instant'})
+    }, [])
+    
     useEffect(()=>{
         product=products.find((prod)=>{
             return prod.id===id}); 
