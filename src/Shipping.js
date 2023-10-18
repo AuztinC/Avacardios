@@ -1,17 +1,17 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const DeleteAddress = ({address, removeAddress}) => {
+const DeleteAddress = ({address, deleteAddress}) => {
   return (
     <div>
       {
-        address ? <button onClick={() => removeAddress(address)}>Remove address</button>: null
+        address ? <button onClick={() => deleteAddress(address)}>Remove address</button>: null
       }
     </div>
   )
 }
 
-const Addresses = ({ address, createAddress, auth, destination })=> {
+const Addresses = ({ address, createAddress, deleteAddress })=> {
   const el = useRef();
   useEffect(()=> {
       const options = {
@@ -24,7 +24,6 @@ const Addresses = ({ address, createAddress, auth, destination })=> {
         const place = autocomplete.getPlace();
         const address = { data: place };
         await createAddress(address);
-        // console.log(address); 
         el.current.value = '';
       });
     });
@@ -36,33 +35,17 @@ const Addresses = ({ address, createAddress, auth, destination })=> {
       <h3> Your addresses on file:</h3>
       <ol>
         {
-          address.map( address => {
+          address.map( (address) => {
             return (
               <li key={ address.id }>
                 { address.data.formatted_address }
-                {/* <DeleteAddress address= { address } address = {address.find(wish => wish.product_id === product.id)} removeWishList= { removeWishList } /> */}
+                <DeleteAddress address = {address} deleteAddress = { deleteAddress } />
               </li>
             );
           })
         }
       </ol>
     </div>
-    {/* {
-        auth.id ?  
-            <>
-            <h4>Deliver to:</h4>
-              <select value={destination} onChange={e => setDestination(e.target.value)}>
-              
-                <option value="">Select an Address</option>
-                {address.map(address => (
-                  <option key={address.id} value={address.id}>
-                    {auth.username} - {address.data.formatted_address}
-                  </option>
-                ))}
-              </select>
-            </>
-         : null
-      } */}
       
   </>);
 }
