@@ -44,12 +44,22 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   }
                 </div>
                 <hr/>
-                <Link to={`/products/${product.id}`}>{ product.name }</Link>
+                {product.vip ? 
                 <div>
+                  <Link to={`/products/${product.id}`}>{ product.name }</Link>
+                  <h2 className='vip'>VIP</h2>
+                  <p>${product.price.toFixed(2)}</p>
+                  <p>Amount: {product.amount}</p>
+                  <p>{product.description}</p>
+                </div>
+                :
+                <div>
+                  <Link to={`/products/${product.id}`}>{ product.name }</Link>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
                   {/* <p>{product.description}</p> */}
                 </div>
+                }
                 {
                   auth.id ? (
                     cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add to Cart</button>
@@ -91,9 +101,12 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                     <Link to={`/products/${product.id}/edit`}>Edit</Link>
                   ): null
                 }
-                {
-                  auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
-                }
+                <div className='wish-space'>
+                  {
+                    auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
+                  }
+                </div>
+                <hr/>
               </div>
             </>);
           })
