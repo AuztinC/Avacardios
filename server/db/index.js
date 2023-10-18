@@ -140,6 +140,7 @@ const seed = async()=> {
 
   const cookiesImage = await loadImage('/images/chocolate-chip-cookies.png');
   const muffinsImage = await loadImage('/images/blue-muffin.png');
+  const brownieImage = await loadImage('/images/brownie.png');
   const avocadoImage = await loadImage('/images/avocadoprod.png');
   const carrotImage = await loadImage('/images/carrotsnew.png');
   const tomatoImage = await loadImage('/images/tomato.png');
@@ -186,6 +187,14 @@ const seed = async()=> {
       description: 'Soft and buttery muffins bursting with blueberries',
       amount: '6 count',
       image: muffinsImage,
+      vip: true
+    }),
+    createProduct({
+      name: 'Brownies',
+      price: 6,
+      description: 'These brownies are gooey and fudgy and all the right spots with a perfect crispy crackly top',
+      amount: '3 count',
+      image: brownieImage,
       vip: true
     }),
     createProduct({ 

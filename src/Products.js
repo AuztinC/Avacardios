@@ -44,14 +44,17 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   }
                 </div>
                 <hr/>
-                <Link to={`/products/${product.id}`}>{ product.name }</Link>
-                {product.vip ? <div>
+                {product.vip ? 
+                <div>
+                  <Link to={`/products/${product.id}`}>{ product.name }</Link>
+                  <h2 className='vip'>VIP</h2>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
                   <p>{product.description}</p>
                 </div>
                 :
                 <div>
+                  <Link to={`/products/${product.id}`}>{ product.name }</Link>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
                   {/* <p>{product.description}</p> */}
