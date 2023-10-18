@@ -126,7 +126,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       </div>
 
         : 
-        <div className='products-container'  key={ product.id }>
+        <div className='products-container'>
         {auth.vip ?
         products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
