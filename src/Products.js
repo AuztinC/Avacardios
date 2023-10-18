@@ -31,7 +31,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       <input placeholder='search for a product' value={term||''} onChange={ev=>navigate(ev.target.value?`/products/search/${ev.target.value}`:'/products')}/>
       {auth.is_admin ? <Link to={'/createProduct'}><button>Create New Product</button></Link> : null}
       {!term ?
-        <div className='products-container'>
+      <div className='products-container'>
         {auth.vip || auth.is_admin ?
 
           vipProducts.map( product => {
@@ -45,7 +45,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                 </div>
                 <hr/>
                 {product.vip ? 
-                <div>
+                <div key={ product.id }>
                   <Link to={`/products/${product.id}`}>{ product.name }</Link>
                   <h2 className='vip'>VIP</h2>
                   <p>${product.price.toFixed(2)}</p>
@@ -53,7 +53,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
                   {/* <p>{product.description}</p> */}
                 </div>
                 :
-                <div>
+                <div key={ product.id }>
                   <Link to={`/products/${product.id}`}>{ product.name }</Link>
                   <p>${product.price.toFixed(2)}</p>
                   <p>Amount: {product.amount}</p>
@@ -127,8 +127,8 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
       </div>
 
         : 
-
-        auth.vip ?
+        <div className='products-container'>
+        {auth.vip ?
         products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
@@ -148,13 +148,13 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
               {
                 auth.id ? (
                   cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add to Cart</button>
-                ): null 
-              }
+                  ): null 
+                }
               {
                 auth.is_admin ? (
                   <Link to={`/products/${product.id}/edit`}>Edit</Link>
                   ): null
-              }
+                }
               {
                 auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
               }
@@ -185,7 +185,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
               {
                 auth.is_admin ? (
                   <Link to={`/products/${product.id}/edit`}>Edit</Link>
-                ): null
+                  ): null
               }
               {
                 auth.id ? <WishList product = { product } wishList = {wishLists.find(wish => wish.product_id === product.id)} addWishList= {addWishList} removeWishList={removeWishList}/>: null
@@ -193,7 +193,10 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             </div>
           );
         })
+      }</div>
       }
+      
+      
     </div>
   );
 };
