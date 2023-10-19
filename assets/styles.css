@@ -6,6 +6,7 @@
   --backgroundAccent: #17594A;
   --highlightColor: #D3D04F;
   --borderSmall: 2px solid #8EAC50;
+  --homeBorderSmall: 1px solid black;
   --borderRadius: .75em;
   --avatarIcon: 45px;
   --avatarFull: 90px;
@@ -365,7 +366,7 @@ button:hover {
 }
 .product-div{
   /* height: 100%; */
-  /* background-color: beige; */
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -651,6 +652,10 @@ button:hover {
   border-radius: 5px;
 }
 
+
+
+/* -------- HOME PAGE -------- */
+
 .hero-image {
   /* margin-top: 0; */
   display: flex;
@@ -675,6 +680,100 @@ button:hover {
 .hero-image button {
   width: 125px;
 }
+
+.home-description {
+  box-sizing: border-box;
+  background-color: white;
+  padding: 1em;
+  border: 1px solid black;
+  border-top: none;
+}
+
+.home-description p {
+  margin: 0px;
+}
+
+.home-categories {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+}
+
+
+/* all categories */
+.home-categories div a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0px 0px 10px white;
+  margin-top: 10px;
+  height: 20vh;
+  background-size: cover;
+  background-position: center;
+  border: var(--homeBorderSmall);
+  border-radius: var(--borderRadius);
+  
+  box-shadow: 0px 10px 10px -7px black;
+}
+
+.home-categories div a:hover {
+  scale: 1.2;
+  box-shadow: 0px 10px 20px black;
+}
+
+
+.sweets {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* sweets */
+.sweets a {
+  width: 40%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/dessert-ga33bdfbe1_1280.jpg');
+}
+
+/* other sh... stuff */
+.other-categories a:nth-child(1) {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/salmon-gcd9d51741_1280.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.other-categories a:nth-child(2) {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/fruits-g8e6cc7c85_1280.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.other-categories a:nth-child(3) {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/vegetables-g5f9a30f21_1280.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.other-categories {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.other-categories a {
+  width: 30%;
+}
+
+.category h2 {
+  margin: 0px;
+}
+
+
+
+
+
+
+
 
 
 @keyframes blinker {
