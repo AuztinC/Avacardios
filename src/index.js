@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import Toast from './Toast';
 import Home from './Home';
 import Login from './Login';
 import api from './api';
@@ -189,7 +190,7 @@ const App = ()=> {
   }
   return (<>
     <Nav cartCount={ cartCount } login={ login } auth={ auth } logout={ logout }/>
-    
+    <Toast />
     <Routes>
       <Route path='/' element={ <Home 
         auth = { auth }

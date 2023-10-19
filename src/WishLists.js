@@ -1,16 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 
-const DeleteWishList = ({product, wishList, addWishList, removeWishList}) => {
-    return (
-      <div>
-        {
-          wishList ? <button onClick={() => removeWishList(wishList)}>Remove from Wish List</button>: null
-        }
-      </div>
-    )
-  }
+const DeleteWishList = ({wishList, removeWishList}) => {
+  const handleRemoveFromWishList = () => {
+    removeWishList(wishList);
+    toast.success('Product removed from Wish List!', {
+        position: toast.POSITION.BOTTOM_CENTER
+    });
+}
 
+return (
+    <div>
+        {wishList ? <button onClick={handleRemoveFromWishList}>Remove from Wish List</button> : null}
+    </div>
+)
+}
 const WishLists = ({products, wishLists, removeWishList}) => {
 
     if(!wishLists){

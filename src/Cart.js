@@ -2,6 +2,7 @@ import { useState } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increaseQuantity, decreaseQuantity, address, destination, setDestination, auth })=> {
   
@@ -13,6 +14,26 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
   }, 0);
 
   const userAddresses = address.filter(addy => addy.user_id === auth.id);
+
+  const handleCreateOrder = () => {
+    if (destination) {
+      updateOrder({ ...cart, is_cart: false, shipping_id: destination });
+      toast.success('Order created successfully!', {
+        position: toast.POSITION.BOTTOM_CENTER
+      });
+    } else {
+      toast.error('Please select a delivery address!', {
+        position: toast.POSITION.BOTTOM_CENTER
+      });
+    }
+  };
+
+  const handleRemoveFromCart = (lineItem) => {
+    removeFromCart(lineItem);
+    toast.success('Item removed from cart!', {
+      position: toast.POSITION.BOTTOM_CENTER
+    });
+  };
   
   if(!lineItems){
     return null
@@ -39,7 +60,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
                 <p>${ product.price } each</p>
                 <p> QTY: { lineItem.quantity }
                 <button onClick={() => decreaseQuantity(lineItem)}>-</button>-<button onClick={() => increaseQuantity(lineItem)}>+</button>
-                <button onClick={ ()=> removeFromCart(lineItem)}>Remove From Cart</button>
+                <button onClick={() => handleRemoveFromCart(lineItem)}>Remove From Cart</button>
                 </p>
                 <div className='cart-product-total'>
                   <p>Product Total:</p> <p><b>${ price }</b></p>
@@ -81,9 +102,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
         auth.id ?
         lineItems.filter(lineItem => lineItem.order_id === cart.id ).length ? <button 
         disabled={ !destination }
-        onClick={()=> {
-          updateOrder({...cart, is_cart: false, shipping_id: destination });
-        }}>Create Order</button>: null
+        onClick={handleCreateOrder}>Create Order</button>: null
         : null
       }
       </div>
