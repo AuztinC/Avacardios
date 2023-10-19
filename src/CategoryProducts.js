@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import WishList from "./WishList";
 import Pagination from './Pagination';
@@ -16,9 +16,12 @@ const CategoryProducts = ({products, cartItems, createLineItem, updateLineItem, 
     const currentPageProduct = currentProducts.slice(indexOfFirstProduct, indexOfLastProduct);
     
     const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber);
+      setCurrentPage(pageNumber);
+      window.scrollTo({top: 0, left: 0, behavior:'instant'})
+    };
+      useEffect(()=>{
         window.scrollTo({top: 0, left: 0, behavior:'instant'})
-      };
+      }, [])
     
     return (
     <div className='products'>
