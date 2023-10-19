@@ -28,7 +28,7 @@ const fetchOrders = async(setOrders)=> {
   setOrders(response.data);
 };
 const fetchAllOrders = async(setAllOrders)=> {
-  const response = await axios.get('/api/orders/allOrders', getHeaders());
+  const response = await axios.get('/api/orders/allOrders');
   setAllOrders(response.data);
 };
 
@@ -52,6 +52,11 @@ const fetchAddress = async(setAddress) => {
   setAddress(response.data)
 }
 
+const fetchAllAddress = async(setAllAddress)=>{
+  const response = await axios.get('/api/shipping/allAddress', getHeaders())
+  setAllAddress(response.data)
+}
+
 const createLineItem = async({ product, cart, lineItems, setLineItems })=> {
   const response = await axios.post('/api/lineItems', {
     order_id: cart.id,
@@ -72,7 +77,6 @@ const createAddress = async({addy, setAddress, address}) => {
 
 const updateProduct = async({product, products, setProducts})=>{
   const response = await axios.put(`/api/products/${product.id}`, product, getHeaders())
-  console.log(response.data)
 }
 
 const updateLineItem = async({ lineItem, cart, lineItems, setLineItems })=> {
@@ -87,8 +91,7 @@ const updateOrder = async({ order, setOrders, setAllOrders, allOrders })=> {
   await axios.put(`/api/orders/${order.id}`, {is_cart: order.is_cart, shipping_id: order.shipping_id}, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
-  console.log(response.data)
-  fetchAllOrders(setAllOrders)
+  // fetchAllOrders(setAllOrders)
   // setAllOrders([...allOrders, response.data])
 };
 
@@ -252,7 +255,8 @@ const api = {
   createProduct,
   handleGithubLogin,
   deleteAddress,
-  fetchAllOrders
+  fetchAllOrders,
+  fetchAllAddress
 };
 
 export default api;

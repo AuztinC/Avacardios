@@ -1,7 +1,8 @@
 const {
     fetchAddress,
     createAddress,
-    deleteAddress
+    deleteAddress,
+    fetchAllAddress
   } = require('../db/shipping');
   
   const express = require('express');
@@ -11,6 +12,13 @@ const {
   app.get('/', isLoggedIn, async(req,res,next)=>{
     try {
         res.send(await fetchAddress(req.user.id));
+    } catch (error) {
+        next(error);
+    }
+})
+  app.get('/allAddress', isLoggedIn, isAdmin, async(req,res,next)=>{
+    try {
+        res.send(await fetchAllAddress());
     } catch (error) {
         next(error);
     }

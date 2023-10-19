@@ -14,6 +14,7 @@ import Cart from './Cart';
 import CreateProduct from './CreateProduct';
 import Product from './Product';
 import EditProduct from './EditProduct';
+import CategoryProducts from './CategoryProducts';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -25,6 +26,7 @@ const App = ()=> {
   const [wishLists, setWishLists] = useState([]);
   const [reviews,setReviews]=useState([]);
   const [address, setAddress] = useState([]);
+  const [allAddress, setAllAddress] = useState([])
   const [destination, setDestination] = useState('')
   const navigate = useNavigate()
 
@@ -63,6 +65,10 @@ const App = ()=> {
         await api.fetchAllOrders(setAllOrders)
       }
       fetchAllOrders()
+      const fetchAllAddress = async()=>{
+        await api.fetchAllAddress(setAllAddress)
+      }
+      fetchAllAddress()
     }
   }, [auth]);
   
@@ -209,6 +215,8 @@ const App = ()=> {
       
       <Route path='login' element={ <Login login={ login }  handleGithubLogin={ handleGithubLogin }/> } />
       
+      <Route path='/category/:id' element={ <CategoryProducts products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} setProducts={setProducts}/>}/>
+      
       <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} setProducts={setProducts}/>}/>
       
       <Route path='/products/:id' element={<Product products={products} reviews={reviews} setReviews={setReviews} createReviews={createReviews} cartItems={cartItems} updateLineItem={updateLineItem} createLineItem={createLineItem} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} auth={auth} />}/>
@@ -221,9 +229,9 @@ const App = ()=> {
       
       <Route path='/cart' element={<Cart auth = {auth} updateOrder={updateOrder} removeFromCart={removeFromCart} lineItems={lineItems} cart={cart} products={products} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} address = {address} destination={destination} setDestination={setDestination}/>}/>
       
-      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } allOrders={ allOrders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } destination={destination} setDestination={setDestination} users={ users } updateUser={ updateUser } address = {address} deleteAddress={deleteAddress} createAddress={ createAddress }/> }  />
+      <Route path='account/:id' element={ <UserProfile auth={ auth } orders={ orders } allOrders={ allOrders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } destination={destination} setDestination={setDestination} users={ users } updateUser={ updateUser } address = {address} deleteAddress={deleteAddress} createAddress={ createAddress } allAddress={ allAddress }/> }  />
       
-      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser } destination={destination} setDestination={setDestination} address={ address } deleteAddress={deleteAddress} createAddress={ createAddress } allOrders={ allOrders }/> }  />
+      <Route path='account/:id/:user' element={ <UserProfile auth={ auth } orders={ orders } products={ products } lineItems={ lineItems } wishLists={ wishLists } removeWishList={ removeWishList } users={ users }  updateUser={ updateUser } destination={destination} setDestination={setDestination} address={ address } deleteAddress={deleteAddress} createAddress={ createAddress } allOrders={ allOrders } allAddress={ allAddress }/> }  />
       
       {/* <Route path='/shipping' element={ <Shipping address={address} setAddress={setAddress} createAddress={createAddress} auth={auth}/>}/> */}
     </Routes>

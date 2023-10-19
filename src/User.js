@@ -25,7 +25,7 @@ const User = ({ users, lineItems, wishLists, allOrders, products, updateUser })=
         setOpen(false)
     }
     
-    if(!user){
+    if(!user || !products){
         return null
     }
     
@@ -61,15 +61,22 @@ const User = ({ users, lineItems, wishLists, allOrders, products, updateUser })=
             <ul>
                 {userOrders.map( order => {
                     const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id && order.user_id === userId);
+                    const price = orderLineItems.reduce((acc, curr)=>{
+                    const product = products.find(product => product.id === curr.product_id);
+                    console.log(product)
+                    return acc += (product.price * curr.quantity) 
+                    }, 0)
                     return (
                         <li key={ order.id }>
-                        ({ new Date(order.created_at).toLocaleString() }) 
+                        ({ new Date(order.created_at).toLocaleString() })
                         <ul>
+                        <p>Order Total: ${ price.toFixed(2) }</p> 
                             {
                             orderLineItems.map( lineItem => {
                                 const product = products.find(product => product.id === lineItem.product_id);
                                 return (
                                 <li key={ lineItem.id }>
+                                    
                                     { product ? product.name : '' } ({ lineItem.quantity })
                                 </li>
                                 );

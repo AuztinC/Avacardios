@@ -40,9 +40,9 @@ const Nav = ({ cartCount, auth, logout })=> {
                     
                     </Link>
                 </div>
-                <div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     { auth.vip === true ? 
-                    <>
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'fit-content'}}>
                         <VipCrown /> 
                         <p ref={vip}
                             style={{
@@ -52,7 +52,7 @@ const Nav = ({ cartCount, auth, logout })=> {
                             left: 0}}>
                                 VIP - { upperCaseName }
                         </p>
-                    </>
+                    </div>
                     : 
                     <p ref={_username}
                         style={{

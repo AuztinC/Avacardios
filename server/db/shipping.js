@@ -14,6 +14,11 @@ const fetchAddress = async(userId)=> {
     const response = await client.query(SQL, [ userId ]);
     return response.rows;
   };
+  
+const fetchAllAddress = async()=>{
+  const response = await client.query('SELECT * FROM shipping')
+  return response.rows
+}
 
   const createAddress = async(addy)=> {
     const SQL = `
@@ -34,5 +39,6 @@ const fetchAddress = async(userId)=> {
   module.exports = {
     fetchAddress,
     createAddress,
-    deleteAddress
+    deleteAddress,
+    fetchAllAddress
   };

@@ -28,7 +28,7 @@ app.get('/', isLoggedIn, async(req, res, next)=> {
     next(ex);
   }
 });
-app.get('/allOrders', isLoggedIn, isAdmin, async(req, res, next)=> {
+app.get('/allOrders', async(req, res, next)=> {
   try {
     res.send(await fetchAllOrders());
   }
