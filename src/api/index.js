@@ -28,7 +28,7 @@ const fetchOrders = async(setOrders)=> {
   setOrders(response.data);
 };
 const fetchAllOrders = async(setAllOrders)=> {
-  const response = await axios.get('/api/orders/allOrders');
+  const response = await axios.get('/api/orders/allOrders', getHeaders());
   setAllOrders(response.data);
 };
 
@@ -86,6 +86,7 @@ const updateOrder = async({ order, setOrders, setAllOrders, allOrders })=> {
   await axios.put(`/api/orders/${order.id}`, {is_cart: order.is_cart, shipping_id: order.shipping_id}, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
+  console.log(response.data)
   fetchAllOrders(setAllOrders)
   // setAllOrders([...allOrders, response.data])
 };

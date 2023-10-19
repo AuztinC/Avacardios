@@ -87,10 +87,9 @@ const seed = async()=> {
       description TEXT,
       amount VARCHAR(100),
       image TEXT,
-      vip BOOLEAN DEFAULT false,
-      category VARCHAR(20)
+      vip BOOLEAN DEFAULT false
     );
-    
+
     CREATE TABLE orders(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
@@ -173,7 +172,7 @@ const seed = async()=> {
   const quinoaImage = await loadImage('/images/quinoa.png');
   const pistachioImage = await loadImage('/images/pistachio.png')
   const beansImage = await loadImage('/images/blackbeans.png')
-  // vegetable, protien, fruit, sweets 
+
   await Promise.all([
     createProduct({ 
       name: 'Chocolate Chip Cookies', 
@@ -181,8 +180,7 @@ const seed = async()=> {
       description: 'A sweet soft baked treat, loaded with chocolate chips, and ready for snack time',
       amount: '6 count',
       image: cookiesImage,
-      vip: true,
-      category: 'sweets'
+      vip: true
     }),
     createProduct({
       name: 'Blueberry Muffins',
@@ -190,8 +188,7 @@ const seed = async()=> {
       description: 'Soft and buttery muffins bursting with blueberries',
       amount: '6 count',
       image: muffinsImage,
-      vip: true,
-      category: 'sweets'
+      vip: true
     }),
     createProduct({
       name: 'Brownies',
@@ -199,224 +196,196 @@ const seed = async()=> {
       description: 'These brownies are gooey and fudgy in all the right spots with a perfect crispy crackly top',
       amount: '3 count',
       image: brownieImage,
-      vip: true,
-      category: 'sweets'
+      vip: true
     }),
     createProduct({ 
       name: 'Avocados', 
       price: 5, 
       description: 'A bright green fruit with a buttery, creamy, and slightly nutty taste',
       amount: '4 count bag',
-      image: avocadoImage,
-      category: 'fruit'
+      image: avocadoImage
     }),
     createProduct({ 
       name: 'Carrots',
       price: 3,
       description: 'An orange root vegetable with a earthy and sweet flavor',
       amount: '2 lb bag',
-      image: carrotImage,
-      category: 'vegetable'
+      image: carrotImage
     }),
     createProduct({ 
       name: 'Tomato',
       price: 2,
       description: 'A scarlet colored fruit with a taste that ranges from sour to sweet',
       amount: 'Single',
-      image: tomatoImage,
-      category: 'fruit'
-    }),
+      image: tomatoImage
+  }),
     createProduct({ 
       name: 'Spinach',
       price: 2,
       description: 'A leafy green veggie that is slightly sweet raw that becomes more acidic and robust when cooked',
       amount: '10 oz bag',
-      image: spinachImage,
-      category: 'vegetable'
+      image: spinachImage
     }),
     createProduct({
       name: 'Blueberries',
       price: 4,
       description: 'This small blue fruit has flavor described as sweet and slightly tart',
       amount: '11 oz container',
-      image: blueberriesImage,
-      category: 'fruit'
+      image: blueberriesImage
     }),
     createProduct({
       name: 'Asparagus',
       price: 5,
       description: 'A bright green vegetable that is tendery, buttery, and sweet with a hint of earthy bitterness when cooked',
       amount: 'Pack of 12',
-      image: asparagusImage,
-      category: 'vegetable'
+      image: asparagusImage
     }),
     createProduct({
       name: 'Pitaya',
       price: 7,
       description: 'Also known as dragon fruit. Has been characterized as a combination of pear and kiwi with a touch of citrus',
       amount: 'Single',
-      image: pitayaImage,
-      category: 'fruit'
+      image: pitayaImage
     }),
     createProduct({
       name: 'Cauliflower',
       price: 3,
       description: 'A white vegetable that resembles broccoli and has a mild flavor with a slightly nutty and sweet taste',
       amount: 'Single',
-      image: cauliflowerImage,
-      category: 'vegetable'
+      image: cauliflowerImage
     }),
     createProduct({
       name: 'Lemon',
       price: 1,
       description: 'Yellow citrus fruit that is slightly acidic and sour',
       amount: 'Single',
-      image: lemonImage,
-      category: 'fruit'
+      image: lemonImage
     }),
     createProduct({
       name: 'Bananas',
       price: 2,
       description: 'Yellow curved fruit with a slightly creamy and custard-like flavor',
       amount: 'Bunch',
-      image: bananasImage,
-      category: 'fruit'
+      image: bananasImage
     }),
     createProduct({
       name: 'Potatoes',
       price: 3,
       description: 'Russets with a mild earthy flavor',
       amount: '5 lb bag',
-      image: potatoesImage,
-      category: 'vegetable'
+      image: potatoesImage
     }),
     createProduct({
       name: 'Lettuce',
       price: 1,
       description: 'Green veggie that has a mild and refreshing taste',
       amount: 'Single',
-      image: lettuceImage,
-      category: 'vegetable'
+      image: lettuceImage
     }),
     createProduct({
       name: 'Mushrooms',
       price: 2,
       description: 'White buttons that feature a classic umami flavor',
       amount: '8 oz pack',
-      image: mushroomsImage,
-      category: 'vegetable'
+      image: mushroomsImage
     }),
     createProduct({
       name: 'Raspberries',
       price: 5,
       description: 'Vibrant red fruit that have a fresh sweet taste with undertones of tartness',
       amount: '12 oz container',
-      image: raspberriesImage,
-      category: 'fruit'
+      image: raspberriesImage
     }),
     createProduct({
       name: 'Peach',
       price: 1,
       description: 'Fruit with a a delicate, floral sweetness',
       amount: 'Single',
-      image: peachImage,
-      category: 'fruit'
+      image: peachImage
     }),
     createProduct({
       name: 'Watermelon',
       price: 6,
       description: 'Green stripped fruit witha juicy, sweet, and red center',
       amount: 'Single',
-      image: watermelonImage,
-      category: 'fruit'
+      image: watermelonImage
     }),
     createProduct({
       name: 'Grapes',
       price: 4,
       description: 'Green grapes are known for being sour and citrusy',
       amount: '2.25 lb bag',
-      image: grapesImage,
-      category: 'fruit'
+      image: grapesImage
     }),
     createProduct({
       name: 'Strawberries',
       price: 3,
       description: 'Bright red fruit that is juicy and sweet with a little bit of acidity',
       amount: '1 lb package',
-      image: strawberriesImage,
-      category: 'fruit'
+      image: strawberriesImage
     }),
     createProduct({
       name: 'Broccoli',
       price: 3,
       description: 'Green veggie with a grassy, earthy flavor with a mildy bitter undertone',
       amount: 'Single',
-      image: broccoliImage,
-      category: 'vegetable'
+      image: broccoliImage
     }),
     createProduct({
       name: 'Zucchini',
       price: 1,
       description: 'Long green vegetable that is slightly sweet and slightly bitter',
       amount: 'Single',
-      image: zucchiniImage,
-      category: 'fruit'
+      image: zucchiniImage
     }),
     createProduct({
       name: 'Oats',
       price: 7,
       description: 'Old fashioned whole grain rolled oats',
       amount: '32 oz bag',
-      image: oatsImage,
-      category: 'protien'
+      image: oatsImage
     }),
     createProduct({
       name: 'Almonds',
       price: 9,
       description: 'Whole raw, natural almonds',
       amount: '25 oz bag',
-      image: almondsImage,
-      category: 'protien'
+      image: almondsImage
     }),
     createProduct({
       name: 'Chia Seeds',
       price: 8,
       description: 'seeds with a mild nutty flavor that complement both savory and sweet dishes',
       amount: '20 oz bag',
-      image: chiaseedsImage,
-      category: 'protien'
+      image: chiaseedsImage
     }),
     createProduct({
       name: 'Eggs',
       price: 5,
       description: 'organic free range large brown eggs',
       amount: '12 count',
-      image: eggsImage,
-      category: 'protien'
+      image: eggsImage
     }),
     createProduct({
       name: 'Walnuts',
       price: 13,
       description: 'unsalted raw walnut halves and pieces',
       amount: '16 oz bag',
-      image: walnutsImage,
-      category: 'protien'
+      image: walnutsImage
     }),
     createProduct({
       name: 'Salmon',
       price: 11,
       description: 'Fresh skinless Atlantic salmon fillets',
       amount: '0.95 lb to 1 lb',
-      image: salmonImage,
-      category: 'protien'
+      image: salmonImage
     }),
     createProduct({
       name: 'Chicken',
       price: 15,
       description: 'Boneless, skinless, and fresh chicken breasts',
       amount: '4 lb',
-      image: chickenImage,
-      category: 'protien'
+      image: chickenImage
     }),
     
   ]);
@@ -427,24 +396,21 @@ const seed = async()=> {
       price: 9,
       description: 'Organic gluten free grain that has a nutty undertone',
       amount: '24 oz container',
-      image: quinoaImage,
-      category: 'protien'
+      image: quinoaImage
     }),
     createProduct({
       name: 'Pistachios',
       price: 7,
       description: 'Unsalted raw shelled pistachios',
       amount: '16 oz bag',
-      image: pistachioImage,
-      category: 'protien'
+      image: pistachioImage
     }),
     createProduct({
       name: 'Black Beans',
       price: 3,
       description: 'These beans have an earthy and nutty flavor with an undertone that is subtly sweet',
       amount: '16 oz bag',
-      image: beansImage,
-      category: 'protien'
+      image: beansImage
     })
   ])
   

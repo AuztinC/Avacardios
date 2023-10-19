@@ -14,34 +14,7 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             <h3>Dont miss out of fresh deals! Peruse our produce!</h3>
             <Link to={'/products'}><button>Shop All</button></Link>
         </div>
-        <div className="home-description">
-            <p>
-                This is a good service
-            </p>
-        </div>
-        <div className="home-categories">
-            <Link to={'/category/sweets'}>
-                <div className="category">
-                    <h2>Sweets</h2>
-                </div>
-            </Link>
-            <Link to={'/category/protien'}>
-                <div className="category">
-                    <h2>Protien</h2>
-                </div>
-            </Link>
-            <Link to={'/category/fruit'}>
-                <div className="category">
-                    <h2>Fruits</h2>
-                </div>
-            </Link>
-            <Link to={'/category/vegetable'}>
-                <div className="category">
-                    <h2>Vegetables</h2>
-                </div>
-            </Link>
-        </div>
-        {/* <Products
+        <Products
             auth = { auth }
             products={ products }
             cartItems = { cartItems }
@@ -50,7 +23,26 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             wishLists = { wishLists }
             addWishList = { addWishList }
             removeWishList={removeWishList}
+        />
+        {/* <Cart
+            cart = { cart }
+            lineItems = { lineItems }
+            products = { products }
+            updateOrder = { updateOrder }
+            removeFromCart = { removeFromCart }
+            increaseQuantity = { increaseQuantity }
+            decreaseQuantity = { decreaseQuantity }
         /> */}
+        {/* <Orders
+            orders = { orders }
+            products = { products }
+            lineItems = { lineItems }
+        /> */}
+        {/* {auth.id || auth.is_admin ? <WishLists
+        products = { products }
+        wishLists = { wishLists }
+        removeWishList = { removeWishList }
+        /> : null}  */}
     </main>
     </>)
 }

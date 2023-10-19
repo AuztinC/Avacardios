@@ -21,15 +21,6 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
   const navigate=useNavigate();
   const {term}=useParams();
   
-  const vipTermProducts = products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1)
-  
-  const vipTermProductsIndex = vipTermProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-  
-  const nonVipTermProducts = nonVipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1)
-  
-  const nonVipTermProductsIndex = nonVipTermProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-  
-  
   if(!products || !nonVipProducts){
     return null
   }
@@ -136,8 +127,8 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
 
         : 
         <div className='products-container'>
-        {auth.vip || auth.is_admin?
-        vipTermProductsIndex.map( product => {
+        {auth.vip ?
+        products.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
             <div key={ product.id } className='product-div'>
@@ -169,7 +160,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             </div>
           );
         }) :
-        nonVipTermProductsIndex.map( product => {
+        nonVipProducts.filter(prod=>!term||prod.name.toLowerCase().indexOf(term.toLowerCase())!==-1).map( product => {
           const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
           return (
             <div key={ product.id } className='product-div'>
@@ -201,22 +192,9 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, w
             </div>
           );
         })
+      }</div>
       }
-      <div style={{
-          width: "100%",
-          position: 'static',
-          bottom: '0px'
-        }}>
-          <Pagination 
-          productsPerPage={productsPerPage} 
-          totalProducts={auth.vip || auth.is_admin ? vipTermProducts.length : nonVipTermProducts.length} 
-          paginate={paginate}
-          auth={auth}
-          products={auth.vip || auth.is_admin ? vipTermProducts : nonVipTermProducts}
-          />
-        </div>
-      </div>
-      }
+      
       
     </div>
   );

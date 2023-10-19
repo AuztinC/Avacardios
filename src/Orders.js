@@ -1,20 +1,16 @@
-
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Orders = ({ orders, products, lineItems, auth, destination, address, allOrders })=> {
-  const userOrders = allOrders.filter(order => !order.is_cart && order.user_name === auth.username)
+  // console.log(orders)
+  const userOrders = orders.filter(order => !order.is_cart && order.user_name === auth.username)
   
-  useEffect(()=>{
-    
-  }, [allOrders])
   if(userOrders.length === 0){
     return <>
       <h2>Check out our fresh produce and make your first order!</h2>
       <Link style={{textDecoration: 'underline'}} to='/products'>All Products -{'>'}</Link>
     </>
   }
-     
   return (
     <div>
       <ol>
@@ -26,7 +22,6 @@ const Orders = ({ orders, products, lineItems, auth, destination, address, allOr
             const product = products.find(product => product.id === curr.product_id);
             return acc += (product.price * curr.quantity) 
             }, 0)
-            const orderAddress = address.find(addy => addy.id === order.shipping_id)
             return (
               <li key={ order.id }>
                 ({ new Date(order.created_at).toLocaleString() }) User - ({ order.user_name })
@@ -43,16 +38,15 @@ const Orders = ({ orders, products, lineItems, auth, destination, address, allOr
                     })
                   }
                   {
-                    <div>
-                    <h4>Delivering to:</h4>
-                      {order.shipping_id &&  (
-                    <p>
-                      {order.user_name} - 
-                      {/* {address.find(addy => addy.id === order.shipping_id).data.formatted_address} */}
-                    </p>
-                    )}
-                    </div>
-                  }
+                          <div>
+                          <h4>Delivering to:</h4>
+                            {order.shipping_id && (
+                          <p>
+                            {order.user_name} - {address.find(addy => addy.id === order.shipping_id).data.formatted_address}
+                          </p>
+                          )}
+                         </div>
+                            }
                 </ul>
               </li>
             );
@@ -81,15 +75,15 @@ const Orders = ({ orders, products, lineItems, auth, destination, address, allOr
                   })
                 }
                 {
-                  <div>
-                    <h4>Delivering to:</h4>
-                    {order.shipping_id && (
-                      <div>
-                        {order.user_name} - {address.find(addy => addy.id === order.shipping_id).data.formatted_address}
-                      </div>
-                    )}
-                  </div>
-                  }
+                          <div>
+                          <h4>Delivering to:</h4>
+                            {order.shipping_id && (
+                          <div>
+                            {order.user_name} - {address.find(addy => addy.id === order.shipping_id).data.formatted_address}
+                          </div>
+                          )}
+                         </div>
+                            }
               </ul>
             </li>
           );

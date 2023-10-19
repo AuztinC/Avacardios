@@ -13,7 +13,6 @@ import Cart from './Cart';
 import CreateProduct from './CreateProduct';
 import Product from './Product';
 import EditProduct from './EditProduct';
-import CategoryProducts from './CategoryProducts';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -208,8 +207,6 @@ const App = ()=> {
       <Route path='signup' element={ <CreateUser createUser={ createUser }/> }/>
       
       <Route path='login' element={ <Login login={ login }  handleGithubLogin={ handleGithubLogin }/> } />
-      
-      <Route path='/category/:id' element={ <CategoryProducts products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} setProducts={setProducts}/>}/>
       
       <Route path='/products' element={ <Products products={products} cartItems={cartItems} createLineItem={createLineItem} updateLineItem={updateLineItem} auth={auth} wishLists={wishLists} addWishList={addWishList} removeWishList={removeWishList} setProducts={setProducts}/>}/>
       

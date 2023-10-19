@@ -93,6 +93,7 @@ const fetchOrders = async(user)=> {
   `;
   let response = await client.query(SQL, [user.id]);
   const cart = response.rows.find(row => row.is_cart);
+  // console.log(cart)
   if(!cart){
     await client.query(`
     INSERT INTO orders(is_cart, id, user_id, user_name) VALUES(true, $1, $2, $3)
@@ -102,6 +103,14 @@ const fetchOrders = async(user)=> {
     response = await client.query(SQL, [user.id]);
     return response.rows;
   } 
+  // else if (cart.user_name !== user.username){
+  //   const SQL = `
+  //   INSERT INTO orders(is_cart, id, user_id, user_name) VALUES(true, $1, $2, $3)
+  //   --DELETE FROM orders WHERE id = $1
+  //   `;
+  //   await client.query(SQL, [uuidv4(), user.id, user.username])
+  // }
+  // return fetchOrders(userId);
   return response.rows;
 };
 

@@ -36,14 +36,11 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, increase
             return (
               <li key={ lineItem.id }>
                 <h3>{ product.name }</h3>
-                <p>${ product.price } each</p>
+                <p>${ price }</p>
                 <p> QTY: { lineItem.quantity }
                 <button onClick={() => decreaseQuantity(lineItem)}>-</button>-<button onClick={() => increaseQuantity(lineItem)}>+</button>
                 <button onClick={ ()=> removeFromCart(lineItem)}>Remove From Cart</button>
                 </p>
-                <div className='cart-product-total'>
-                  <p>Product Total:</p> <p><b>${ price }</b></p>
-                </div>
               </li>
             );
           })
