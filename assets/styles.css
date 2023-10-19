@@ -75,15 +75,11 @@ nav * {
   transition: var(--hoverTransition);
 }
 nav a {
-  color: #8EAC50;
+  color: white;
   font-size: 1.5em;
 }
 nav *:hover {
   scale: 1.1;
-}
-nav a {
-  color: #8EAC50;
-  font-size: 1.5em;
 }
 
 .nav-user {
@@ -103,6 +99,7 @@ nav a {
 .crown-icon{
   scale: .5;
 }
+/* NAV CART ICON */
 .cart-icon {
   /* top: 0; */
   /* position: absolute; */
@@ -125,6 +122,7 @@ nav a {
   max-width: 35px;
   border-radius: 50%;
 }
+/* NAV CART ICON END */
 
 .cart {
   display: flex;
@@ -239,9 +237,9 @@ a{
   color: black;
   transition: var(--hoverTransition);
 }
-a:hover {
+/* a:hover {
   color: var(--backgroundColor);
-}
+} */
 
 button {
   text-shadow: none;
