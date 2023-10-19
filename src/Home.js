@@ -30,7 +30,7 @@ const Home = ({ auth })=>{
             <div className="other-categories">
                 <Link to={'/category/protien'}>
                     <div className="category">
-                        <h2>Protien</h2>
+                        <h2>Protein</h2>
                     </div>
                 </Link>
                 <Link to={'/category/fruit'}>

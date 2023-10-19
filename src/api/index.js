@@ -91,7 +91,7 @@ const updateOrder = async({ order, setOrders, setAllOrders, allOrders })=> {
   await axios.put(`/api/orders/${order.id}`, {is_cart: order.is_cart, shipping_id: order.shipping_id}, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
   setOrders(response.data);
-  // fetchAllOrders(setAllOrders)
+  fetchAllOrders(setAllOrders)
   // setAllOrders([...allOrders, response.data])
 };
 
