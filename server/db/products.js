@@ -13,19 +13,19 @@ const fetchProducts = async()=> {
 
 const createProduct = async(product)=> {
   const SQL = `
-    INSERT INTO products (id, name, price, description, amount, image, vip) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *
+    INSERT INTO products (id, name, price, description, amount, image, vip, category) VALUES($1, $2, $3, $4, $5, $6, $7, $8 ) RETURNING *
   `;
-  const response = await client.query(SQL, [ uuidv4(), product.name, product.price, product.description, product.amount, product.image || null, product.vip]);
+  const response = await client.query(SQL, [ uuidv4(), product.name, product.price, product.description, product.amount, product.image || null, product.vip, product.category]);
   return response.rows[0];
 };
 const updateProduct = async(product)=> {
   const SQL = `
     UPDATE products
-    SET name=$2, price=$3, description=$4, amount=$5, image=$6, vip=$7
+    SET name=$2, price=$3, description=$4, amount=$5, image=$6, vip=$7, category=8
     WHERE id = $1
     RETURNING *
   `;
-  const response = await client.query(SQL, [ product.id, product.name, product.price, product.description, product.amount, product.image || null, product.vip]);
+  const response = await client.query(SQL, [ product.id, product.name, product.price, product.description, product.amount, product.image || null, product.vip, product.category]);
   return response.rows[0];
 };
 
