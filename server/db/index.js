@@ -29,7 +29,8 @@ const {
 const {
   fetchAddress,
   createAddress,
-  deleteAddress
+  deleteAddress,
+  fetchAllAddress
 } = require('./shipping');
 
 const { flushSync } = require('react-dom');
@@ -497,6 +498,7 @@ module.exports = {
   createAddress,
   fetchAddress,
   deleteAddress,
+  fetchAllAddress,
   seed,
   client
 };

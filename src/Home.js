@@ -1,12 +1,9 @@
 import React from "react";
-import Products from "./Products";
-import Cart from "./Cart";
-import WishLists from "./WishLists";
 import { Link } from "react-router-dom";
 
 
 
-const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart, lineItems, updateOrder, removeFromCart, increaseQuantity, decreaseQuantity, wishLists, addWishList, removeWishList})=>{
+const Home = ({ auth })=>{
     return(<>
     <main>
         <div className="hero-image">
@@ -20,6 +17,8 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
             </p>
         </div>
         <div className="home-categories">
+            
+        { auth.vip || auth.is_admin ? 
             <div className="sweets">
                 <Link to={'/category/sweets'}>
                     <div className="category">
@@ -27,7 +26,7 @@ const Home = ({ auth, products, cartItems, createLineItem, updateLineItem, cart,
                     </div>
                 </Link>
             </div>
-            
+        : null}
             <div className="other-categories">
                 <Link to={'/category/protien'}>
                     <div className="category">

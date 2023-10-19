@@ -2,8 +2,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Orders = ({ orders, products, lineItems, auth, destination, address, allOrders })=> {
-  const userOrders = allOrders.filter(order => !order.is_cart && order.user_name === auth.username)
+const Orders = ({ orders, products, lineItems, auth, destination, address, allOrders, allAddress })=> {
+  const userOrders = orders.filter(order => !order.is_cart && order.user_name === auth.username)
   
   useEffect(()=>{
     
@@ -26,7 +26,7 @@ const Orders = ({ orders, products, lineItems, auth, destination, address, allOr
             const product = products.find(product => product.id === curr.product_id);
             return acc += (product.price * curr.quantity) 
             }, 0)
-            const orderAddress = address.find(addy => addy.id === order.shipping_id)
+            const orderAddress = allAddress.find(addy => addy.id === order.shipping_id)
             return (
               <li key={ order.id }>
                 ({ new Date(order.created_at).toLocaleString() }) User - ({ order.user_name })
@@ -48,7 +48,7 @@ const Orders = ({ orders, products, lineItems, auth, destination, address, allOr
                       {order.shipping_id &&  (
                     <p>
                       {order.user_name} - 
-                      {/* {address.find(addy => addy.id === order.shipping_id).data.formatted_address} */}
+                      {orderAddress.data.formatted_address}
                     </p>
                     )}
                     </div>
