@@ -2,15 +2,29 @@ import React, { useRef, useEffect } from 'react';
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom';
 
-const DeleteAddress = ({address, deleteAddress}) => {
+const DeleteAddress = ({ address, deleteAddress }) => {
+  const handleDelete = async () => {
+    try {
+      await deleteAddress(address);
+      toast.success('Address deleted successfully!', {
+        position: toast.POSITION.BOTTOM_CENTER
+      });
+    } catch (error) {
+      console.error('Error deleting Address:', error);
+      toast.error('Error deleting Address. Please try again.', {
+        position: toast.POSITION.BOTTOM_CENTER
+      });
+    }
+  };
+
   return (
     <div>
-      {
-        address ? <button onClick={() => deleteAddress(address)}>Remove address</button>: null
-      }
+      {address ? (
+        <button onClick={handleDelete}>Remove address</button>
+      ) : null}
     </div>
-  )
-}
+  );
+};
 
 const Addresses = ({ address, createAddress, deleteAddress })=> {
   const el = useRef();
@@ -27,17 +41,18 @@ const Addresses = ({ address, createAddress, deleteAddress })=> {
         const address = { data: place };
         await createAddress(address);
         el.current.value = '';
+        console.log('Address created successfully!');
+        toast.success('Address created successfully!', {
+          position: toast.POSITION.BOTTOM_CENTER
       });
-      toast.success('Order created successfully!', {
-        position: toast.POSITION.TOP_CENTER
       });
     } catch (error) {
-      console.error('Error creating order:', error);
-      toast.error('Error creating order. Please try again.', {
-      position: toast.POSITION.TOP_CENTER
+      console.error('Error creating Address:', error);
+      toast.error('Error creating Address. Please try again.', {
+      position: toast.POSITION.BOTTOM_CENTER
       });
     }
-    });
+    }, [createAddress]);
 
   return (<>
     <div className='address'>
