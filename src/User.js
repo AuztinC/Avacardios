@@ -63,7 +63,6 @@ const User = ({ users, lineItems, wishLists, allOrders, products, updateUser })=
                     const orderLineItems = lineItems.filter(lineItem => lineItem.order_id === order.id && order.user_id === userId);
                     const price = orderLineItems.reduce((acc, curr)=>{
                     const product = products.find(product => product.id === curr.product_id);
-                    console.log(product)
                     return acc += (product.price * curr.quantity) 
                     }, 0)
                     return (

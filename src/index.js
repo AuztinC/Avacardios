@@ -105,7 +105,7 @@ const App = ()=> {
   }
   
   const updateUser = async(user)=>{
-    await api.updateUser({user, setUsers, users, setAuth})
+    await api.updateUser({user, setUsers, users, setAuth, auth})
   }
 
   const createLineItem = async(product)=> {
