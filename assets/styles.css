@@ -184,7 +184,7 @@ nav *:hover {
 .cart li {
   position: relative;
   /* width: 70%; */
-  border: 1px solid black;
+  border: var(--borderSmall);
   padding: 5px;
 }
 .cart li * {
@@ -208,7 +208,7 @@ nav *:hover {
   position: absolute;
   top: 0;
   right: 0;
-  border-left: 1px solid black;
+  border-left: 1px solid var(--backgroundColor);
   height: 100%;
   width: 25%;
   
@@ -770,6 +770,40 @@ button:hover {
   margin: 0px;
 }
 
+.orders {
+  padding: 15px ;
+  
+}
+
+.single-order {
+  position: relative;
+  padding: 5px;
+  margin: 5px;
+  border: var(--borderSmall);
+}
+
+.order-address {
+  padding: 3px;
+  width: 75%;
+  border-top: #8EAC50 1px solid;
+}
+.order-address h4 {
+  margin-top: 10px;
+}
+
+/* .order-product-total {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-left: 1px solid black;
+  height: 100%;
+  width: 25%;
+  
+} */
 
 
 

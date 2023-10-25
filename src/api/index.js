@@ -95,10 +95,10 @@ const updateOrder = async({ order, setOrders, setAllOrders, allOrders })=> {
   // setAllOrders([...allOrders, response.data])
 };
 
-const updateUser = async({ user, setUsers, users, setAuth })=> {
+const updateUser = async({ user, setUsers, users, setAuth, auth })=> {
   const response = await axios.put(`/api/me/${user.id}`, user);
   setUsers(users.map(_user=>_user.id === response.data.id ? response.data : _user));
-  setAuth(response.data)
+  setAuth(auth.username === response.data.username ? response.data : auth)
 };
 
 const addWishList = async({ wishList, setWishLists, wishLists })=> {
